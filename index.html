@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Azteca — Joyería Fina .925</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#0A0A0F',
+            surface: '#0F0F18',
+            surfaceLight: '#161625',
+            gold: '#D4A843',
+            goldLight: '#E8C468',
+            goldDark: '#B8922E',
+            terracotta: '#C4703F',
+            terracottaLight: '#D4845A',
+            terracottaDark: '#A85A30',
+            cream: '#F5F0E8',
+            creamMuted: '#C8BFA8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            float: 'float 8s ease-in-out infinite',
+            floatSlow: 'float 12s ease-in-out infinite',
+            marquee: 'marquee 40s linear infinite',
+            pulse2: 'pulse2 2s cubic-bezier(0.4,0,0.6,1) infinite',
+            fadeInUp: 'fadeInUp 0.8s ease-out forwards',
+            spinSlow: 'spin 20s linear infinite',
+            scaleIn: 'scaleIn 0.5s ease-out forwards',
+            slideUp: 'slideUp 0.4s ease-out forwards',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+            pulse2: { '50%': { opacity: '0.5' } },
+            fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            scaleIn: { '0%': { opacity: '0', transform: 'scale(0.9)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0A0A0F; color: #F5F0E8; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+    /* ===== LOADER ===== */
+    #loader {
+      position: fixed; inset: 0; z-index: 99999;
+      background: #0A0A0F;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .aztec-spinner {
+      width: 80px; height: 80px; position: relative;
+    }
+    .aztec-spinner .ring {
+      position: absolute; inset: 0; border: 2px solid transparent;
+      border-radius: 50%;
+    }
+    .aztec-spinner .ring:nth-child(1) {
+      border-top-color: #D4A843; animation: spin 1.5s linear infinite;
+    }
+    .aztec-spinner .ring:nth-child(2) {
+      inset: 8px; border-right-color: #C4703F; animation: spin 2s linear infinite reverse;
+    }
+    .aztec-spinner .ring:nth-child(3) {
+      inset: 16px; border-bottom-color: #E8C468; animation: spin 1s linear infinite;
+    }
+    .aztec-spinner .center-dot {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 8px; height: 8px; background: #D4A843; border-radius: 50%;
+      animation: pulse2 1.5s ease-in-out infinite;
+    }
+
+    /* ===== NOISE ===== */
+    .noise-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 9998; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0A0A0F; }
+    ::-webkit-scrollbar-thumb { background: #D4A843; border-radius: 10px; }
+
+    /* ===== GLASS ===== */
+    .glass {
+      background: rgba(15,15,24,0.7);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212,168,67,0.1);
+    }
+    .glass-card {
+      background: rgba(15,15,24,0.5);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212,168,67,0.08);
+      transition: all 0.4s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(212,168,67,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(212,168,67,0.1);
+    }
+
+    /* ===== PATTERNS ===== */
+    .dot-pattern {
+      background-image: radial-gradient(rgba(212,168,67,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .aztec-border {
+      background-image: repeating-linear-gradient(90deg,
+        rgba(212,168,67,0.3) 0px, rgba(212,168,67,0.3) 8px,
+        transparent 8px, transparent 16px,
+        rgba(196,112,63,0.3) 16px, rgba(196,112,63,0.3) 24px,
+        transparent 24px, transparent 32px);
+      height: 3px;
+    }
+
+    /* ===== STEP FRET PATTERN ===== */
+    .aztec-fret {
+      background-color: transparent;
+      background-image:
+        linear-gradient(135deg, rgba(212,168,67,0.07) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(212,168,67,0.07) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(212,168,67,0.07) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(212,168,67,0.07) 25%, transparent 25%);
+      background-size: 24px 24px;
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+    }
+
+    /* ===== HERO MASK ===== */
+    .hero-mask {
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
+    }
+
+    /* ===== TEXT GLOW ===== */
+    .text-glow { text-shadow: 0 0 30px rgba(212,168,67,0.3); }
+    .text-glow-terra { text-shadow: 0 0 30px rgba(196,112,63,0.3); }
+
+    /* ===== REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== PRODUCT CARD ===== */
+    .product-img { transition: transform 0.6s ease; }
+    .product-card:hover .product-img { transform: scale(1.08); }
+
+    /* ===== MARQUEE ===== */
+    .marquee-track:hover { animation-play-state: paused; }
+
+    /* ===== LANG TOGGLE ===== */
+    .lang-toggle .slider {
+      position: absolute; top: 2px; left: 2px;
+      width: 28px; height: 24px;
+      background: #D4A843; border-radius: 6px;
+      transition: transform 0.3s ease;
+    }
+    .lang-toggle.en .slider { transform: translateX(28px); }
+
+    /* ===== SHAPES ===== */
+    .shape-1 {
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,67,0.06), transparent 70%);
+      filter: blur(40px);
+    }
+    .shape-2 {
+      width: 250px; height: 250px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,112,63,0.06), transparent 70%);
+      filter: blur(40px);
+    }
+
+    /* ===== FORM FOCUS ===== */
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: rgba(212,168,67,0.4) !important;
+      box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem;
+      background: rgba(15,15,24,0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(212,168,67,0.2);
+      border-radius: 12px; padding: 16px 24px;
+      transform: translateY(120%); opacity: 0;
+      transition: all 0.4s ease; z-index: 10000;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===== MODAL ===== */
+    #productModal {
+      position: fixed; inset: 0; z-index: 9990;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    #productModal.open { opacity: 1; visibility: visible; }
+    #productModal .modal-bg {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+    }
+    #productModal .modal-content {
+      position: relative; z-index: 1;
+      max-width: 900px; width: 100%;
+      background: #0F0F18;
+      border: 1px solid rgba(212,168,67,0.12);
+      border-radius: 24px;
+      overflow: hidden;
+      transform: scale(0.9); opacity: 0;
+      transition: all 0.4s ease;
+    }
+    #productModal.open .modal-content { transform: scale(1); opacity: 1; }
+
+    /* ===== FLOATING WA ===== */
+    #floatingWA {
+      position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 999;
+      width: 56px; height: 56px;
+      background: #25D366; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+      transition: all 0.3s ease;
+      opacity: 0; transform: scale(0);
+    }
+    #floatingWA.visible { opacity: 1; transform: scale(1); }
+    #floatingWA:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.4); }
+
+    /* ===== BACK TO TOP ===== */
+    #backToTop {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
+      width: 44px; height: 44px;
+      background: rgba(15,15,24,0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212,168,67,0.15);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #D4A843;
+      transition: all 0.3s ease;
+      opacity: 0; transform: translateY(20px); pointer-events: none;
+    }
+    #backToTop.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #backToTop:hover { background: rgba(212,168,67,0.1); border-color: rgba(212,168,67,0.3); }
+
+    /* ===== PARALLAX ===== */
+    .parallax-slow { will-change: transform; }
+
+    /* ===== AZTEC SVG DIVIDER ===== */
+    .aztec-divider-svg { opacity: 0.15; }
+
+    /* ===== FEATURED PIECE ===== */
+    .featured-glow {
+      background: radial-gradient(ellipse at center, rgba(212,168,67,0.06) 0%, transparent 70%);
+    }
+
+    /* ===== IMAGE HOVER ZOOM ===== */
+    .img-zoom { overflow: hidden; }
+    .img-zoom img { transition: transform 0.7s ease; }
+    .img-zoom:hover img { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <!-- Noise -->
+  <div class="noise-overlay"></div>
+
+  <!-- ===== LOADER ===== -->
+  <div id="loader">
+    <div class="aztec-spinner">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="center-dot"></div>
+    </div>
+    <p class="font-display text-gold text-sm mt-6 tracking-widest uppercase">La Azteca</p>
+    <div class="aztec-border w-32 mt-4"></div>
+  </div>
+
+  <!-- ===== FLOATING WHATSAPP ===== -->
+  <!-- TODO: reemplazar con enlace real de WhatsApp -->
+  <a id="floatingWA" href="https://wa.me/5210000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button id="backToTop" aria-label="Volver arriba">
+    <i data-lucide="chevron-up" class="w-5 h-5"></i>
+  </button>
+
+  <!-- ===== PRODUCT MODAL ===== -->
+  <div id="productModal">
+    <div class="modal-bg" onclick="closeModal()"></div>
+    <div class="modal-content">
+      <div class="grid md:grid-cols-2">
+        <div class="aspect-square md:aspect-auto bg-surface">
+          <img id="modalImg" src="" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span id="modalBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider bg-gold/10 text-gold"></span>
+              <button onclick="closeModal()" class="p-2 rounded-lg hover:bg-surfaceLight transition-colors text-creamMuted hover:text-cream">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
+            </div>
+            <h3 id="modalTitle" class="font-display font-bold text-2xl text-cream mb-2"></h3>
+            <p id="modalDesc" class="text-creamMuted text-sm leading-relaxed mb-4"></p>
+            <div id="modalDetails" class="space-y-2 mb-6"></div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span id="modalPrice" class="font-display font-bold text-2xl text-gold"></span>
+              <div class="flex items-center gap-1">
+                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+              </div>
+            </div>
+            <!-- TODO: reemplazar con enlace real de WhatsApp -->
+            <a id="modalWALink" href="https://wa.me/5210000000000" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-6 py-4 rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all duration-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span data-i18n="modal_cta">Cotizar por WhatsApp</span>
+            </a>
+            <button onclick="closeModal()" class="w-full inline-flex items-center justify-center gap-2 border border-creamMuted/15 text-creamMuted font-medium px-6 py-3 rounded-xl hover:bg-cream/5 transition-all text-sm">
+              <span data-i18n="modal_close">Cerrar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
+      <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-terracotta flex items-center justify-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <span class="font-display font-bold text-lg text-cream tracking-tight">La Azteca</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#coleccion" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_coleccion">Colección</a>
+          <a href="#destacada" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_destacada">Destacada</a>
+          <a href="#historia" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_historia">Historia</a>
+          <a href="#proceso" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_proceso">Proceso</a>
+          <a href="#contacto" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_contacto">Contacto</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="lang-toggle flex items-center bg-surfaceLight rounded-lg p-0.5 cursor-pointer relative" id="langToggle" title="Cambiar idioma">
+            <div class="slider"></div>
+            <span class="text-xs font-medium px-2 py-1.5 text-cream relative z-10">ES</span>
+            <span class="text-xs font-medium px-2 py-1.5 text-creamMuted relative z-10">EN</span>
+          </div>
+          <a href="#contacto" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-gold to-goldDark text-base font-semibold text-sm px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all">
+            <span data-i18n="nav_cta">Cotizar</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <button id="menuBtn" class="md:hidden p-2 text-creamMuted hover:text-gold transition-colors" aria-label="Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden glass rounded-2xl mt-2 overflow-hidden max-h-0 opacity-0 transition-all duration-500">
+        <div class="p-4 flex flex-col gap-3">
+          <a href="#coleccion" class="text-sm text-creamMuted hover:text-gold py-2 transition-colors mobile-link" data-i18n="nav_coleccion">Colección</a>
+          <a href="#destacada" class="text-sm text-creamMuted hover:text-gold py-2 transition-colors mobile-link" data-i18n="nav_destacada">Destacada</a>
+          <a href="#historia" class="text-sm text-creamMuted hover:text-gold py-2 transition-colors mobile-link" data-i18n="nav_historia">Historia</a>
+          <a href="#proceso" class="text-sm text-creamMuted hover:text-gold py-2 transition-colors mobile-link" data-i18n="nav_proceso">Proceso</a>
+          <a href="#contacto" class="bg-gradient-to-r from-gold to-goldDark text-base font-semibold text-sm px-5 py-3 rounded-xl text-center mobile-link" data-i18n="nav_cta">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== 1. HERO ===================== -->
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-4 overflow-hidden">
+    <div class="absolute inset-0 grid-bg hero-mask"></div>
+    <div class="absolute top-1/4 left-1/4 shape-1 animate-float parallax-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 shape-2 animate-floatSlow parallax-slow"></div>
+    <div class="absolute top-0 left-0 right-0 aztec-border"></div>
+
+    <div class="relative z-10 text-center max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 bg-gold/5 mb-8" style="animation: fadeInUp 0.8s ease-out forwards;">
+        <span class="w-2 h-2 rounded-full bg-gold animate-pulse2"></span>
+        <span class="text-xs font-medium text-gold tracking-wider uppercase" data-i18n="hero_badge">Joyería Mexicana de Plata .925</span>
+      </div>
+
+      <h1 class="font-display font-bold text-5xl sm:text-6xl md:text-8xl lg:text-9xl tracking-tighter leading-[0.9] mb-6" style="animation: fadeInUp 0.8s ease-out 0.2s both;">
+        <span class="text-cream text-glow" data-i18n="hero_title_1">Lo Ancestral</span><br>
+        <span class="bg-gradient-to-r from-gold via-goldLight to-terracotta bg-clip-text text-transparent" data-i18n="hero_title_2">Reimaginado</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-creamMuted font-light leading-relaxed max-w-2xl mx-auto mb-10" style="animation: fadeInUp 0.8s ease-out 0.4s both;" data-i18n="hero_sub">Piezas únicas que conectan milenios de tradición azteca con el diseño contemporáneo en plata fina de Taxco. Cada obra lleva el alma del maestro orfebre.</p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" style="animation: fadeInUp 0.8s ease-out 0.6s both;">
+        <a href="#coleccion" class="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-8 py-4 rounded-2xl text-lg hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-105">
+          <span data-i18n="hero_cta1">Ver Colección</span>
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </a>
+        <a href="#historia" class="inline-flex items-center gap-2 border border-creamMuted/20 text-cream font-medium px-8 py-4 rounded-2xl hover:bg-cream/5 transition-all duration-300">
+          <i data-lucide="play-circle" class="w-5 h-5"></i>
+          <span data-i18n="hero_cta2">Nuestra Historia</span>
+        </a>
+      </div>
+
+      <!-- Animated counters -->
+      <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-16" style="animation: fadeInUp 0.8s ease-out 0.8s both;">
+        <div class="text-center">
+          <div class="font-display font-bold text-4xl text-gold text-glow"><span class="counter" data-target="100">0</span>+</div>
+          <div class="text-xs text-creamMuted mt-1 uppercase tracking-wider" data-i18n="hero_stat1">Años de Tradición</div>
+        </div>
+        <div class="w-px h-10 bg-gold/20 hidden sm:block"></div>
+        <div class="text-center">
+          <div class="font-display font-bold text-4xl text-cream"><span class="counter" data-target="100">0</span>%</div>
+          <div class="text-xs text-creamMuted mt-1 uppercase tracking-wider" data-i18n="hero_stat2">Hecho a Mano</div>
+        </div>
+        <div class="w-px h-10 bg-gold/20 hidden sm:block"></div>
+        <div class="text-center">
+          <div class="font-display font-bold text-4xl text-terracottaLight text-glow-terra">925</div>
+          <div class="text-xs text-creamMuted mt-1 uppercase tracking-wider" data-i18n="hero_stat3">Plata .925</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-float">
+      <span class="text-[10px] text-creamMuted uppercase tracking-widest" data-i18n="hero_scroll">Descubre</span>
+      <i data-lucide="chevrons-down" class="w-4 h-4 text-gold"></i>
+    </div>
+  </section>
+
+  <!-- ===== AZTEC SVG DIVIDER ===== -->
+  <div class="aztec-divider-svg py-2 flex justify-center overflow-hidden">
+    <svg width="800" height="24" viewBox="0 0 800 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-w-full">
+      <path d="M0 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#D4A843" stroke-width="1.5"/>
+      <path d="M80 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#C4703F" stroke-width="1.5"/>
+      <path d="M160 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#D4A843" stroke-width="1.5"/>
+      <path d="M240 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#C4703F" stroke-width="1.5"/>
+      <path d="M320 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#D4A843" stroke-width="1.5"/>
+      <path d="M400 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#C4703F" stroke-width="1.5"/>
+      <path d="M480 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#D4A843" stroke-width="1.5"/>
+      <path d="M560 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#C4703F" stroke-width="1.5"/>
+      <path d="M640 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#D4A843" stroke-width="1.5"/>
+      <path d="M720 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#C4703F" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <!-- ===================== 2. COLECCIÓN ===================== -->
+  <section id="coleccion" class="relative py-24 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-terracotta/20 bg-terracotta/5 mb-4">
+          <span class="text-[10px] font-medium text-terracotta uppercase tracking-wider" data-i18n="col_label">Colección 2025</span>
+        </div>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-4" data-i18n="col_title">Joyas con Alma</h2>
+        <p class="text-creamMuted text-base max-w-xl mx-auto" data-i18n="col_sub">Cada pieza es única, forjada en plata pura con la técnica de los antiguos maestros de Taxco.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Product 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-1 cursor-pointer" onclick="openModal(0)">
+          <div class="relative overflow-hidden aspect-[3/4]">
+            <img src="img/anillo_jaguar.jpg" alt="Anillo Jaguar" class="w-full h-full object-cover product-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent"></div>
+            <div class="absolute top-3 left-3"><span class="bg-terracotta/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider" data-i18n="badge_new">Nuevo</span></div>
+            <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p1_name">Anillo Jaguar</h3>
+            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p1_desc">Plata .925 cincelada a mano</p>
+            <div class="flex items-center justify-between">
+              <span class="text-gold font-display font-bold">$2,800 MXN</span>
+              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors" aria-label="Agregar" onclick="event.stopPropagation(); showToastMsg()">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-2 cursor-pointer" onclick="openModal(1)">
+          <div class="relative overflow-hidden aspect-[3/4]">
+            <img src="img/gargantilla_turquesa.jpg" alt="Gargantilla Turquesa" class="w-full h-full object-cover product-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p2_name">Gargantilla Turquesa</h3>
+            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p2_desc">Plata .925 y turquesa natural</p>
+            <div class="flex items-center justify-between">
+              <span class="text-gold font-display font-bold">$4,500 MXN</span>
+              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors" aria-label="Agregar" onclick="event.stopPropagation(); showToastMsg()">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-3 cursor-pointer" onclick="openModal(2)">
+          <div class="relative overflow-hidden aspect-[3/4]">
+            <img src="img/brazalete_calendario.jpg" alt="Brazalete Calendario" class="w-full h-full object-cover product-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p3_name">Brazalete Calendario</h3>
+            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p3_desc">Orfebrería fina en relieve</p>
+            <div class="flex items-center justify-between">
+              <span class="text-gold font-display font-bold">$3,200 MXN</span>
+              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors" aria-label="Agregar" onclick="event.stopPropagation(); showToastMsg()">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-4 cursor-pointer" onclick="openModal(3)">
+          <div class="relative overflow-hidden aspect-[3/4]">
+            <img src="img/aretes_aguila.jpg" alt="Aretes Águila" class="w-full h-full object-cover product-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent"></div>
+            <div class="absolute top-3 left-3"><span class="bg-gold/90 text-base text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider" data-i18n="badge_limited">Limitado</span></div>
+            <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p4_name">Aretes Águila</h3>
+            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p4_desc">Plata .925 con acabado mate</p>
+            <div class="flex items-center justify-between">
+              <span class="text-gold font-display font-bold">$6,900 MXN</span>
+              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors" aria-label="Agregar" onclick="event.stopPropagation(); showToastMsg()">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="#contacto" class="inline-flex items-center gap-2 text-gold hover:text-goldLight transition-colors font-medium">
+          <span data-i18n="col_viewall">Ver toda la colección</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="py-6 overflow-hidden border-y border-gold/5">
+    <div class="flex marquee-track" style="animation: marquee 40s linear infinite;">
+      <div class="flex items-center gap-8 shrink-0 pr-8">
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">PLATA .925</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">TAXCO</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ANILLOS</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">CADENAS</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ARETES</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">PULSERAS</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ORFEBRERÍA</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">AZTECA</span><span class="text-gold/30">✦</span>
+      </div>
+      <div class="flex items-center gap-8 shrink-0 pr-8">
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">PLATA .925</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">TAXCO</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ANILLOS</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">CADENAS</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ARETES</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">PULSERAS</span><span class="text-gold/30">✦</span>
+        <span class="font-display font-bold text-2xl text-gold/20 whitespace-nowrap">ORFEBRERÍA</span><span class="text-terracotta/30">✦</span>
+        <span class="font-display font-bold text-2xl text-terracotta/20 whitespace-nowrap">AZTECA</span><span class="text-gold/30">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 3. PIEZA DESTACADA ===================== -->
+  <section id="destacada" class="relative py-24 px-4 sm:px-6 overflow-hidden">
+    <div class="absolute inset-0 featured-glow"></div>
+    <div class="absolute inset-0 aztec-fret opacity-30"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <!-- Image with decorative frame -->
+        <div class="relative reveal">
+          <div class="absolute -top-4 -left-4 w-24 h-24 border-l-2 border-t-2 border-gold/30 rounded-tl-3xl"></div>
+          <div class="absolute -bottom-4 -right-4 w-24 h-24 border-r-2 border-b-2 border-terracotta/30 rounded-br-3xl"></div>
+          <div class="relative rounded-2xl overflow-hidden img-zoom">
+            <img src="img/corona_luna.jpg" alt="Corona de la Luna" class="w-full aspect-square object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/50 via-transparent to-transparent"></div>
+          </div>
+          <!-- Floating label -->
+          <div class="absolute bottom-6 left-6 right-6 glass rounded-xl p-4 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-gold uppercase tracking-wider mb-0.5" data-i18n="feat_label">Pieza Destacada</div>
+               <div class="font-display font-bold text-cream" data-i18n="feat_name">Corona de la Luna</div>
+            </div>
+            <div class="font-display font-bold text-gold text-lg">$12,500</div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6">
+            <i data-lucide="crown" class="w-3 h-3 text-gold"></i>
+            <span class="text-[10px] font-medium text-gold uppercase tracking-wider" data-i18n="feat_badge">Edición Limitada</span>
+          </div>
+
+          <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-6" data-i18n="feat_title">Corona de la Luna</h2>
+
+          <p class="text-creamMuted text-base leading-relaxed mb-6" data-i18n="feat_p1">
+            Una obra maestra de la orfebrería contemporánea. Realizada en plata ley .925 con detalles en oro de 14k, esta tiara rinde homenaje a Coyolxauhqui, la diosa lunar azteca.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="text-center p-4 rounded-xl bg-surface/50 border border-gold/5">
+              <div class="font-display font-bold text-2xl text-gold">45</div>
+              <div class="text-[10px] text-creamMuted uppercase tracking-wider" data-i18n="feat_d1">Días de trabajo</div>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-surface/50 border border-terracotta/5">
+              <div class="font-display font-bold text-2xl text-terracottaLight">.925</div>
+              <div class="text-[10px] text-creamMuted uppercase tracking-wider" data-i18n="feat_d2">Plata Fina</div>
+            </div>
+            <div class="text-center p-4 rounded-xl bg-surface/50 border border-gold/5">
+              <div class="font-display font-bold text-2xl text-gold">3</div>
+              <div class="text-[10px] text-creamMuted uppercase tracking-wider" data-i18n="feat_d3">Orfebres</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <!-- TODO: reemplazar con enlace real de WhatsApp -->
+            <a href="https://wa.me/5210000000000?text=Me%20interesa%20la%20Corona%20de%20la%20Luna" target="_blank" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-8 py-4 rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all hover:scale-[1.02]">
+              <span data-i18n="feat_cta1">Reservar esta Pieza</span>
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <button onclick="openModal(4)" class="inline-flex items-center justify-center gap-2 border border-creamMuted/20 text-creamMuted font-medium px-8 py-4 rounded-xl hover:bg-cream/5 transition-all">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span data-i18n="feat_cta2">Ver Detalle</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AZTEC DIVIDER 2 ===== -->
+  <div class="aztec-divider-svg py-2 flex justify-center overflow-hidden">
+    <svg width="800" height="30" viewBox="0 0 800 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-w-full">
+      <rect x="0" y="10" width="12" height="12" fill="#D4A843" opacity="0.15"/>
+      <rect x="20" y="10" width="12" height="12" fill="#C4703F" opacity="0.12"/>
+      <rect x="40" y="14" width="8" height="8" fill="#D4A843" opacity="0.1"/>
+      <line x1="60" y1="16" x2="120" y2="16" stroke="#D4A843" stroke-width="0.5" opacity="0.2"/>
+      <rect x="130" y="10" width="12" height="12" fill="#C4703F" opacity="0.15"/>
+      <rect x="150" y="10" width="12" height="12" fill="#D4A843" opacity="0.12"/>
+      <rect x="170" y="14" width="8" height="8" fill="#C4703F" opacity="0.1"/>
+      <line x1="190" y1="16" x2="250" y2="16" stroke="#C4703F" stroke-width="0.5" opacity="0.2"/>
+      <rect x="260" y="10" width="12" height="12" fill="#D4A843" opacity="0.15"/>
+      <rect x="280" y="10" width="12" height="12" fill="#C4703F" opacity="0.12"/>
+      <rect x="300" y="14" width="8" height="8" fill="#D4A843" opacity="0.1"/>
+      <line x1="320" y1="16" x2="380" y2="16" stroke="#D4A843" stroke-width="0.5" opacity="0.2"/>
+      <rect x="390" y="10" width="12" height="12" fill="#C4703F" opacity="0.15"/>
+      <rect x="410" y="10" width="12" height="12" fill="#D4A843" opacity="0.12"/>
+      <rect x="430" y="14" width="8" height="8" fill="#C4703F" opacity="0.1"/>
+      <line x1="450" y1="16" x2="510" y2="16" stroke="#C4703F" stroke-width="0.5" opacity="0.2"/>
+      <rect x="520" y="10" width="12" height="12" fill="#D4A843" opacity="0.15"/>
+      <rect x="540" y="10" width="12" height="12" fill="#C4703F" opacity="0.12"/>
+      <rect x="560" y="14" width="8" height="8" fill="#D4A843" opacity="0.1"/>
+      <line x1="580" y1="16" x2="640" y2="16" stroke="#D4A843" stroke-width="0.5" opacity="0.2"/>
+      <rect x="650" y="10" width="12" height="12" fill="#C4703F" opacity="0.15"/>
+      <rect x="670" y="10" width="12" height="12" fill="#D4A843" opacity="0.12"/>
+      <rect x="690" y="14" width="8" height="8" fill="#C4703F" opacity="0.1"/>
+      <line x1="710" y1="16" x2="800" y2="16" stroke="#D4A843" stroke-width="0.5" opacity="0.2"/>
+    </svg>
+  </div>
+
+  <!-- ===================== 4. HISTORIA ===================== -->
+  <section id="historia" class="relative py-24 px-4 sm:px-6 overflow-hidden">
+    <div class="absolute inset-0 dot-pattern opacity-30"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 shape-1 animate-float opacity-40 parallax-slow"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="relative reveal">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] img-zoom">
+            <img src="img/taxco_legado.jpg" alt="Maestro Orfebre" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-base/60 via-transparent to-transparent"></div>
+          </div>
+          <div class="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-6 glass rounded-xl p-4 animate-float">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-terracotta flex items-center justify-center">
+                <i data-lucide="award" class="w-5 h-5 text-base"></i>
+              </div>
+              <div>
+                <div class="font-display font-bold text-cream text-sm" data-i18n="hist_badge_title">5ª Generación</div>
+                <div class="text-xs text-creamMuted" data-i18n="hist_badge_sub">De artesanos</div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -top-3 -left-3 w-16 h-16 border-l-2 border-t-2 border-gold/30 rounded-tl-2xl"></div>
+        </div>
+
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-6">
+            <span class="text-[10px] font-medium text-gold uppercase tracking-wider" data-i18n="hist_label">Nuestra Historia</span>
+          </div>
+          <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-6" data-i18n="hist_title">Legado de Plata</h2>
+          <p class="text-creamMuted text-base leading-relaxed mb-6" data-i18n="hist_p1">La Azteca nació en el corazón de Taxco, Guerrero, la capital mundial de la plata. Somos la quinta generación de maestros orfebres que han transformado el metal en arte, preservando técnicas de cincelado y repujado que definen nuestra identidad.</p>
+          <p class="text-creamMuted text-base leading-relaxed mb-8" data-i18n="hist_p2">Cada joya que sale de nuestro taller lleva consigo siglos de conocimiento, la precisión del cincel y el brillo de nuestra herencia. No fabricamos en serie: creamos piezas con historia.</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="flame" class="w-4 h-4 text-gold"></i></div>
+              <div><div class="font-semibold text-cream text-sm" data-i18n="hist_v1_title">Fundición</div><div class="text-xs text-creamMuted" data-i18n="hist_v1_desc">Métodos tradicionales</div></div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="hand-heart" class="w-4 h-4 text-terracotta"></i></div>
+              <div><div class="font-semibold text-cream text-sm" data-i18n="hist_v2_title">Cincelado</div><div class="text-xs text-creamMuted" data-i18n="hist_v2_desc">Detalles a mano alzada</div></div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="leaf" class="w-4 h-4 text-gold"></i></div>
+              <div><div class="font-semibold text-cream text-sm" data-i18n="hist_v3_title">Plata Pura</div><div class="text-xs text-creamMuted" data-i18n="hist_v3_desc">Ley .925 certificada</div></div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-terracotta/10 flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="shield-check" class="w-4 h-4 text-terracotta"></i></div>
+              <div><div class="font-semibold text-cream text-sm" data-i18n="hist_v4_title">Taxco</div><div class="text-xs text-creamMuted" data-i18n="hist_v4_desc">Orgullo de Guerrero</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5. PROCESO ===================== -->
+  <section id="proceso" class="relative py-24 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-terracotta/20 bg-terracotta/5 mb-4">
+          <span class="text-[10px] font-medium text-terracotta uppercase tracking-wider" data-i18n="proc_label">Nuestro Proceso</span>
+        </div>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-4" data-i18n="proc_title">Forjando la Tradición</h2>
+        <p class="text-creamMuted text-base max-w-xl mx-auto" data-i18n="proc_sub">El proceso de creación de una joya La Azteca es un viaje de precisión y arte que toma semanas.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card rounded-2xl p-6 relative group reveal reveal-delay-1">
+          <div class="absolute top-4 right-4 font-display font-bold text-5xl text-gold/10">01</div>
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-5"><i data-lucide="mountain" class="w-6 h-6 text-gold"></i></div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2" data-i18n="proc_s1_title">Diseño</h3>
+          <p class="text-creamMuted text-sm leading-relaxed" data-i18n="proc_s1_desc">Bocetamos cada pieza inspirándonos en el Códice Borgia y la arquitectura de Tenochtitlan.</p>
+          <div class="mt-4 pt-4 border-t border-gold/5"><span class="text-xs text-gold/60 font-mono">3-5 días</span></div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 relative group reveal reveal-delay-2">
+          <div class="absolute top-4 right-4 font-display font-bold text-5xl text-terracotta/10">02</div>
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-terracotta/20 to-terracotta/5 flex items-center justify-center mb-5"><i data-lucide="hand-metal" class="w-6 h-6 text-terracotta"></i></div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2" data-i18n="proc_s2_title">Fundición</h3>
+          <p class="text-creamMuted text-sm leading-relaxed" data-i18n="proc_s2_desc">Fundimos la plata pura para crear el lingote base, manteniendo la pureza del metal.</p>
+          <div class="mt-4 pt-4 border-t border-terracotta/5"><span class="text-xs text-terracotta/60 font-mono">5-10 días</span></div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 relative group reveal reveal-delay-3">
+          <div class="absolute top-4 right-4 font-display font-bold text-5xl text-gold/10">03</div>
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center mb-5"><i data-lucide="flame" class="w-6 h-6 text-gold"></i></div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2" data-i18n="proc_s3_title">Orfebrería</h3>
+          <p class="text-creamMuted text-sm leading-relaxed" data-i18n="proc_s3_desc">Cincelado, repujado y soldadura de precisión. Aquí es donde el metal cobra vida.</p>
+          <div class="mt-4 pt-4 border-t border-gold/5"><span class="text-xs text-gold/60 font-mono">1-2 días</span></div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 relative group reveal reveal-delay-4">
+          <div class="absolute top-4 right-4 font-display font-bold text-5xl text-terracotta/10">04</div>
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-terracotta/20 to-terracotta/5 flex items-center justify-center mb-5"><i data-lucide="sparkles" class="w-6 h-6 text-terracotta"></i></div>
+          <h3 class="font-display font-semibold text-xl text-cream mb-2" data-i18n="proc_s4_title">Pulido</h3>
+          <p class="text-creamMuted text-sm leading-relaxed" data-i18n="proc_s4_desc">El acabado final que otorga a la plata su brillo lunar característico. La pieza está lista.</p>
+          <div class="mt-4 pt-4 border-t border-terracotta/5"><span class="text-xs text-terracotta/60 font-mono">3-5 días</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6. TESTIMONIOS ===================== -->
+  <section id="testimonios" class="relative py-24 px-4 sm:px-6 overflow-hidden">
+    <div class="absolute inset-0 dot-pattern opacity-20"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-4">
+          <span class="text-[10px] font-medium text-gold uppercase tracking-wider" data-i18n="test_label">Testimonios</span>
+        </div>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-4" data-i18n="test_title">Voces que Resuenan</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6 reveal reveal-delay-1">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+          </div>
+          <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t1_text">"El anillo de jaguar es impresionante. Se nota el trabajo manual en cada detalle. Es más que una joya, es arte."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-maria/48/48.jpg" alt="María" class="w-10 h-10 rounded-full object-cover border border-gold/20">
+            <div><div class="font-semibold text-cream text-sm">María González</div><div class="text-xs text-creamMuted" data-i18n="test_t1_role">Cliente Fiel, Taxco</div></div>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal reveal-delay-2">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+          </div>
+          <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t2_text">"Compré la gargantilla para una gala y fue el centro de atención. La elegancia de la plata de Taxco es inigualable."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-carlos/48/48.jpg" alt="Carlos" class="w-10 h-10 rounded-full object-cover border border-gold/20">
+            <div><div class="font-semibold text-cream text-sm">Carlos Rueda</div><div class="text-xs text-creamMuted" data-i18n="test_t2_role">Empresaria, Monterrey</div></div>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-6 reveal reveal-delay-3">
+          <div class="flex items-center gap-1 mb-4">
+            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+          </div>
+          <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t3_text">"La atención personalizada y la calidad de la pieza superaron mis expectativas. Un pedazo de México en mis manos."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://picsum.photos/seed/person-ana/48/48.jpg" alt="Ana" class="w-10 h-10 rounded-full object-cover border border-gold/20">
+            <div><div class="font-semibold text-cream text-sm">Ana Sofía López</div><div class="text-xs text-creamMuted" data-i18n="test_t3_role">Coleccionista, Madrid</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 7. REDES SOCIALES ===================== -->
+  <section id="redes" class="relative py-24 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-terracotta/20 bg-terracotta/5 mb-4">
+          <span class="text-[10px] font-medium text-terracotta uppercase tracking-wider" data-i18n="social_label">Comunidad</span>
+        </div>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-4" data-i18n="social_title">Brilla con Nosotros</h2>
+        <p class="text-creamMuted text-base max-w-xl mx-auto" data-i18n="social_sub">Conecta con el taller y descubre cómo transformamos la plata en tesoros eternos.</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="#TODO: reemplazar con enlace de WhatsApp" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 text-center group reveal reveal-delay-1 block">
+          <div class="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/20 transition-colors">
+            <svg class="w-7 h-7 text-green-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-cream mb-1">WhatsApp</h3>
+          <p class="text-creamMuted text-xs mb-3" data-i18n="social_wa_desc">Cotizaciones directas</p>
+          <span class="inline-flex items-center gap-1 text-green-400 text-xs font-medium group-hover:gap-2 transition-all"><span data-i18n="social_wa_cta">Chatear</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+        </a>
+        <a href="#TODO: reemplazar con enlace de TikTok" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 text-center group reveal reveal-delay-2 block">
+          <div class="w-14 h-14 rounded-2xl bg-pink-500/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-pink-500/20 transition-colors">
+            <svg class="w-7 h-7 text-pink-400" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.15a8.16 8.16 0 005.58 2.18v-3.45a4.85 4.85 0 01-3.58-1.57 4.83 4.83 0 01-1.25-3.6h3.45v.5c.33.54.76 1.01 1.26 1.38a4.81 4.81 0 003.12.86V6.69h-1z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-cream mb-1">TikTok</h3>
+          <p class="text-creamMuted text-xs mb-3" data-i18n="social_tt_desc">Proceso creativo en video</p>
+          <span class="inline-flex items-center gap-1 text-pink-400 text-xs font-medium group-hover:gap-2 transition-all"><span data-i18n="social_tt_cta">Seguir</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+        </a>
+        <a href="#TODO: reemplazar con enlace de Instagram" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 text-center group reveal reveal-delay-3 block">
+          <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500/20 transition-colors">
+            <svg class="w-7 h-7 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-cream mb-1">Instagram</h3>
+          <p class="text-creamMuted text-xs mb-3" data-i18n="social_ig_desc">Galería de piezas</p>
+          <span class="inline-flex items-center gap-1 text-purple-400 text-xs font-medium group-hover:gap-2 transition-all"><span data-i18n="social_ig_cta">Explorar</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+        </a>
+        <a href="#TODO: reemplazar con enlace de Pinterest" target="_blank" rel="noopener" class="glass-card rounded-2xl p-6 text-center group reveal reveal-delay-4 block">
+          <div class="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-red-500/20 transition-colors">
+            <svg class="w-7 h-7 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          </div>
+          <h3 class="font-display font-semibold text-lg text-cream mb-1">Pinterest</h3>
+          <p class="text-creamMuted text-xs mb-3" data-i18n="social_pi_desc">Inspiración y decoración</p>
+          <span class="inline-flex items-center gap-1 text-red-400 text-xs font-medium group-hover:gap-2 transition-all"><span data-i18n="social_pi_cta">Pinnear</span><i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8. CONTACTO ===================== -->
+  <section id="contacto" class="relative py-24 px-4 sm:px-6 overflow-hidden">
+    <div class="absolute inset-0 grid-bg opacity-40"></div>
+    <div class="absolute bottom-0 left-1/3 shape-2 animate-floatSlow opacity-40 parallax-slow"></div>
+
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/20 bg-gold/5 mb-4">
+          <span class="text-[10px] font-medium text-gold uppercase tracking-wider" data-i18n="contact_label">Contacto</span>
+        </div>
+        <h2 class="font-display font-bold text-4xl sm:text-5xl tracking-tighter text-cream mb-4" data-i18n="contact_title">Inicia tu Conversación</h2>
+        <p class="text-creamMuted text-base max-w-xl mx-auto" data-i18n="contact_sub">Cuéntanos qué pieza imaginas y nosotros la hacemos realidad. Cada encargo es una nueva historia.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-8">
+        <div class="lg:col-span-3 glass-card rounded-2xl p-6 sm:p-8 reveal">
+          <form id="contactForm" class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="text-xs text-creamMuted uppercase tracking-wider block mb-2" data-i18n="contact_name">Nombre</label>
+                <input type="text" required class="w-full bg-surface/80 border border-gold/10 rounded-xl px-4 py-3 text-cream text-sm placeholder:text-creamMuted/40 transition-colors" placeholder="Tu nombre" data-i18n-placeholder="contact_name_ph">
+              </div>
+              <div>
+                <label class="text-xs text-creamMuted uppercase tracking-wider block mb-2" data-i18n="contact_email">Email</label>
+                <input type="email" required class="w-full bg-surface/80 border border-gold/10 rounded-xl px-4 py-3 text-cream text-sm placeholder:text-creamMuted/40 transition-colors" placeholder="tu@email.com">
+              </div>
+            </div>
+            <div>
+              <label class="text-xs text-creamMuted uppercase tracking-wider block mb-2" data-i18n="contact_type">Tipo de Pieza</label>
+              <select required class="w-full bg-surface/80 border border-gold/10 rounded-xl px-4 py-3 text-cream text-sm transition-colors appearance-none cursor-pointer" style="background-image: url('data:image/svg+xml;utf8,<svg fill=\'%23C8BFA8\' viewBox=\'0 0 24 24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;">
+                <option value="" data-i18n="contact_type_ph">Selecciona una categoría</option>
+                <option value="anillos" data-i18n="contact_type_cer">Anillos</option>
+                <option value="collares" data-i18n="contact_type_joy">Collares y Dijes</option>
+                <option value="pulseras" data-i18n="contact_type_tex">Pulseras</option>
+                <option value="aretes" data-i18n="contact_type_mad">Aretes</option>
+                <option value="otro" data-i18n="contact_type_otr">Pedido Especial</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-creamMuted uppercase tracking-wider block mb-2" data-i18n="contact_msg">Mensaje</label>
+              <textarea rows="4" required class="w-full bg-surface/80 border border-gold/10 rounded-xl px-4 py-3 text-cream text-sm placeholder:text-creamMuted/40 transition-colors resize-none" placeholder="Describe la pieza que imaginas..." data-i18n-placeholder="contact_msg_ph"></textarea>
+            </div>
+            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-8 py-4 rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 hover:scale-[1.02]">
+              <span data-i18n="contact_submit">Enviar Mensaje</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6 reveal">
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center"><i data-lucide="message-circle" class="w-5 h-5 text-green-400"></i></div>
+              <h3 class="font-display font-semibold text-cream" data-i18n="contact_wa_title">WhatsApp Directo</h3>
+            </div>
+            <p class="text-creamMuted text-sm mb-3" data-i18n="contact_wa_desc">Respuesta en menos de 2 horas</p>
+            <!-- TODO: reemplazar con número real de WhatsApp -->
+            <a href="https://wa.me/5210000000000" target="_blank" class="inline-flex items-center gap-2 text-green-400 text-sm font-medium hover:text-green-300 transition-colors"><span>+52 1 000 000 0000</span><i data-lucide="external-link" class="w-3 h-3"></i></a>
+          </div>
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-terracotta/10 flex items-center justify-center"><i data-lucide="map-pin" class="w-5 h-5 text-terracotta"></i></div>
+              <h3 class="font-display font-semibold text-cream" data-i18n="contact_loc_title">Taller</h3>
+            </div>
+            <p class="text-creamMuted text-sm" data-i18n="contact_loc_desc">Centro Histórico, Taxco, Guerrero, México</p>
+          </div>
+          <div class="glass-card rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5 text-gold"></i></div>
+              <h3 class="font-display font-semibold text-cream" data-i18n="contact_hours_title">Horario</h3>
+            </div>
+            <div class="space-y-1 text-sm">
+              <div class="flex justify-between"><span class="text-creamMuted" data-i18n="contact_hours_lun">Lun - Vie</span><span class="text-cream">9:00 - 18:00</span></div>
+              <div class="flex justify-between"><span class="text-creamMuted" data-i18n="contact_hours_sab">Sábado</span><span class="text-cream">10:00 - 15:00</span></div>
+              <div class="flex justify-between"><span class="text-creamMuted" data-i18n="contact_hours_dom">Domingo</span><span class="text-creamMuted/50" data-i18n="contact_hours_closed">Cerrado</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA FINAL ===== -->
+  <section class="relative py-24 px-4 sm:px-6 overflow-hidden">
+    <div class="max-w-4xl mx-auto text-center reveal">
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-gold/5 via-terracotta/5 to-gold/5 rounded-3xl blur-3xl"></div>
+        <div class="relative glass-card rounded-3xl p-8 sm:p-12 lg:p-16">
+          <div class="absolute top-0 left-8 right-8 aztec-border"></div>
+          <h2 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tighter text-cream mb-4" data-i18n="cta_title">Lleva un Pedazo<br>de Historia</h2>
+          <p class="text-creamMuted text-lg max-w-lg mx-auto mb-8" data-i18n="cta_sub">Cada pieza de La Azteca es un puente entre mundos. ¿Cuál será el tuyo?</p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#contacto" class="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-10 py-4 rounded-2xl text-lg hover:shadow-lg hover:shadow-gold/20 transition-all hover:scale-105">
+              <span data-i18n="cta_btn1">Cotizar mi Pieza</span><i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <!-- TODO: reemplazar con enlace real de WhatsApp -->
+            <a href="https://wa.me/5210000000000" target="_blank" class="inline-flex items-center gap-2 border border-green-500/30 text-green-400 font-medium px-8 py-4 rounded-2xl hover:bg-green-500/5 transition-all">
+              <i data-lucide="message-circle" class="w-5 h-5"></i><span>WhatsApp</span>
+            </a>
+          </div>
+          <div class="absolute bottom-0 left-8 right-8 aztec-border"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-gold/5 py-12 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-terracotta flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <span class="font-display font-bold text-lg text-cream">La Azteca</span>
+          </div>
+          <p class="text-creamMuted text-sm leading-relaxed" data-i18n="footer_desc">Joyería de autor en plata ley .925. Maestros orfebres de Taxco de Alarcon.</p>
+        </div>
+        <div>
+          <h4 class="font-display font-semibold text-cream text-sm mb-4" data-i18n="footer_nav">Navegación</h4>
+          <ul class="space-y-2">
+            <li><a href="#coleccion" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="nav_coleccion">Colección</a></li>
+            <li><a href="#destacada" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="nav_destacada">Destacada</a></li>
+            <li><a href="#historia" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="nav_historia">Historia</a></li>
+            <li><a href="#contacto" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="nav_contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-semibold text-cream text-sm mb-4" data-i18n="footer_social">Redes</h4>
+          <ul class="space-y-2">
+            <li><a href="#TODO: reemplazar" class="text-creamMuted text-sm hover:text-purple-400 transition-colors">Instagram</a></li>
+            <li><a href="#TODO: reemplazar" class="text-creamMuted text-sm hover:text-pink-400 transition-colors">TikTok</a></li>
+            <li><a href="#TODO: reemplazar" class="text-creamMuted text-sm hover:text-red-400 transition-colors">Pinterest</a></li>
+            <li><a href="#TODO: reemplazar" class="text-creamMuted text-sm hover:text-green-400 transition-colors">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-semibold text-cream text-sm mb-4" data-i18n="footer_legal">Legal</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="footer_privacy">Privacidad</a></li>
+            <li><a href="#" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="footer_terms">Términos</a></li>
+            <li><a href="#" class="text-creamMuted text-sm hover:text-gold transition-colors" data-i18n="footer_shipping">Envíos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-gold/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-creamMuted/50 text-xs">© 2025 La Azteca. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
+        <p class="text-creamMuted/30 text-xs" data-i18n="footer_made">Hecho con 🤍 en Taxco, México</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="flex items-center gap-3">
+      <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+      <span class="text-cream text-sm" id="toastMsg" data-i18n="toast_sent">¡Mensaje enviado! Te responderemos pronto.</span>
+    </div>
+  </div>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+    // ===== PRODUCT DATA =====
+    const products = [
+      {
+        img: 'img/anillo_jaguar.jpg',
+        badge_es: 'Nuevo', badge_en: 'New', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: 'Anillo Jaguar', title_en: 'Jaguar Ring',
+        desc_es: 'Anillo ajustable en plata .925 con grabados a mano inspirados en el guerrero jaguar azteca. Una pieza que simboliza fuerza y nobleza.',
+        desc_en: 'Adjustable .925 silver ring with hand-engravings inspired by the Aztec jaguar warrior. A piece symbolizing strength and nobility.',
+        price: '$1,850 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Peso', '12g'], ['Técnica', 'Cincelado'], ['Origen', 'Taxco']],
+        details_en: [['Metal', '.925 Silver'], ['Weight', '12g'], ['Technique', 'Chiseled'], ['Origin', 'Taxco']],
+      },
+      {
+        img: 'img/gargantilla_turquesa.jpg',
+        badge_es: 'Popular', badge_en: 'Popular', badgeClass: 'bg-purple-500/90 text-white',
+        title_es: 'Gargantilla Turquesa', title_en: 'Turquoise Choker',
+        desc_es: 'Gargantilla de plata .925 con incrustaciones de turquesa natural. El azul del cielo capturado en una joya que rinde tributo a la aristocracia mesoamericana.',
+        desc_en: '.925 silver choker with natural turquoise inlays. The sky blue captured in a jewel that pays tribute to Mesoamerican aristocracy.',
+        price: '$4,200 MXN',
+        details_es: [['Largo', '40cm'], ['Piedra', 'Turquesa'], ['Metal', 'Plata .925'], ['Cierre', 'Mosquetón']],
+        details_en: [['Length', '40cm'], ['Stone', 'Turquoise'], ['Metal', '.925 Silver'], ['Clasp', 'Lobster']],
+      },
+      {
+        img: 'img/brazalete_calendario.jpg',
+        badge_es: 'Hecho a mano', badge_en: 'Handmade', badgeClass: 'bg-gold/90 text-base',
+        title_es: 'Brazalete Calendario', title_en: 'Calendar Bracelet',
+        desc_es: 'Brazalete rígido de plata .925 con el Calendario del Sol esculpido en el centro. Una obra maestra de la orfebrería de Taxco.',
+        desc_en: 'Rigid .925 silver bracelet with the Sun Calendar sculpted in the center. A masterpiece of Taxco silversmithing.',
+        price: '$5,900 MXN',
+        details_es: [['Diámetro', '6.5cm'], ['Material', 'Plata .925'], ['Ancho', '3cm'], ['Técnica', 'Repujado']],
+        details_en: [['Diameter', '6.5cm'], ['Material', '.925 Silver'], ['Width', '3cm'], ['Technique', 'Repoussé']],
+      },
+      {
+        img: 'img/aretes_aguila.jpg',
+        badge_es: 'Limitado', badge_en: 'Limited', badgeClass: 'bg-gold/90 text-base',
+        title_es: 'Aretes Águila', title_en: 'Eagle Earrings',
+        desc_es: 'Aretes colgantes en plata .925 representando el águila azteca en pleno vuelo. Ligeros pero con una presencia imponente.',
+        desc_en: 'Dangle earrings in .925 silver representing the Aztec eagle in full flight. Lightweight yet with an imposing presence.',
+        price: '$2,400 MXN',
+        details_es: [['Largo', '5cm'], ['Metal', 'Plata .925'], ['Acabado', 'Mate'], ['Serie', 'Serie Oro']],
+        details_en: [['Length', '5cm'], ['Metal', '.925 Silver'], ['Finish', 'Matte'], ['Series', 'Gold Series']],
+      },
+      {
+        img: 'img/corona_luna.jpg',
+        badge_es: 'Pieza Única', badge_en: 'One of a Kind', badgeClass: 'bg-gold/90 text-base',
+        title_es: 'Corona de la Luna', title_en: 'Moon Crown',
+        desc_es: 'Tiara ceremonial realizada íntegramente en plata .925 con detalles en oro de 14k. Inspirada en Coyolxauhqui, la diosa lunar. 60 días de trabajo artesanal.',
+        desc_en: 'Ceremonial tiara made entirely in .925 silver with 14k gold accents. Inspired by Coyolxauhqui, the moon goddess. 60 days of artisanal work.',
+        price: '$18,500 MXN',
+        details_es: [['Medida', 'Ajustable'], ['Peso', '150g'], ['Días', '60'], ['Metal', 'Plata y Oro']],
+        details_en: [['Size', 'Adjustable'], ['Weight', '150g'], ['Days', '60'], ['Metal', 'Silver & Gold']],
+      }
+    ];
+
+    // ===== I18N =====
+    const translations = {
+      es: {
+        nav_coleccion:'Colección', nav_destacada:'Destacada', nav_historia:'Historia', nav_proceso:'Proceso', nav_contacto:'Contacto', nav_cta:'Cotizar',
+        hero_badge:'Joyería Mexicana de Plata .925', hero_title_1:'Lo Ancestral', hero_title_2:'Reimaginado',
+        hero_sub:'Piezas únicas que conectan milenios de tradición azteca con el diseño contemporáneo en plata fina de Taxco. Cada obra lleva el alma del maestro orfebre.',
+        hero_cta1:'Ver Colección', hero_cta2:'Nuestra Historia',
+        hero_stat1:'Años de Tradición', hero_stat2:'Hecho a Mano', hero_stat3:'Plata .925', hero_scroll:'Descubre',
+        col_label:'Colección 2025', col_title:'Joyas con Alma',
+        col_sub:'Cada pieza es única, forjada en plata pura con la técnica de los antiguos maestros de Taxco.',
+        col_p1_name:'Anillo Jaguar', col_p1_desc:'Plata .925 cincelada a mano',
+        col_p2_name:'Gargantilla Turquesa', col_p2_desc:'Plata .925 y turquesa natural',
+        col_p3_name:'Brazalete Calendario', col_p3_desc:'Orfebrería fina en relieve',
+        col_p4_name:'Aretes Águila', col_p4_desc:'Plata .925 con acabado mate',
+        col_viewall:'Ver toda la colección', col_quick:'Ver Detalle',
+        badge_new:'Nuevo', badge_limited:'Limitado',
+        feat_label:'Pieza de Galería', feat_name:'Corona de la Luna',
+        feat_badge:'Edición de Museo', feat_title:'Corona de la Luna',
+        feat_p1:'Una obra maestra de la orfebrería contemporánea. Realizada en plata ley .925 con detalles en oro de 14k, esta tiara rinde homenaje a Coyolxauhqui, la diosa lunar azteca.',
+        feat_d1:'Días de trabajo', feat_d2:'Plata Fina', feat_d3:'Orfebres',
+        feat_cta1:'Consultar Disponibilidad', feat_cta2:'Ver Detalle',
+        hist_label:'Nuestra Historia', hist_title:'Legado de Plata',
+        hist_badge_title:'5ª Generación', hist_badge_sub:'De orfebres',
+        hist_p1:'La Azteca nació en el corazón de Taxco, Guerrero, la capital mundial de la plata. Somos la quinta generación de maestros orfebres que han transformado el metal en arte, preservando técnicas de cincelado y repujado que definen nuestra identidad.',
+        hist_p2:'Cada joya que sale de nuestro taller lleva consigo siglos de conocimiento, la precisión del cincel y el brillo de nuestra herencia. No fabricamos en serie: creamos piezas con historia.',
+        hist_v1_title:'Fundición', hist_v1_desc:'Métodos tradicionales',
+        hist_v2_title:'Cincelado', hist_v2_desc:'Detalles a mano alzada',
+        hist_v3_title:'Plata Pura', hist_v3_desc:'Ley .925 certificada',
+        hist_v4_title:'Taxco', hist_v4_desc:'Orgullo de Guerrero',
+        proc_label:'El Arte del Metal', proc_title:'Forjando la Tradición',
+        proc_sub:'El proceso de creación de una joya La Azteca es un viaje de precisión y arte que toma semanas.',
+        proc_s1_title:'Diseño', proc_s1_desc:'Bocetamos cada pieza inspirándonos en el Códice Borgia y la arquitectura de Tenochtitlan.',
+        proc_s2_title:'Fundición', proc_s2_desc:'Fundimos la plata pura para crear el lingote base, manteniendo la pureza del metal.',
+        proc_s3_title:'Orfebrería', proc_s3_desc:'Cincelado, repujado y soldadura de precisión. Aquí es donde el metal cobra vida.',
+        proc_s4_title:'Pulido', proc_s4_desc:'El acabado final que otorga a la plata su brillo lunar característico. La pieza está lista.',
+        test_label:'Testimonios', test_title:'Experiencias Reales',
+        test_t1_text:'"El anillo de jaguar es impresionante. Se nota el trabajo manual en cada detalle. Es más que una joya, es arte."',
+        test_t1_role:'Cliente Fiel, Taxco',
+        test_t2_text:'"Compré la gargantilla para una gala y fue el centro de atención. La elegancia de la plata de Taxco es inigualable."',
+        test_t2_role:'Empresaria, Monterrey',
+        test_t3_text:'"La atención personalizada y la calidad de la pieza superaron mis expectativas. Un pedazo de México en mis manos."',
+        test_t3_role:'Coleccionista, Madrid',
+        social_label:'Comunidad', social_title:'Brilla con Nosotros',
+        social_sub:'Conecta con el taller y descubre cómo transformamos la plata en tesoros eternos.',
+        social_wa_desc:'Atención personalizada', social_wa_cta:'WhatsApp',
+        social_tt_desc:'El brillo en video', social_tt_cta:'Seguir',
+        social_ig_desc:'Nuestra vitrina digital', social_ig_cta:'Explorar',
+        social_pi_desc:'Tableros de inspiración', social_pi_cta:'Pinnear',
+        contact_label:'Contacto', contact_title:'Tu Joya a Medida',
+        contact_sub:'¿Tienes un diseño en mente? Nuestros maestros orfebres pueden hacerlo realidad en plata fina.',
+        contact_name:'Nombre', contact_name_ph:'Tu nombre',
+        contact_email:'Email', contact_type:'Categoría', contact_type_ph:'¿Qué buscas?',
+        contact_type_cer:'Anillos', contact_type_joy:'Collares y Dijes',
+        contact_type_tex:'Pulseras', contact_type_mad:'Aretes', contact_type_otr:'Pedido Especial',
+        contact_msg:'Mensaje', contact_msg_ph:'Cuéntanos tu idea...', contact_submit:'Enviar Solicitud',
+        contact_wa_title:'WhatsApp Ventas', contact_wa_desc:'Respuesta inmediata',
+        contact_loc_title:'Taller Matriz', contact_loc_desc:'Centro Histórico, Taxco, Guerrero, México',
+        contact_hours_title:'Horario', contact_hours_lun:'Lun - Vie', contact_hours_sab:'Sábado', contact_hours_dom:'Domingo', contact_hours_closed:'Cerrado',
+        cta_title:'Lleva el Brillo<br>de Taxco', cta_sub:'Una joya de La Azteca es una inversión en arte y tradición. ¿Cuál será tu legado?', cta_btn1:'Cotizar mi Joya',
+        footer_desc:'Joyería de autor en plata ley .925. Maestros orfebres de Taxco de Alarcon.',
+        footer_nav:'Navegación', footer_social:'Redes', footer_legal:'Legal',
+        footer_privacy:'Privacidad', footer_terms:'Términos', footer_shipping:'Envíos',
+        footer_rights:'Todos los derechos reservados.', footer_made:'Hecho con 🤍 en Taxco, México',
+        toast_sent:'¡Solicitud enviada! Nos contactaremos pronto.',
+        toast_added:'¡Añadido! Contáctanos para personalizar tu talla.',
+        modal_cta:'Pedir por WhatsApp', modal_close:'Cerrar',
+      },
+      de: {
+        nav_coleccion:'Kollektion', nav_destacada:'Besonderes', nav_historia:'Geschichte', nav_proceso:'Prozess', nav_contacto:'Kontakt', nav_cta:'Angebot',
+        hero_badge:'Mexikanischer .925 Silberschmuck', hero_title_1:'Das Ahnenwerk', hero_title_2:'Neu Erfunden',
+        hero_sub:'Einzigartige Stücke, die jahrtausendealte aztekische Tradition mit modernem Design aus feinem Taxco-Silber verbinden. Jedes Werk trägt die Seele des Goldschmiedemeisters.',
+        hero_cta1:'Kollektion ansehen', hero_cta2:'Unsere Geschichte',
+        hero_stat1:'Jahre Tradition', hero_stat2:'Handgefertigt', hero_stat3:'.925 Silber', hero_scroll:'Entdecken',
+        col_label:'Kollektion 2025', col_title:'Schmuck mit Seele',
+        col_sub:'Jedes Stück ist ein Unikat, geschmiedet aus reinem Silber mit den Techniken der alten Meister aus Taxco.',
+        col_p1_name:'Jaguar-Ring', col_p1_desc:'.925 Silber, von Hand zeliert',
+        col_p2_name:'Türkis-Halskette', col_p2_desc:'.925 Silber und natürlicher Türkis',
+        col_p3_name:'Kalender-Armband', col_p3_desc:'Feine Relief-Silberschmiedekunst',
+        col_p4_name:'Adler-Ohrringe', col_p4_desc:'.925 Silber mit mattem Finish',
+        col_viewall:'Ganze Kollektion ansehen', col_quick:'Details ansehen',
+        badge_new:'Neu', badge_limited:'Limitiert',
+        feat_label:'Galeriestück', feat_name:'Mondkrone',
+        feat_badge:'Museumsedition', feat_title:'Mondkrone',
+        feat_p1:'Ein Meisterwerk zeitgenössischer Silberschmiedekunst. Gefertigt aus .925 Sterlingsilber mit 14k Goldakzenten, huldigt diese Tiara Coyolxauhqui, der aztekischen Mondgöttin.',
+        feat_d1:'Arbeitstage', feat_d2:'Feinsilber', feat_d3:'Goldschmiede',
+        feat_cta1:'Verfügbarkeit prüfen', feat_cta2:'Details ansehen',
+        hist_label:'Unsere Geschichte', hist_title:'Silbernes Erbe',
+        hist_badge_title:'5. Generation', hist_badge_sub:'Von Goldschmieden',
+        hist_p1:'La Azteca wurde im Herzen von Taxco, Guerrero, der Welthauptstadt des Silbers, geboren. Wir sind die fünfte Generation von Goldschmiedemeistern.',
+        hist_p2:'Jedes Schmuckstück, das unsere Werkstatt verlässt, trägt Jahrhunderte an Wissen in sich. Wir produzieren nicht in Serie.',
+        hist_v1_title:'Gießen', hist_v1_desc:'Traditionelle Methoden',
+        hist_v2_title:'Zelieren', hist_v2_desc:'Freihand-Details',
+        hist_v3_title:'Reines Silber', hist_v3_desc:'Zertifiziertes .925',
+        hist_v4_title:'Taxco', hist_v4_desc:'Stolz von Guerrero',
+        proc_label:'Die Kunst des Metalls', proc_title:'Tradition Schmieden',
+        proc_sub:'Der Entstehungsprozess eines La Azteca Schmuckstücks ist eine Reise der Präzision.',
+        proc_s1_title:'Design', proc_s1_desc:'Wir entwerfen jedes Stück inspiriert vom Codex Borgia.',
+        proc_s2_title:'Gießen', proc_s2_desc:'Wir schmelzen reines Silber, um den Basisbarren zu kreieren.',
+        proc_s3_title:'Silberschmieden', proc_s3_desc:'Zelieren, Prägen und Präzisionslöten.',
+        proc_s4_title:'Polieren', proc_s4_desc:'Das finale Finish, das dem Silber seinen mondartigen Glanz verleiht.',
+        test_label:'Testimonials', test_title:'Echte Erfahrungen',
+        test_t1_text:'"Der Jaguar-Ring ist beeindruckend. Man sieht die Handarbeit in jedem Detail."',
+        test_t1_role:'Treuer Kunde, Taxco',
+        test_t2_text:'"Ich habe die Halskette für eine Gala gekauft und sie war der Mittelpunkt."',
+        test_t2_role:'Unternehmerin, Monterrey',
+        test_t3_text:'"Die persönliche Betreuung und die Qualität haben meine Erwartungen übertroffen."',
+        test_t3_role:'Sammlerin, Madrid',
+        social_label:'Gemeinschaft', social_title:'Strahlen Sie mit uns',
+        social_sub:'Verbinden Sie sich mit der Werkstatt und entdecken Sie, wie wir Silber verwandeln.',
+        social_wa_desc:'Persönliche Betreuung', social_wa_cta:'WhatsApp',
+        social_tt_desc:'Der Glanz auf Video', social_tt_cta:'Folgen',
+        social_ig_desc:'Unser digitales Schaufenster', social_ig_cta:'Erkunden',
+        social_pi_desc:'Inspirationsboards', social_pi_cta:'Pinnen',
+        contact_label:'Kontakt', contact_title:'Ihr Wunschschmuck',
+        contact_sub:'Haben Sie ein Design im Kopf? Unsere Goldschmiedemeister machen es wahr.',
+        contact_name:'Name', contact_name_ph:'Ihr Name',
+        contact_email:'Email', contact_type:'Kategorie', contact_type_ph:'Was suchen Sie?',
+        contact_type_cer:'Ringe', contact_type_joy:'Halsketten',
+        contact_type_tex:'Armbänder', contact_type_mad:'Ohrringe', contact_type_otr:'Sonderanfertigung',
+        contact_msg:'Nachricht', contact_msg_ph:'Erzählen Sie uns Ihre Idee...', contact_submit:'Anfrage senden',
+        contact_wa_title:'WhatsApp Verkauf', contact_wa_desc:'Sofortige Antwort',
+        contact_loc_title:'Hauptwerkstatt', contact_loc_desc:'Historisches Zentrum, Taxco, Guerrero, Mexiko',
+        contact_hours_title:'Öffnungszeiten', contact_hours_lun:'Mo - Fr', contact_hours_sab:'Samstag', contact_hours_dom:'Sonntag', contact_hours_closed:'Geschlossen',
+        cta_title:'Holen Sie sich den Glanz<br>von Taxco', cta_sub:'Ein Schmuckstück von La Azteca ist eine Investition. Was wird Ihr Vermächtnis sein?', cta_btn1:'Angebot für mein Juwel',
+        footer_desc:'Autorenschmuck aus .925 Silber. Goldschmiedemeister aus Taxco de Alarcon.',
+        footer_nav:'Navigation', footer_social:'Social', footer_legal:'Rechtliches',
+        footer_privacy:'Datenschutz', footer_terms:'AGB', footer_shipping:'Versand',
+        footer_rights:'Alle Rechte vorbehalten.', footer_made:'Mit 🤍 in Taxco, Mexiko gemacht',
+        toast_sent:'Anfrage gesendet! Wir melden uns bald.',
+        toast_added:'Hinzugefügt! Kontaktieren Sie uns für Ihre Größe.',
+        modal_cta:'Per WhatsApp bestellen', modal_close:'Schließen',
+      },
+      it: {
+        nav_coleccion:'Collezione', nav_destacada:'In primo piano', nav_historia:'Storia', nav_proceso:'Processo', nav_contacto:'Contatto', nav_cta:'Preventivo',
+        hero_badge:'Gioielli Messicani in Argento .925', hero_title_1:'L\'Ancestrale', hero_title_2:'Reimmaginato',
+        hero_sub:'Pezzi unici che collegano millenni di tradizione azteca con il design contemporaneo in argento fine di Taxco. Ogni opera porta l\'anima del maestro orafo.',
+        hero_cta1:'Vedi Collezione', hero_cta2:'Nostra Storia',
+        hero_stat1:'Anni di Tradizione', hero_stat2:'Fatto a Mano', hero_stat3:'Argento .925', hero_scroll:'Scopri',
+        col_label:'Collezione 2025', col_title:'Gioielli con Anima',
+        col_sub:'Ogni pezzo è unico, forgiato in argento puro con le tecniche degli antichi maestri di Taxco.',
+        col_p1_name:'Anello Giaguaro', col_p1_desc:'Argento .925 cesellato a mano',
+        col_p2_name:'Girocollo Turchese', col_p2_desc:'Argento .925 e turchese naturale',
+        col_p3_name:'Bracciale Calendario', col_p3_desc:'Oreficeria fine in rilievo',
+        col_p4_name:'Orecchini Aquila', col_p4_desc:'Argento .925 finitura opaca',
+        col_viewall:'Vedi tutta la collezione', col_quick:'Dettagli',
+        badge_new:'Nuovo', badge_limited:'Limitato',
+        feat_label:'Pezzo da Galleria', feat_name:'Corona della Luna',
+        feat_badge:'Edizione Museo', feat_title:'Corona della Luna',
+        feat_p1:'Un capolavoro dell\'oreficeria contemporanea. Realizzata in argento .925 con dettagli in oro 14k, questa tiara rende omaggio a Coyolxauhqui, la dea lunare azteca.',
+        feat_d1:'Giorni di lavoro', feat_d2:'Argento Fino', feat_d3:'Orafi',
+        feat_cta1:'Verifica Disponibilità', feat_cta2:'Dettagli',
+        hist_label:'Nostra Storia', hist_title:'Eredità d\'Argento',
+        hist_badge_title:'5ª Generazione', hist_badge_sub:'Di orafi',
+        hist_p1:'La Azteca è nata nel cuore di Taxco, Guerrero, la capitale mondiale dell\'argento. Siamo la quinta generazione di maestri orafi.',
+        hist_p2:'Ogni gioiello che esce dal nostro laboratorio porta con sé secoli di conoscenza. Non fabbrichiamo in serie.',
+        hist_v1_title:'Fusione', hist_v1_desc:'Metodi tradizionali',
+        hist_v2_title:'Cesellatura', hist_v2_desc:'Dettagli a mano libera',
+        hist_v3_title:'Argento Puro', hist_v3_desc:'Certificato .925',
+        hist_v4_title:'Taxco', hist_v4_desc:'Orgoglio di Guerrero',
+        proc_label:'L\'Arte del Metallo', proc_title:'Forgiare la Tradizione',
+        proc_sub:'Il processo di creazione di un gioiello La Azteca è un viaggio di precisione che richiede settimane.',
+        proc_s1_title:'Design', proc_s1_desc:'Disegniamo ogni pezzo ispirandoci al Codice Borgia.',
+        proc_s2_title:'Fusione', proc_s2_desc:'Fondiamo l\'argento puro per creare il lingotto di base.',
+        proc_s3_title:'Oreficeria', proc_s3_desc:'Cesellatura, sbalzo e saldatura di precision.',
+        proc_s4_title:'Lucidatura', proc_s4_desc:'La finitura finale che dona all\'argento la sua brillantezza lunare.',
+        test_label:'Testimonianze', test_title:'Esperienze Reali',
+        test_t1_text:'"L\'anello giaguaro è impressionante. Si nota il lavoro manuale in ogni dettaglio."',
+        test_t1_role:'Cliente Fedele, Taxco',
+        test_t2_text:'"Ho comprato il girocollo per un galà ed è stato al centro dell\'attenzione."',
+        test_t2_role:'Imprenditrice, Monterrey',
+        test_t3_text:'"L\'attenzione personalizzata e la qualità del pezzo hanno superato le mie aspettative."',
+        test_t3_role:'Collezionista, Madrid',
+        social_label:'Comunità', social_title:'Brilla con Noi',
+        social_sub:'Connettiti con il laboratorio e scopri come trasformiamo l\'argento.',
+        social_wa_desc:'Attenzione personalizzata', social_wa_cta:'WhatsApp',
+        social_tt_desc:'La brillantezza in video', social_tt_cta:'Segui',
+        social_ig_desc:'La nostra vetrina digitale', social_ig_cta:'Esplora',
+        social_pi_desc:'Bacheche di ispirazione', social_pi_cta:'Pinnalo',
+        contact_label:'Contatto', contact_title:'Il Tuo Gioiello su Misura',
+        contact_sub:'Hai un design in mente? I nostri maestri orafi possono realizzarlo.',
+        contact_name:'Nome', contact_name_ph:'Il tuo nome',
+        contact_email:'Email', contact_type:'Categoria', contact_type_ph:'Cosa cerchi?',
+        contact_type_cer:'Anelli', contact_type_joy:'Collane',
+        contact_type_tex:'Bracciali', contact_type_mad:'Orecchini', contact_type_otr:'Ordine Speciale',
+        contact_msg:'Messaggio', contact_msg_ph:'Raccontaci la tua idea...', contact_submit:'Invia Richiesta',
+        contact_wa_title:'WhatsApp Vendite', contact_wa_desc:'Risposta immediata',
+        contact_loc_title:'Laboratorio Principale', contact_loc_desc:'Centro Storico, Taxco, Guerrero, Messico',
+        contact_hours_title:'Orari', contact_hours_lun:'Lun - Ven', contact_hours_sab:'Sabato', contact_hours_dom:'Domenica', contact_hours_closed:'Chiuso',
+        cta_title:'Porta la Brillantezza<br>di Taxco', cta_sub:'Un gioiello di La Azteca è un investimento. Quale sarà la tua eredità?', cta_btn1:'Preventivo per il mio Gioiello',
+        footer_desc:'Gioielleria d\'autore in argento .925. Maestri orafi di Taxco de Alarcon.',
+        footer_nav:'Navigazione', footer_social:'Social', footer_legal:'Legale',
+        footer_privacy:'Privacy', footer_terms:'Termini', footer_shipping:'Spedizioni',
+        footer_rights:'Todos los derechos reservados.', footer_made:'Hecho con 🤍 en Taxco, México',
+        toast_sent:'¡Solicitud enviada! Nos contactaremos pronto.',
+        toast_added:'¡Añadido! Contáctanos para personalizar tu talla.',
+        modal_cta:'Pedir por WhatsApp', modal_close:'Cerrar',
+      },
+      en: {
+        nav_coleccion:'Collection', nav_destacada:'Featured', nav_historia:'History', nav_proceso:'Process', nav_contacto:'Contact', nav_cta:'Quote',
+        hero_badge:'Mexican .925 Silver Jewelry', hero_title_1:'The Ancestral', hero_title_2:'Reimagined',
+        hero_sub:'Unique pieces connecting millennia of Aztec tradition with contemporary design in fine Taxco silver. Each work carries the soul of the master silversmith.',
+        hero_cta1:'View Collection', hero_cta2:'Our Story',
+        hero_stat1:'Years of Tradition', hero_stat2:'Handmade', hero_stat3:'.925 Silver', hero_scroll:'Discover',
+        col_label:'2025 Collection', col_title:'Jewels with Soul',
+        col_sub:'Each piece is unique, forged in pure silver using the techniques of ancient Taxco masters.',
+        col_p1_name:'Jaguar Ring', col_p1_desc:'.925 silver hand-chiseled',
+        col_p2_name:'Turquoise Choker', col_p2_desc:'.925 silver and natural turquoise',
+        col_p3_name:'Calendar Bracelet', col_p3_desc:'Fine relief silversmithing',
+        col_p4_name:'Eagle Earrings', col_p4_desc:'.925 silver with matte finish',
+        col_viewall:'View all collection', col_quick:'View Details',
+        badge_new:'New', badge_limited:'Limited',
+        feat_label:'Gallery Piece', feat_name:'Moon Crown',
+        feat_badge:'Museum Edition', feat_title:'Moon Crown',
+        feat_p1:'A masterpiece of contemporary silversmithing. Crafted in .925 sterling silver with 14k gold accents, this tiara pays tribute to Coyolxauhqui, the Aztec moon goddess.',
+        feat_d1:'Days of work', feat_d2:'Fine Silver', feat_d3:'Silversmiths',
+        feat_cta1:'Check Availability', feat_cta2:'View Details',
+        hist_label:'Our Story', hist_title:'Silver Legacy',
+        hist_badge_title:'5th Generation', hist_badge_sub:'Of silversmiths',
+        hist_p1:'La Azteca was born in the heart of Taxco, Guerrero, the world capital of silver. We are the fifth generation of master silversmiths who have transformed metal into art, preserving the chiseling and embossing techniques that define our identity.',
+        hist_p2:'Each jewel that leaves our workshop carries centuries of knowledge, the precision of the chisel, and the brilliance of our heritage. We don\'t mass-produce: we create pieces with history.',
+        hist_v1_title:'Casting', hist_v1_desc:'Traditional methods',
+        hist_v2_title:'Chiseling', hist_v2_desc:'Freehand details',
+        hist_v3_title:'Pure Silver', hist_v3_desc:'Certified .925 sterling',
+        hist_v4_title:'Taxco', hist_v4_desc:'Pride of Guerrero',
+        proc_label:'The Art of Metal', proc_title:'Forging Tradition',
+        proc_sub:'The creation process of a La Azteca jewel is a journey of precision and art that takes weeks.',
+        proc_s1_title:'Design', proc_s1_desc:'We sketch each piece inspired by the Borgia Codex and the architecture of Tenochtitlan.',
+        proc_s2_title:'Casting', proc_s2_desc:'We melt pure silver to create the base ingot, maintaining the metal\'s purity.',
+        proc_s3_title:'Silversmithing', proc_s3_desc:'Chiseling, embossing, and precision welding. This is where the metal comes to life.',
+        proc_s4_title:'Polishing', proc_s4_desc:'The final finish that gives silver its characteristic lunar brilliance. The piece is ready.',
+        test_label:'Testimonials', test_title:'Real Experiences',
+        test_t1_text:'"The jaguar ring is impressive. You can see the manual work in every detail. It\'s more than a jewel, it\'s art."',
+        test_t1_role:'Loyal Customer, Taxco',
+        test_t2_text:'"I bought the choker for a gala and it was the center of attention. The elegance of Taxco silver is unmatched."',
+        test_t2_role:'Businesswoman, Monterrey',
+        test_t3_text:'"The personalized attention and piece quality exceeded my expectations. A piece of Mexico in my hands."',
+        test_t3_role:'Collector, Madrid',
+        social_label:'Community', social_title:'Shine with Us',
+        social_sub:'Connect with the workshop and discover how we transform silver into eternal treasures.',
+        social_wa_desc:'Personalized attention', social_wa_cta:'WhatsApp',
+        social_tt_desc:'The brilliance on video', social_tt_cta:'Follow',
+        social_ig_desc:'Our digital showcase', social_ig_cta:'Explore',
+        social_pi_desc:'Inspiration boards', social_pi_cta:'Pin it',
+        contact_label:'Contact', contact_title:'Your Custom Jewel',
+        contact_sub:'Have a design in mind? Our master silversmiths can make it real in fine silver.',
+        contact_name:'Name', contact_name_ph:'Your name',
+        contact_email:'Email', contact_type:'Category', contact_type_ph:'What are you looking for?',
+        contact_type_cer:'Rings', contact_type_joy:'Necklaces & Pendants',
+        contact_type_tex:'Bracelets', contact_type_mad:'Earrings', contact_type_otr:'Special Order',
+        contact_msg:'Message', contact_msg_ph:'Tell us your idea...', contact_submit:'Send Request',
+        contact_wa_title:'Sales WhatsApp', contact_wa_desc:'Immediate response',
+        contact_loc_title:'Main Workshop', contact_loc_desc:'Historic Center, Taxco, Guerrero, Mexico',
+        contact_hours_title:'Hours', contact_hours_lun:'Mon - Fri', contact_hours_sab:'Saturday', contact_hours_dom:'Sunday', contact_hours_closed:'Closed',
+        cta_title:'Take the Brilliance<br>of Taxco', cta_sub:'A La Azteca jewel is an investment in art and tradition. What will be your legacy?', cta_btn1:'Quote My Jewel',
+        footer_desc:'Author jewelry in .925 sterling silver. Master silversmiths from Taxco de Alarcon.',
+        footer_nav:'Navigation', footer_social:'Social', footer_legal:'Legal',
+        footer_privacy:'Privacy', footer_terms:'Terms', footer_shipping:'Shipping',
+        footer_rights:'All rights reserved.', footer_made:'Made with 🤍 in Taxco, Mexico',
+        toast_sent:'Request sent! We\'ll contact you soon.',
+        toast_added:'Added! Contact us to customize your size.',
+        modal_cta:'Order via WhatsApp', modal_close:'Close',
+      },
+    };
+
+    const availableLangs = ['es', 'en', 'fr', 'de', 'it'];
+    let currentLang = 'es';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang] && translations[lang][key]) el.placeholder = translations[lang][key];
+      });
+      document.querySelectorAll('select option[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      const toggle = document.getElementById('langToggle');
+      const slider = toggle.querySelector('div:first-child');
+      const idx = availableLangs.indexOf(lang);
+      slider.style.transform = `translateX(${idx * 4}px)`;
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      const nextIdx = (availableLangs.indexOf(currentLang) + 1) % availableLangs.length;
+      setLang(availableLangs[nextIdx]);
+      
+      const labels = document.querySelectorAll('#langToggle span');
+      labels[0].textContent = currentLang.toUpperCase();
+      labels[1].textContent = availableLangs[(nextIdx + 1) % availableLangs.length].toUpperCase();
+    });
+
+    // ===== LOADER =====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1200);
+    });
+
+    // ===== MOBILE MENU =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.style.maxHeight = menuOpen ? '300px' : '0';
+      mobileMenu.style.opacity = menuOpen ? '1' : '0';
+    });
+    document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.style.maxHeight = '0';
+      mobileMenu.style.opacity = '0';
+    }));
+
+    // ===== SCROLL REVEAL =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ===== NAVBAR HIDE ON SCROLL =====
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      const y = window.pageYOffset;
+      if (y > 100) {
+        navbar.style.opacity = y > lastScroll ? '0' : '1';
+        navbar.style.transform = y > lastScroll ? 'translateY(-100%)' : 'translateY(0)';
+      } else {
+        navbar.style.opacity = '1';
+        navbar.style.transform = 'translateY(0)';
+      }
+      lastScroll = y;
+
+      // Floating WA + Back to top
+      document.getElementById('floatingWA').classList.toggle('visible', y > 500);
+      document.getElementById('backToTop').classList.toggle('visible', y > 800);
+    }, { passive: true });
+
+    // ===== BACK TO TOP =====
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== PARALLAX (subtle) =====
+    window.addEventListener('scroll', () => {
+      const y = window.pageYOffset;
+      document.querySelectorAll('.parallax-slow').forEach(el => {
+        el.style.transform = `translateY(${y * 0.03}px)`;
+      });
+    }, { passive: true });
+
+    // ===== COUNTER ANIMATION =====
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          let current = 0;
+          const step = Math.ceil(target / 60);
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(timer); }
+            el.textContent = current;
+          }, 25);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+    // ===== TOAST =====
+    function showToast(customMsg) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMsg');
+      if (customMsg) msg.textContent = customMsg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        const key = msg.getAttribute('data-i18n');
+        if (translations[currentLang][key]) msg.textContent = translations[currentLang][key];
+      }, 3500);
+    }
+    function showToastMsg() {
+      showToast(translations[currentLang].toast_added);
+    }
+
+    // ===== PRODUCT MODAL =====
+    function openModal(index) {
+      const p = products[index];
+      const lang = currentLang;
+      document.getElementById('modalImg').src = p.img;
+      document.getElementById('modalBadge').textContent = lang === 'es' ? p.badge_es : p.badge_en;
+      document.getElementById('modalBadge').className = `text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${p.badgeClass}`;
+      document.getElementById('modalTitle').textContent = lang === 'es' ? p.title_es : p.title_en;
+      document.getElementById('modalDesc').textContent = lang === 'es' ? p.desc_es : p.desc_en;
+      document.getElementById('modalPrice').textContent = p.price;
+
+      const details = lang === 'es' ? p.details_es : p.details_en;
+      const detailsEl = document.getElementById('modalDetails');
+      detailsEl.innerHTML = details.map(([label, value]) =>
+        `<div class="flex items-center justify-between py-2 border-b border-gold/5">
+          <span class="text-creamMuted text-xs uppercase tracking-wider">${label}</span>
+          <span class="text-cream text-sm font-medium">${value}</span>
+        </div>`
+      ).join('');
+
+      document.getElementById('productModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // ===== CONTACT FORM =====
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast();
+      e.target.reset();
+    });
+
+    // ===== INIT LUCIDE =====
+    lucide.createIcons();
+  </script>
+</body>
+</html>
