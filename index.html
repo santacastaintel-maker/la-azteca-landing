@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="icon" type="image/png" href="img/aztecalogo.png">
   <script>
     tailwind.config = {
       theme: {
@@ -297,9 +298,9 @@
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
-      <div class="center-dot"></div>
+      <img src="img/aztecalogo.png" alt="Logo" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 object-contain animate-pulse2">
     </div>
-    <p class="font-display text-gold text-sm mt-6 tracking-widest uppercase">La Azteca</p>
+    <img src="img/aztecalogo.png" alt="La Azteca" class="h-10 w-auto mt-6">
     <div class="aztec-border w-32 mt-4"></div>
   </div>
 
@@ -364,10 +365,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
       <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
         <a href="#hero" class="flex items-center gap-3 group">
-          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-terracotta flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <span class="font-display font-bold text-lg text-cream tracking-tight">La Azteca</span>
+          <img src="img/aztecalogo.png" alt="La Azteca Logo" class="h-10 w-auto transition-transform duration-300 group-hover:scale-110">
         </a>
         <div class="hidden md:flex items-center gap-8">
           <a href="#coleccion" class="text-sm text-creamMuted hover:text-gold transition-colors" data-i18n="nav_coleccion">Colección</a>
@@ -1013,11 +1011,8 @@
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
         <div class="col-span-2 md:col-span-1">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-gold to-terracotta flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A0A0F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-            </div>
-            <span class="font-display font-bold text-lg text-cream">La Azteca</span>
+          <div class="flex items-center gap-3 mb-6">
+            <img src="img/aztecalogo.png" alt="La Azteca Logo" class="h-12 w-auto">
           </div>
           <p class="text-creamMuted text-sm leading-relaxed" data-i18n="footer_desc">Joyería de autor en plata ley .925. Maestros orfebres de Taxco de Alarcon.</p>
         </div>
