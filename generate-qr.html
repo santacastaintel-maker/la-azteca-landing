@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de QR Prehispánico — La Azteca</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Modern QR styling library -->
+  <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #080F21;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+  <div class="max-w-xl w-full text-center space-y-6">
+    <div class="flex justify-center mb-2">
+      <img src="img/aztecalogo.png" alt="La Azteca" class="h-16 w-auto">
+    </div>
+    
+    <h1 class="text-3xl font-bold font-display bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
+      Generador de QR Prehispánico
+    </h1>
+    <p class="text-sm text-slate-400">
+      Esta herramienta genera una imagen de alta resolución lista para imprimir o enviar a tu cliente. Contiene el código QR real y escaneable de tu sitio, decorado con grecas y simbología.
+    </p>
+
+    <!-- Canvas Preview Box -->
+    <div class="bg-[#0F1A36] border border-sky-500/20 p-6 rounded-3xl inline-block shadow-2xl relative">
+      <canvas id="qrCanvas" width="800" height="1000" class="max-w-full h-auto rounded-xl border border-slate-700/50 shadow-inner bg-[#F4F1EA]"></canvas>
+      
+      <!-- Invisible QR Holder for the library -->
+      <div id="hidden-qr" class="hidden"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btnDownload" class="bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-slate-950 font-bold px-8 py-4 rounded-2xl shadow-lg shadow-sky-400/20 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar en Alta Resolución (PNG)
+      </button>
+      <a href="http://localhost:8080" class="border border-slate-700 hover:bg-slate-800/50 text-slate-300 font-semibold px-6 py-4 rounded-2xl transition-all flex items-center justify-center text-sm">
+        Volver al Sitio Web
+      </a>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const canvas = document.getElementById('qrCanvas');
+      const ctx = canvas.getContext('2d');
+      const logoUrl = 'img/aztecalogo.png';
+      
+      // Colors matching the pre-Hispanic / premium style
+      const colorBg = '#F4F1EA';       // Papel amate
+      const colorObsidian = '#0F1A36'; // Azul obsidiana profundo
+      const colorGold = '#C89D3C';     // Oro azteca
+      const colorCobalt = '#2563EB';   // Azul cobalto
+
+      // Initialize the styling QR library
+      const qrCode = new QRCodeStyling({
+        width: 500,
+        height: 500,
+        type: 'canvas',
+        data: 'https://www.platerialaazteca.com.mx/',
+        image: logoUrl,
+        dotsOptions: {
+          color: colorObsidian,
+          type: 'rounded' // Smooth, professional rounded dots
+        },
+        backgroundOptions: {
+          color: 'transparent',
+        },
+        imageOptions: {
+          crossOrigin: 'anonymous',
+          margin: 12,
+          imageSizeFactor: 0.4 // Center logo size
+        },
+        cornersSquareOptions: {
+          color: colorObsidian,
+          type: 'extra-rounded' // Matching the rounded premium theme
+        },
+        cornersDotOptions: {
+          color: colorCobalt,
+          type: 'dot'
+        }
+      });
+
+      // Load logo image to draw it in QR and canvas
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.src = logoUrl;
+
+      logoImg.onload = () => {
+        renderCard();
+      };
+
+      // Draw the complete card on the canvas
+      function renderCard() {
+        // 1. Draw Background
+        ctx.fillStyle = colorBg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 2. Draw Aztec Top Border (Geometric step pattern)
+        drawAztecBorder(40);
+
+        // 3. Draw Aztec Bottom Border (Geometric step pattern)
+        drawAztecBorder(canvas.height - 70);
+
+        // 4. Draw Inner Golden Frame
+        ctx.strokeStyle = colorGold;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(50, 90, canvas.width - 100, canvas.height - 210);
+
+        // 5. Draw Title & Branding text
+        ctx.fillStyle = colorObsidian;
+        ctx.font = "bold 32px 'Space Grotesk', sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("PLATERÍA LA AZTECA", canvas.width / 2, 160);
+
+        ctx.fillStyle = colorGold;
+        ctx.font = "bold 14px 'Space Grotesk', sans-serif";
+        ctx.letterSpacing = "6px";
+        ctx.fillText("JOYERÍA FINA .925", canvas.width / 2, 195);
+        ctx.letterSpacing = "0px"; // Reset
+
+        // 6. Draw QR Code in the Center
+        // We render it to a hidden canvas, then draw that canvas image onto our main canvas
+        qrCode.append(document.getElementById('hidden-qr'));
+        
+        // Wait briefly for QR library to output the canvas
+        setTimeout(() => {
+          const qrCanvasElement = document.querySelector('#hidden-qr canvas');
+          if (qrCanvasElement) {
+            const qrX = (canvas.width - 480) / 2;
+            const qrY = 260;
+            ctx.drawImage(qrCanvasElement, qrX, qrY, 480, 480);
+          }
+
+          // 7. Draw bottom text
+          ctx.fillStyle = colorObsidian;
+          ctx.font = "bold 20px 'Space Grotesk', sans-serif";
+          ctx.fillText("Descubre nuestro legado", canvas.width / 2, 810);
+          
+          ctx.fillStyle = '#64748B'; // Muted slate
+          ctx.font = "400 15px 'Inter', sans-serif";
+          ctx.fillText("Escanea para visitar nuestro catálogo en línea", canvas.width / 2, 840);
+          ctx.fillText("www.platerialaazteca.com.mx", canvas.width / 2, 865);
+        }, 100);
+      }
+
+      // Draws a beautiful repeating pre-Hispanic geometric fret pattern
+      function drawAztecBorder(y) {
+        ctx.fillStyle = colorObsidian;
+        ctx.beginPath();
+        const patternWidth = 40;
+        const count = canvas.width / patternWidth;
+        
+        // Step fret pattern
+        for (let i = 0; i < count; i++) {
+          const x = i * patternWidth;
+          ctx.moveTo(x, y + 15);
+          ctx.lineTo(x + 15, y + 15);
+          ctx.lineTo(x + 15, y);
+          ctx.lineTo(x + 25, y);
+          ctx.lineTo(x + 25, y + 25);
+          ctx.lineTo(x + 10, y + 25);
+          ctx.lineTo(x + 10, y + 10);
+          ctx.lineTo(x + 5, y + 10);
+          ctx.lineTo(x + 5, y + 20);
+          ctx.lineTo(x + 30, y + 20);
+          ctx.lineTo(x + 30, y + 5);
+          ctx.lineTo(x + 35, y + 5);
+          ctx.lineTo(x + 35, y + 30);
+          ctx.lineTo(x, y + 30);
+        }
+        ctx.fill();
+
+        // Accent gold line underneath/above the pattern
+        ctx.fillStyle = colorGold;
+        ctx.fillRect(0, y == 40 ? y + 35 : y - 10, canvas.width, 4);
+      }
+
+      // Download action
+      document.getElementById('btnDownload').addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = 'codigo-qr-la-azteca.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    });
+  </script>
+</body>
+
+</html>
