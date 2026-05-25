@@ -46,6 +46,28 @@
             slideUp: 'slideUp 0.4s ease-out forwards',
           },
           keyframes: {
+        filter_all: 'Todas',
+        cat_collares_brazaletes: 'Collares y Brazaletes',
+        sub_opalo: 'Ópalo',
+        sub_greca_azteca: 'Greca Azteca',
+        sub_tubo: 'Tubo',
+        sub_especiales: 'Especiales',
+        sub_liso_martillado: 'Liso/Martillado',
+        sub_spratling: 'Spratling',
+        sub_tejidas: 'Tejidas',
+        cat_pulseras_dama: 'Pulseras de Dama',
+        sub_cartier: 'Tipo Cartier',
+        sub_dije_laser: 'Dije Láser',
+        cat_pulseras_caballero: 'Pulseras de Caballero',
+        cat_aretes: 'Aretes',
+        sub_arracadas: 'Arracadas',
+        sub_otros: 'Otros',
+        cat_dijes: 'Dijes',
+        sub_cera: 'Cera',
+        sub_religiosos: 'Religiosos',
+        sub_cruces: 'Cruces',
+        sub_varios: 'Varios',
+
             float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
             marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
             pulse2: { '50%': { opacity: '0.5' } },
@@ -718,114 +740,19 @@
           pura con la técnica de los antiguos maestros de Taxco.</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Product 1 -->
-        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-1 cursor-pointer"
-          onclick="openModal(0)">
-          <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
-            <img src="img/escarabajo.jpg" alt="Pieza ganadora: eternum" class="w-full h-full object-contain product-img">
-            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
-            <div class="absolute top-3 left-3"><span
-                class="bg-terracotta/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider"
-                data-i18n="badge_new">Nuevo</span></div>
-            <div
-              class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver
-                Detalle</span>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p1_name">Pieza ganadora: eternum</h3>
-            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p1_desc">Plata .925 cincelada a mano</p>
-            <div class="flex items-center justify-between">
-              <span class="text-gold font-display font-bold">$2,800 MXN</span>
-              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
-                aria-label="Agregar" onclick="event.stopPropagation(); addToCart(0)">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Filtros de Categorías Principales -->
+      <div class="flex flex-wrap justify-center gap-3 mb-6 reveal" id="categoryFilterContainer">
+        <!-- Renderizado dinámico de categorías principales -->
+      </div>
 
-        <!-- Product 2 -->
-        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-2 cursor-pointer"
-          onclick="openModal(1)">
-          <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
-            <img src="img/collar_quetzal.jpg" alt="Collar Dios Serpiente"
-              class="w-full h-full object-contain product-img">
-            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
-            <div
-              class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver
-                Detalle</span>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p2_name">Collar Dios Serpiente</h3>
-            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p2_desc">Plata .925 y grabado fino</p>
-            <div class="flex items-center justify-between">
-              <span class="text-gold font-display font-bold">$4,500 MXN</span>
-              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
-                aria-label="Agregar" onclick="event.stopPropagation(); addToCart(1)">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Filtros de Subcategorías -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12 reveal transition-all duration-300" id="subcategoryFilterContainer">
+        <!-- Renderizado dinámico de subcategorías -->
+      </div>
 
-        <!-- Product 3 -->
-        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-3 cursor-pointer"
-          onclick="openModal(2)">
-          <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
-            <img src="img/collar_1.jpg" alt="Maya Nacar"
-              class="w-full h-full object-contain product-img">
-            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
-            <div
-              class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver
-                Detalle</span>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p3_name">Maya Nácar</h3>
-            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p3_desc">Detalles con incrustación de concha</p>
-            <div class="flex items-center justify-between">
-              <span class="text-gold font-display font-bold">$3,200 MXN</span>
-              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
-                aria-label="Agregar" onclick="event.stopPropagation(); addToCart(2)">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 4 -->
-        <div class="glass-card rounded-2xl overflow-hidden group product-card reveal reveal-delay-4 cursor-pointer"
-          onclick="openModal(3)">
-          <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
-            <img src="img/maya.jpg" alt="Maya Ambar" class="w-full h-full object-contain product-img">
-            <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
-            <div class="absolute top-3 left-3"><span
-                class="bg-gold/90 text-base text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider"
-                data-i18n="badge_limited">Limitado</span></div>
-            <div
-              class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver
-                Detalle</span>
-            </div>
-          </div>
-          <div class="p-5">
-            <h3 class="font-display font-semibold text-lg text-cream mb-1" data-i18n="col_p4_name">Maya Ámbar</h3>
-            <p class="text-creamMuted text-sm mb-3" data-i18n="col_p4_desc">Plata .925 y ámbar de Chiapas</p>
-            <div class="flex items-center justify-between">
-              <span class="text-gold font-display font-bold">$6,900 MXN</span>
-              <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
-                aria-label="Agregar" onclick="event.stopPropagation(); addToCart(3)">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Cuadrícula Dinámica de Productos -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[400px]">
+        <!-- Renderizado dinámico de productos mediante JavaScript -->
       </div>
 
       <div class="text-center mt-12 reveal">
@@ -1597,55 +1524,235 @@
   <script>
     // ===== PRODUCT DATA =====
     const products = [
+      // COLLARES Y BRAZALETES (7 subcategories)
       {
-        img: 'img/escarabajo.jpg',
-        badge_es: 'Nuevo', badge_en: 'New', badgeClass: 'bg-terracotta/90 text-white',
-        title_es: 'Pieza ganadora: eternum', title_en: 'Winning piece: eternum',
-        desc_es: 'Escarabajo esculpido a mano en plata pura .925. Una obra galardonada que simboliza la inmortalidad y la regeneración del espíritu ancestral.',
-        desc_en: 'Hand-sculpted beetle in pure .925 silver. An award-winning piece symbolizing immortality and the regeneration of the ancestral spirit.',
-        price: '$2,800 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Peso', '18g'], ['Técnica', 'Esculpido'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Weight', '18g'], ['Technique', 'Sculpted'], ['Origin', 'Taxco']],
-      },
-      {
+        id: 0,
         img: 'img/collar_quetzal.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'opalo',
         badge_es: 'Popular', badge_en: 'Popular', badgeClass: 'bg-purple-500/90 text-white',
-        title_es: 'Collar Dios Serpiente', title_en: 'Serpent God Necklace',
-        desc_es: 'Collar Quetzal en plata .925 que rinde tributo a Quetzalcóatl, la Serpiente Emplumada. Detalles minuciosos que capturan la majestuosidad de la deidad.',
-        desc_en: '.925 silver Quetzal necklace paying tribute to Quetzalcoatl, the Plumed Serpent. Meticulous details capturing the majesty of the deity.',
-        price: '$4,500 MXN',
-        details_es: [['Largo', '45cm'], ['Metal', 'Plata .925'], ['Detalles', 'Cincelado'], ['Origen', 'Taxco']],
-        details_en: [['Length', '45cm'], ['Metal', '.925 Silver'], ['Details', 'Chiseled'], ['Origin', 'Taxco']],
+        title_es: 'Collar Ópalo Ancestral', title_en: 'Ancestral Opal Necklace',
+        desc_es: 'Collar de plata .925 con un ópalo de fuego mexicano engastado. El fuego y color de la tierra en una joya.',
+        desc_en: '.925 silver necklace with a set Mexican fire opal. The fire and color of the earth in a jewel.',
+        price: '$4,800 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Ópalo de Fuego'], ['Origen', 'Taxco']],
+        details_en: [['Metal', '.925 Silver'], ['Stone', 'Fire Opal'], ['Origin', 'Taxco']]
       },
       {
+        id: 1,
         img: 'img/collar_1.jpg',
-        badge_es: 'Hecho a mano', badge_en: 'Handmade', badgeClass: 'bg-gold/90 text-base',
-        title_es: 'Maya Nácar', title_en: 'Maya Nacar',
-        desc_es: 'Collar esculpido en plata .925 con incrustaciones de concha nácar natural. Inspirado en los ornamentos ceremoniales de la civilización maya.',
-        desc_en: 'Sculpted necklace in .925 silver with natural mother-of-pearl inlays. Inspired by the ceremonial ornaments of the Mayan civilization.',
-        price: '$3,200 MXN',
-        details_es: [['Largo', '50cm'], ['Material', 'Plata y Nácar'], ['Técnica', 'Incrustación'], ['Origen', 'Taxco']],
-        details_en: [['Length', '50cm'], ['Material', 'Silver & Pearl'], ['Technique', 'Inlay'], ['Origin', 'Taxco']],
+        category: 'collares_brazaletes',
+        subcategory: 'greca_azteca',
+        badge_es: 'Nuevo', badge_en: 'New', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: 'Gargantilla Greca Azteca', title_en: 'Aztec Fret Choker',
+        desc_es: 'Gargantilla rígida con patrón de greca tallado a mano. Un diseño ancestral reimaginado en plata pura.',
+        desc_en: 'Rigid choker with hand-carved fret pattern. An ancestral design reimagined in pure silver.',
+        price: '$5,200 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cincelado'], ['Origen', 'Taxco']],
+        details_en: [['Metal', '.925 Silver'], ['Technique', 'Chiseled'], ['Origin', 'Taxco']]
       },
       {
+        id: 2,
+        img: 'img/collar_quetzal.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'tubo',
+        badge_es: 'Clásico', badge_en: 'Classic', badgeClass: 'bg-slate-700 text-white',
+        title_es: 'Gargantilla Tubo Azteca', title_en: 'Aztec Tube Choker',
+        desc_es: 'Collar de tubos rígidos articulados en plata fina, diseño minimalista y moderno con un brillo espectacular.',
+        desc_en: 'Articulated rigid tube necklace in fine silver, minimalist and modern design with spectacular shine.',
+        price: '$3,900 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Articulado'], ['Origen', 'Taxco']],
+        details_en: [['Metal', '.925 Silver'], ['Style', 'Articulated'], ['Origin', 'Taxco']]
+      },
+      {
+        id: 3,
+        img: 'img/escarabajo.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'especiales',
+        badge_es: 'Galería', badge_en: 'Gallery', badgeClass: 'bg-gold/90 text-slate-950',
+        title_es: 'Pieza ganadora: eternum', title_en: 'Winning piece: eternum',
+        desc_es: 'Escarabajo esculpido a mano en plata pura .925. Una obra galardonada que simboliza la inmortalidad.',
+        desc_en: 'Hand-sculpted beetle in pure .925 silver. An award-winning piece symbolizing immortality.',
+        price: '$2,800 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Peso', '18g'], ['Técnica', 'Esculpido']],
+        details_en: [['Metal', '.925 Silver'], ['Weight', '18g'], ['Technique', 'Sculpted']]
+      },
+      {
+        id: 4,
+        img: 'img/collar_1.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'liso_martillado',
+        badge_es: 'Hecho a mano', badge_en: 'Handmade', badgeClass: 'bg-gold/90 text-slate-950',
+        title_es: 'Brazalete Martillado', title_en: 'Hammered Bangle',
+        desc_es: 'Brazalete ancho de plata .925 con acabado martillado que captura la luz de forma única y tradicional.',
+        desc_en: 'Wide .925 silver bangle with hammered finish that captures light in a unique, traditional way.',
+        price: '$4,100 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Acabado', 'Martillado'], ['Ancho', '4cm']],
+        details_en: [['Metal', '.925 Silver'], ['Finish', 'Hammered'], ['Width', '4cm']]
+      },
+      {
+        id: 5,
+        img: 'img/collar_quetzal.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'spratling',
+        badge_es: 'Homenaje', badge_en: 'Tribute', badgeClass: 'bg-purple-600 text-white',
+        title_es: 'Collar Diseño Spratling', title_en: 'Spratling Design Necklace',
+        desc_es: 'Collar inspirado en el estilo icónico del maestro William Spratling, padre de la plata de Taxco.',
+        desc_en: 'Necklace inspired by the iconic style of master William Spratling, father of Taxco silver.',
+        price: '$6,500 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Spratling'], ['Origen', 'Taxco']],
+        details_en: [['Metal', '.925 Silver'], ['Style', 'Spratling'], ['Origin', 'Taxco']]
+      },
+      {
+        id: 6,
+        img: 'img/collar_1.jpg',
+        category: 'collares_brazaletes',
+        subcategory: 'tejidas',
+        badge_es: 'Tradición', badge_en: 'Tradition', badgeClass: 'bg-blue-600 text-white',
+        title_es: 'Gargantilla Tejida Fina', title_en: 'Fine Woven Choker',
+        desc_es: 'Collar trenzado artesanalmente hilo por hilo en plata fina .925. Flexibilidad y elegancia sin igual.',
+        desc_en: 'Artisanally braided necklace thread by thread in fine .925 silver. Unmatched flexibility and elegance.',
+        price: '$5,800 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Tejido a mano']],
+        details_en: [['Metal', '.925 Silver'], ['Technique', 'Hand-woven']]
+      },
+      
+      // PULSERAS DE DAMA (2 subcategories)
+      {
+        id: 7,
+        img: 'img/escarabajo.jpg',
+        category: 'pulseras_dama',
+        subcategory: 'cartier',
+        badge_es: 'Elegancia', badge_en: 'Elegance', badgeClass: 'bg-emerald-600 text-white',
+        title_es: 'Pulsera Cartier Dama', title_en: 'Cartier Style Lady Bracelet',
+        desc_es: 'Pulsera tejida estilo Cartier en plata ley .925. Un clásico atemporal que aporta distinción en cualquier ocasión.',
+        desc_en: 'Cartier style woven bracelet in .925 sterling silver. A timeless classic that brings distinction to any occasion.',
+        price: '$2,100 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Cartier Dama']],
+        details_en: [['Metal', '.925 Silver'], ['Style', 'Cartier Lady']]
+      },
+      {
+        id: 8,
         img: 'img/maya.jpg',
-        badge_es: 'Limitado', badge_en: 'Limited', badgeClass: 'bg-gold/90 text-base',
-        title_es: 'Maya Ámbar', title_en: 'Maya Ambar',
-        desc_es: 'Espectacular pieza en plata .925 con ámbar auténtico de Chiapas engastado. Un homenaje al misticismo y colorido de la cultura maya.',
-        desc_en: 'Spectacular .925 silver piece with authentic set Chiapas amber. A tribute to the mysticism and color of the Mayan culture.',
-        price: '$6,900 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Ámbar Natural'], ['Técnica', 'Engastado'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Stone', 'Natural Amber'], ['Technique', 'Bezel Set'], ['Origin', 'Taxco']],
+        category: 'pulseras_dama',
+        subcategory: 'dije_laser',
+        badge_es: 'Detalle', badge_en: 'Detail', badgeClass: 'bg-sky-600 text-slate-950',
+        title_es: 'Pulsera Dijes Láser', title_en: 'Laser Charms Bracelet',
+        desc_es: 'Pulsera fina de eslabones con dijes prehispánicos recortados en alta precisión con tecnología láser.',
+        desc_en: 'Fine link bracelet with pre-Hispanic charms cut in high precision with laser technology.',
+        price: '$1,950 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Corte', 'Láser de precisión']],
+        details_en: [['Metal', '.925 Silver'], ['Cut', 'Precision Laser']]
+      },
+
+      // PULSERAS CABALLERO (1 subcategory)
+      {
+        id: 9,
+        img: 'img/escarabajo.jpg',
+        category: 'pulseras_caballero',
+        subcategory: 'cartier',
+        badge_es: 'Robusto', badge_en: 'Robust', badgeClass: 'bg-slate-700 text-white',
+        title_es: 'Pulsera Cartier Caballero', title_en: 'Cartier Style Men Bracelet',
+        desc_es: 'Espectacular pulsera gruesa estilo Cartier en plata pura .925. Peso y solidez con un brillo excepcional.',
+        desc_en: 'Spectacular thick Cartier style bracelet in pure .925 silver. Weight and solidity with exceptional shine.',
+        price: '$3,600 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Peso', '35g'], ['Estilo', 'Cartier']],
+        details_en: [['Metal', '.925 Silver'], ['Weight', '35g'], ['Style', 'Cartier']]
+      },
+
+      // ARETES (3 subcategories)
+      {
+        id: 10,
+        img: 'img/maya.jpg',
+        category: 'aretes',
+        subcategory: 'opalo',
+        badge_es: 'Color', badge_en: 'Color', badgeClass: 'bg-purple-500/90 text-white',
+        title_es: 'Aretes Ópalo Natural', title_en: 'Natural Opal Earrings',
+        desc_es: 'Aretes cortos con ópalos de fuego mexicanos seleccionados, montados en delicada montura de plata.',
+        desc_en: 'Short earrings with selected Mexican fire opals, set in a delicate silver mount.',
+        price: '$2,400 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Ópalo Natural']],
+        details_en: [['Metal', '.925 Silver'], ['Stone', 'Natural Opal']]
       },
       {
-        img: 'img/frida.jpg',
-        badge_es: 'Pieza Única', badge_en: 'One of a Kind', badgeClass: 'bg-gold/90 text-base',
-        title_es: 'Juego Tradicional Frida', title_en: "Frida's Traditional Set",
-        desc_es: 'Juego de collar y aretes tradicionales en plata ley .925 inspirados en la estética floral de Frida Kahlo. Elegancia mexicana de alta orfebrería.',
-        desc_en: "Traditional necklace and earrings set in .925 sterling silver inspired by Frida Kahlo's floral aesthetics. High-end Mexican silversmithing.",
-        price: '$12,500 MXN',
-        details_es: [['Medida', 'Estándar'], ['Peso', '68g'], ['Técnica', 'Filigrana'], ['Metal', 'Plata .925']],
-        details_en: [['Size', 'Standard'], ['Weight', '68g'], ['Technique', 'Filigree'], ['Metal', '.925 Silver']],
+        id: 11,
+        img: 'img/maya.jpg',
+        category: 'aretes',
+        subcategory: 'arracadas',
+        badge_es: 'Clásico', badge_en: 'Classic', badgeClass: 'bg-slate-600 text-white',
+        title_es: 'Arracadas Grecas', title_en: 'Fret Hoop Earrings',
+        desc_es: 'Arracadas tradicionales de plata fina grabadas con un patrón de greca mesoamericana.',
+        desc_en: 'Traditional fine silver hoop earrings engraved with a Mesoamerican fret pattern.',
+        price: '$1,800 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Greca tallada']],
+        details_en: [['Metal', '.925 Silver'], ['Design', 'Carved fret']]
+      },
+      {
+        id: 12,
+        img: 'img/maya.jpg',
+        category: 'aretes',
+        subcategory: 'otros',
+        badge_es: 'Diseño', badge_en: 'Design', badgeClass: 'bg-gold/90 text-slate-950',
+        title_es: 'Aretes Colgantes Maya', title_en: 'Maya Dangle Earrings',
+        desc_es: 'Aretes colgantes con círculos y grabados mayas tradicionales. Ligeros y elegantes.',
+        desc_en: 'Dangle earrings with traditional Mayan circles and engravings. Lightweight and elegant.',
+        price: '$2,200 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Grabado maya']],
+        details_en: [['Metal', '.925 Silver'], ['Design', 'Mayan engraving']]
+      },
+
+      // DIJES (4 subcategories)
+      {
+        id: 13,
+        img: 'img/escarabajo.jpg',
+        category: 'dijes',
+        subcategory: 'cera',
+        badge_es: 'Artesanal', badge_en: 'Artisanal', badgeClass: 'bg-amber-600 text-white',
+        title_es: 'Dije Esculpido a Cera', title_en: 'Lost-Wax Sculpted Pendant',
+        desc_es: 'Dije único modelado originalmente en cera perdida con diseño de deidad mesoamericana.',
+        desc_en: 'Unique pendant originally modeled in lost-wax featuring a Mesoamerican deity design.',
+        price: '$1,750 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cera Perdida']],
+        details_en: [['Metal', '.925 Silver'], ['Technique', 'Lost-Wax']]
+      },
+      {
+        id: 14,
+        img: 'img/collar_1.jpg',
+        category: 'dijes',
+        subcategory: 'religiosos',
+        badge_es: 'Devoción', badge_en: 'Devotion', badgeClass: 'bg-slate-700 text-white',
+        title_es: 'Medalla Virgen Guadalupe', title_en: 'Guadalupe Virgin Medal',
+        desc_es: 'Medalla en relieve de la Virgen de Guadalupe en plata ley .925 con borde decorado.',
+        desc_en: 'Embossed medal of the Virgin of Guadalupe in .925 sterling silver with a decorated border.',
+        price: '$1,500 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Relieve']],
+        details_en: [['Metal', '.925 Silver'], ['Design', 'Embossed']]
+      },
+      {
+        id: 15,
+        img: 'img/collar_1.jpg',
+        category: 'dijes',
+        subcategory: 'cruces',
+        badge_es: 'Fe', badge_en: 'Faith', badgeClass: 'bg-slate-700 text-white',
+        title_es: 'Cruz Bizantina Cincelada', title_en: 'Chiseled Byzantine Cross',
+        desc_es: 'Cruz de diseño tradicional bizantino con hermosos grabados hechos a mano con cincel.',
+        desc_en: 'Traditional Byzantine design cross with beautiful hand-chiseled engravings.',
+        price: '$1,650 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cincelado']],
+        details_en: [['Metal', '.925 Silver'], ['Technique', 'Chiseled']]
+      },
+      {
+        id: 16,
+        img: 'img/escarabajo.jpg',
+        category: 'dijes',
+        subcategory: 'varios',
+        badge_es: 'Variedad', badge_en: 'Variety', badgeClass: 'bg-gold/90 text-slate-950',
+        title_es: 'Dije Quetzal Mini', title_en: 'Mini Quetzal Pendant',
+        desc_es: 'Mini dije del pájaro quetzal en plata .925, ideal para cadenas delgadas.',
+        desc_en: 'Mini quetzal bird pendant in .925 silver, ideal for thin chains.',
+        price: '$1,200 MXN',
+        details_es: [['Metal', 'Plata .925'], ['Tamaño', 'Mini']],
+        details_en: [['Metal', '.925 Silver'], ['Size', 'Mini']]
       }
     ];
 
@@ -1736,6 +1843,28 @@
         toast_clabe_copied: '¡CLABE copiada al portapapeles!',
       },
       de: {
+        filter_all: 'Alle',
+        cat_collares_brazaletes: 'Halsketten & Armbänder',
+        sub_opalo: 'Opal',
+        sub_greca_azteca: 'Aztekische Greca',
+        sub_tubo: 'Tuben',
+        sub_especiales: 'Besonderes',
+        sub_liso_martillado: 'Glatt/Gehämmert',
+        sub_spratling: 'Spratling',
+        sub_tejidas: 'Gewebt',
+        cat_pulseras_dama: 'Damenarmbänder',
+        sub_cartier: 'Cartier-Stil',
+        sub_dije_laser: 'Laser-Anhänger',
+        cat_pulseras_caballero: 'Herrenarmbänder',
+        cat_aretes: 'Ohrringe',
+        sub_arracadas: 'Creolen',
+        sub_otros: 'Andere',
+        cat_dijes: 'Anhänger',
+        sub_cera: 'Wachs',
+        sub_religiosos: 'Religiös',
+        sub_cruces: 'Kreuze',
+        sub_varios: 'Verschiedene',
+
         nav_coleccion: 'Kollektion', nav_destacada: 'Besonderes', nav_historia: 'Geschichte', nav_proceso: 'Prozess', nav_contacto: 'Kontakt', nav_cta: 'Angebot',
         hero_badge: 'Mexikanischer .925 Silberschmuck', hero_title_1: 'Das Ahnenwerk', hero_title_2: 'Neu Erfunden',
         hero_sub: 'Einzigartige Stücke, die jahrtausendealte aztekische Tradition mit modernem Design aus feinem Taxco-Silber verbinden. Jedes Werk trägt die Seele des Goldschmiedemeisters.',
@@ -1820,6 +1949,28 @@
         toast_clabe_copied: 'CLABE in die Zwischenablage kopiert!',
       },
       it: {
+        filter_all: 'Tutte',
+        cat_collares_brazaletes: 'Collane & Bracciali',
+        sub_opalo: 'Opale',
+        sub_greca_azteca: 'Greca Azteca',
+        sub_tubo: 'Tubo',
+        sub_especiales: 'Speciali',
+        sub_liso_martillado: 'Liscio/Martellato',
+        sub_spratling: 'Spratling',
+        sub_tejidas: 'Intrecciato',
+        cat_pulseras_dama: 'Bracciali da Donna',
+        sub_cartier: 'Stile Cartier',
+        sub_dije_laser: 'Pendente Laser',
+        cat_pulseras_caballero: 'Bracciali da Uomo',
+        cat_aretes: 'Orecchini',
+        sub_arracadas: 'Cerchi',
+        sub_otros: 'Altri',
+        cat_dijes: 'Pendenti',
+        sub_cera: 'Cera',
+        sub_religiosos: 'Religiosi',
+        sub_cruces: 'Croci',
+        sub_varios: 'Vari',
+
         nav_coleccion: 'Collezione', nav_destacada: 'In primo piano', nav_historia: 'Storia', nav_proceso: 'Processo', nav_contacto: 'Contatto', nav_cta: 'Preventivo',
         hero_badge: 'Gioielli Messicani in Argento .925', hero_title_1: 'L\'Ancestrale', hero_title_2: 'Reimmaginato',
         hero_sub: 'Pezzi unici che collegano millenni di tradizione azteca con il design contemporaneo in argento fine di Taxco. Ogni opera porta l\'anima del maestro orafo.',
@@ -1904,6 +2055,28 @@
         toast_clabe_copied: 'CLABE copiata negli appunti!',
       },
       en: {
+        filter_all: 'All',
+        cat_collares_brazaletes: 'Necklaces & Bangles',
+        sub_opalo: 'Opal',
+        sub_greca_azteca: 'Aztec Fret',
+        sub_tubo: 'Tube',
+        sub_especiales: 'Specials',
+        sub_liso_martillado: 'Smooth/Hammered',
+        sub_spratling: 'Spratling',
+        sub_tejidas: 'Woven',
+        cat_pulseras_dama: 'Women\'s Bracelets',
+        sub_cartier: 'Cartier Style',
+        sub_dije_laser: 'Laser Charm',
+        cat_pulseras_caballero: 'Men\'s Bracelets',
+        cat_aretes: 'Earrings',
+        sub_arracadas: 'Hoops',
+        sub_otros: 'Others',
+        cat_dijes: 'Pendants',
+        sub_cera: 'Wax',
+        sub_religiosos: 'Religious',
+        sub_cruces: 'Crosses',
+        sub_varios: 'Various',
+
         nav_coleccion: 'Collection', nav_destacada: 'Featured', nav_historia: 'History', nav_proceso: 'Process', nav_contacto: 'Contact', nav_cta: 'Quote',
         hero_badge: 'Mexican .925 Silver Jewelry', hero_title_1: 'The Ancestral', hero_title_2: 'Reimagined',
         hero_sub: 'Unique pieces connecting millennia of Aztec tradition with contemporary design in fine Taxco silver. Each work carries the soul of the master silversmith.',
@@ -1988,6 +2161,28 @@
         toast_clabe_copied: 'CLABE copied to clipboard!',
       },
       fr: {
+        filter_all: 'Tout',
+        cat_collares_brazaletes: 'Colliers & Bracelets',
+        sub_opalo: 'Opale',
+        sub_greca_azteca: 'Grecque Aztèque',
+        sub_tubo: 'Tube',
+        sub_especiales: 'Spéciaux',
+        sub_liso_martillado: 'Lisse/Martelé',
+        sub_spratling: 'Spratling',
+        sub_tejidas: 'Tressé',
+        cat_pulseras_dama: 'Bracelets de Dame',
+        sub_cartier: 'Style Cartier',
+        sub_dije_laser: 'Pendentif Laser',
+        cat_pulseras_caballero: 'Bracelets d\'Homme',
+        cat_aretes: 'Boucles d\'oreilles',
+        sub_arracadas: 'Créoles',
+        sub_otros: 'Autres',
+        cat_dijes: 'Pendentifs',
+        sub_cera: 'Cire',
+        sub_religiosos: 'Religieux',
+        sub_cruces: 'Croix',
+        sub_varios: 'Divers',
+
         nav_coleccion: 'Collection', nav_destacada: 'Vedette', nav_historia: 'Histoire', nav_proceso: 'Processus', nav_contacto: 'Contact', nav_cta: 'Devis',
         hero_badge: 'Bijoux Mexicains en Argent .925', hero_title_1: 'L\'Ancestrale', hero_title_2: 'Réimaginé',
         hero_sub: 'Des pièces uniques reliant des millénaires de tradition aztèque au design contemporain en argent fin de Taxco. Chaque œuvre porte l\'âme du maître orfèvre.',
@@ -2099,6 +2294,13 @@
       // Update cart items text to use the new language
       if (typeof updateCartUI === 'function') {
         updateCartUI();
+      }
+      
+      // Update dynamic filters language
+      if (typeof renderCategoryFilters === 'function') {
+        renderCategoryFilters();
+        renderSubcategoryFilters();
+        updateCatalogProducts();
       }
     }
 
@@ -2471,8 +2673,133 @@
       });
     }
 
-    // Initialize UI on load
+    // ===== CATEGORY FILTERS LOGIC =====
+    const categoryStructure = {
+      collares_brazaletes: ['opalo', 'greca_azteca', 'tubo', 'especiales', 'liso_martillado', 'spratling', 'tejidas'],
+      pulseras_dama: ['cartier', 'dije_laser'],
+      pulseras_caballero: ['cartier'],
+      aretes: ['opalo', 'arracadas', 'otros'],
+      dijes: ['cera', 'religiosos', 'cruces', 'varios']
+    };
+
+    let activeCategory = 'collares_brazaletes';
+    let activeSubcategory = 'all';
+
+    function renderCategoryFilters() {
+      const container = document.getElementById('categoryFilterContainer');
+      if (!container) return;
+      const categories = Object.keys(categoryStructure);
+      
+      container.innerHTML = categories.map(cat => {
+        const isActive = activeCategory === cat;
+        const label = translations[currentLang][`cat_${cat}`] || cat;
+        const btnClass = isActive 
+          ? "bg-gradient-to-r from-gold to-goldDark text-slate-950 font-bold shadow-lg shadow-gold/15"
+          : "bg-surfaceLight/50 text-creamMuted hover:text-cream border border-creamMuted/10 hover:border-gold/30";
+        return `<button onclick="setCategory('${cat}')" class="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${btnClass}">${label}</button>`;
+      }).join('');
+    }
+
+    function renderSubcategoryFilters() {
+      const container = document.getElementById('subcategoryFilterContainer');
+      if (!container) return;
+      const subcats = categoryStructure[activeCategory] || [];
+      
+      const allLabel = translations[currentLang]['filter_all'] || 'Todas';
+      const isAllActive = activeSubcategory === 'all';
+      const allBtnClass = isAllActive
+        ? "bg-gold/10 text-gold border border-gold/30"
+        : "bg-transparent text-creamMuted hover:text-cream border border-creamMuted/10";
+        
+      let html = `<button onclick="setSubcategory('all')" class="px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 border ${allBtnClass}">${allLabel}</button>`;
+      
+      html += subcats.map(sub => {
+        const isActive = activeSubcategory === sub;
+        const label = translations[currentLang][`sub_${sub}`] || sub;
+        const btnClass = isActive 
+          ? "bg-gold/10 text-gold border border-gold/30"
+          : "bg-transparent text-creamMuted hover:text-cream border border-creamMuted/10";
+        return `<button onclick="setSubcategory('${sub}')" class="px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 border ${btnClass}">${label}</button>`;
+      }).join('');
+      
+      container.innerHTML = html;
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      activeSubcategory = 'all';
+      renderCategoryFilters();
+      renderSubcategoryFilters();
+      updateCatalogProducts();
+    }
+
+    function setSubcategory(sub) {
+      activeSubcategory = sub;
+      renderSubcategoryFilters();
+      updateCatalogProducts();
+    }
+
+    function updateCatalogProducts() {
+      const grid = document.getElementById('productGrid');
+      if (!grid) return;
+      
+      const filtered = products.filter(p => {
+        const matchCat = p.category === activeCategory;
+        const matchSub = activeSubcategory === 'all' || p.subcategory === activeSubcategory;
+        return matchCat && matchSub;
+      });
+      
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full flex flex-col items-center justify-center py-20 text-center reveal">
+            <i data-lucide="sparkles" class="w-12 h-12 text-gold/30 mb-4 animate-pulse"></i>
+            <h3 class="font-display font-semibold text-lg text-cream mb-1">Próximamente más piezas</h3>
+            <p class="text-creamMuted text-xs max-w-xs mx-auto">Estamos fotografiando nuestras últimas creaciones en el taller. Vuelve pronto.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+      
+      grid.innerHTML = filtered.map(p => {
+        const originalIndex = products.findIndex(x => x.img === p.img && x.title_es === p.title_es);
+        const title = currentLang === 'es' ? p.title_es : p.title_en;
+        const desc = currentLang === 'es' ? p.desc_es : p.desc_en;
+        const badge = currentLang === 'es' ? p.badge_es : p.badge_en;
+        
+        return `
+          <div class="glass-card rounded-2xl overflow-hidden group product-card cursor-pointer reveal" onclick="openModal(${originalIndex})">
+            <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
+              <img src="${p.img}" alt="${title}" class="w-full h-full object-contain product-img">
+              <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
+              ${badge ? `<div class="absolute top-3 left-3"><span class="text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${p.badgeClass}">${badge}</span></div>` : ''}
+              <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+              </div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-display font-semibold text-lg text-cream mb-1">${title}</h3>
+              <p class="text-creamMuted text-sm mb-3 line-clamp-1">${desc}</p>
+              <div class="flex items-center justify-between">
+                <span class="text-gold font-display font-bold">${p.price}</span>
+                <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
+                  aria-label="Agregar" onclick="event.stopPropagation(); addToCart(${originalIndex})">
+                  <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      lucide.createIcons();
+    }
+
+    // Initialize UI and Filters on load
     updateCartUI();
+    renderCategoryFilters();
+    renderSubcategoryFilters();
+    updateCatalogProducts();
 
     // ===== INIT LUCIDE =====
     lucide.createIcons();
