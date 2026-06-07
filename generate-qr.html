@@ -13,8 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #080F21;
-      color: #F8FAFC;
+      background-color: #F4F1EA;
+      color: #1C2B3E;
       font-family: 'Inter', sans-serif;
     }
   </style>
@@ -27,16 +27,16 @@
       <img src="img/aztecalogo.png" alt="La Azteca" class="h-16 w-auto">
     </div>
     
-    <h1 class="text-3xl font-bold font-display bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent">
+    <h1 class="text-3xl font-bold font-display bg-gradient-to-r from-[#0D2A4A] to-[#2E5B88] bg-clip-text text-transparent">
       Generador de QR Prehispánico
     </h1>
-    <p class="text-sm text-slate-400">
+    <p class="text-sm text-slate-600">
       Esta herramienta genera una imagen de alta resolución lista para imprimir o enviar a tu cliente. Contiene el código QR real y escaneable de tu sitio, decorado con grecas y simbología.
     </p>
 
     <!-- Canvas Preview Box -->
-    <div class="bg-[#0F1A36] border border-sky-500/20 p-6 rounded-3xl inline-block shadow-2xl relative">
-      <canvas id="qrCanvas" width="800" height="1000" class="max-w-full h-auto rounded-xl border border-slate-700/50 shadow-inner bg-[#F4F1EA]"></canvas>
+    <div class="bg-white border border-[#0D2A4A]/10 p-6 rounded-3xl inline-block shadow-2xl relative">
+      <canvas id="qrCanvas" width="800" height="1000" class="max-w-full h-auto rounded-xl border border-slate-200 shadow-inner bg-[#F4F1EA]"></canvas>
       
       <!-- Invisible QR Holder for the library -->
       <div id="hidden-qr" class="hidden"></div>
@@ -44,11 +44,11 @@
 
     <!-- Actions -->
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <button id="btnDownload" class="bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-slate-950 font-bold px-8 py-4 rounded-2xl shadow-lg shadow-sky-400/20 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+      <button id="btnDownload" class="bg-gradient-to-r from-[#0D2A4A] to-[#2E5B88] hover:from-[#06162B] hover:to-[#0D2A4A] text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-[#0D2A4A]/15 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar en Alta Resolución (PNG)
       </button>
-      <a href="http://localhost:8080" class="border border-slate-700 hover:bg-slate-800/50 text-slate-300 font-semibold px-6 py-4 rounded-2xl transition-all flex items-center justify-center text-sm">
+      <a href="index.html" class="border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold px-6 py-4 rounded-2xl transition-all flex items-center justify-center text-sm">
         Volver al Sitio Web
       </a>
     </div>
@@ -62,9 +62,9 @@
       
       // Colors matching the pre-Hispanic / premium style
       const colorBg = '#F4F1EA';       // Papel amate
-      const colorObsidian = '#0F1A36'; // Azul obsidiana profundo
+      const colorObsidian = '#0D2A4A'; // Azul obsidiana profundo
       const colorGold = '#C89D3C';     // Oro azteca
-      const colorCobalt = '#2563EB';   // Azul cobalto
+      const colorCobalt = '#5C7C8A';   // Azul cobalto
 
       // Initialize the styling QR library
       const qrCode = new QRCodeStyling({

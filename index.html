@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F4F1EA">
   <title>La Azteca — Joyería Fina .925</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,17 +19,18 @@
       theme: {
         extend: {
           colors: {
-            base: '#080F21',
-            surface: '#0F1A36',
-            surfaceLight: '#1A2B54',
-            gold: '#38BDF8',
-            goldLight: '#7DD3FC',
-            goldDark: '#0284C7',
-            terracotta: '#2563EB',
-            terracottaLight: '#60A5FA',
-            terracottaDark: '#1D4ED8',
-            cream: '#F8FAFC',
-            creamMuted: '#94A3B8',
+            base: 'var(--charcoal)',
+            surface: 'var(--card-bg)',
+            surfaceLight: 'var(--charcoal-light)',
+            gold: 'var(--gold-primary)',
+            goldLight: 'var(--gold-accent)',
+            goldDark: 'var(--gold-dark)',
+            terracotta: 'var(--silver-primary)',
+            terracottaLight: 'var(--silver-light)',
+            terracottaDark: 'var(--silver-dark)',
+            cream: 'var(--text-primary)',
+            creamMuted: 'var(--text-secondary)',
+            warning: 'var(--warning)',
           },
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
@@ -80,6 +82,45 @@
     }
   </script>
   <style>
+    :root {
+      /* ---- Paleta Beige & Azul Premium ---- */
+      --charcoal:       #F4F1EA;       /* Fondo beige crema suave */
+      --charcoal-light: #EBE7DD;       /* Bloques secundarios beige/arena */
+      --card-bg:        #FFFFFF;       /* Tarjetas en blanco para contraste */
+      --card-bg-hover:  #FAF8F5;
+      --border-subtle:  rgba(13, 42, 74, 0.08);
+      --border-gold:    rgba(13, 42, 74, 0.12);
+      --border-silver:  rgba(13, 42, 74, 0.15);
+
+      --gold-primary:   #0D2A4A;       /* Azul clásico marino principal */
+      --gold-accent:    #2E5B88;       /* Azul acero para acentos */
+      --gold-light:     #4A7BB0;       /* Azul medio/claro */
+      --gold-dark:      #06162B;       /* Azul marino profundo */
+      --gold-glow:      rgba(13, 42, 74, 0.15);
+
+      --silver-primary: #5C7C8A;       /* Slate blue secundario */
+      --silver-accent:  #7A9CA6;       /* Azul verdoso apagado */
+      --silver-light:   #9BBEC7;       /* Azul claro grisáceo */
+      --silver-dark:    #3E5A63;       /* Slate oscuro */
+      --silver-glow:    rgba(92, 124, 138, 0.15);
+
+      --off-white:      #F4F1EA;
+      --text-primary:   #1C2B3E;       /* Texto azul marino muy oscuro */
+      --text-secondary: #4E5D6C;       /* Texto pizarra-gris */
+      --text-muted:     #8C9BA5;       /* Texto gris azulado suave */
+
+      /* Colores funcionales ajustados para fondo claro */
+      --success:        #10B981;       /* Verde esmeralda */
+      --danger:         #EF4444;       /* Rojo */
+      --warning:        #F59E0B;       /* Ámbar */
+      --info:           #3B82F6;       /* Azul brillante */
+
+      /* Sombras suavizadas */
+      --shadow-card:    0 4px 20px rgba(13, 42, 74, 0.06);
+      --shadow-gold:    0 8px 30px rgba(13, 42, 74, 0.12);
+      --shadow-elevated:0 12px 40px rgba(13, 42, 74, 0.12);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -87,8 +128,8 @@
     }
 
     body {
-      background: #080F21;
-      color: #F8FAFC;
+      background: var(--charcoal);
+      color: var(--text-primary);
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
@@ -98,7 +139,7 @@
       position: fixed;
       inset: 0;
       z-index: 99999;
-      background: #080F21;
+      background: var(--charcoal);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -126,19 +167,19 @@
     }
 
     .aztec-spinner .ring:nth-child(1) {
-      border-top-color: #38BDF8;
+      border-top-color: var(--gold-primary);
       animation: spin 1.5s linear infinite;
     }
 
     .aztec-spinner .ring:nth-child(2) {
       inset: 8px;
-      border-right-color: #2563EB;
+      border-right-color: var(--silver-primary);
       animation: spin 2s linear infinite reverse;
     }
 
     .aztec-spinner .ring:nth-child(3) {
       inset: 16px;
-      border-bottom-color: #7DD3FC;
+      border-bottom-color: var(--gold-light);
       animation: spin 1s linear infinite;
     }
 
@@ -149,7 +190,7 @@
       transform: translate(-50%, -50%);
       width: 8px;
       height: 8px;
-      background: #38BDF8;
+      background: var(--gold-primary);
       border-radius: 50%;
       animation: pulse2 1.5s ease-in-out infinite;
     }
@@ -173,54 +214,54 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: #080F21;
+      background: var(--charcoal);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #38BDF8;
+      background: var(--gold-primary);
       border-radius: 10px;
     }
 
     /* ===== GLASS ===== */
     .glass {
-      background: rgba(15, 26, 54, 0.7);
+      background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-subtle);
     }
 
     .glass-card {
-      background: rgba(15, 26, 54, 0.5);
+      background: var(--card-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--border-subtle);
       transition: all 0.4s ease;
     }
 
     .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.2);
+      border-color: var(--border-silver);
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.1);
+      box-shadow: var(--shadow-card);
     }
 
     /* ===== PATTERNS ===== */
     .dot-pattern {
-      background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(13, 42, 74, 0.08) 1px, transparent 1px);
       background-size: 24px 24px;
     }
 
     .grid-bg {
       background-image:
-        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(13, 42, 74, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13, 42, 74, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
     .aztec-border {
       background-image: repeating-linear-gradient(90deg,
-          rgba(56, 189, 248, 0.3) 0px, rgba(56, 189, 248, 0.3) 8px,
+          rgba(13, 42, 74, 0.3) 0px, rgba(13, 42, 74, 0.3) 8px,
           transparent 8px, transparent 16px,
-          rgba(37, 99, 235, 0.3) 16px, rgba(37, 99, 235, 0.3) 24px,
+          rgba(92, 124, 138, 0.3) 16px, rgba(92, 124, 138, 0.3) 24px,
           transparent 24px, transparent 32px);
       height: 3px;
     }
@@ -229,10 +270,10 @@
     .aztec-fret {
       background-color: transparent;
       background-image:
-        linear-gradient(135deg, rgba(56, 189, 248, 0.07) 25%, transparent 25%),
-        linear-gradient(225deg, rgba(56, 189, 248, 0.07) 25%, transparent 25%),
-        linear-gradient(45deg, rgba(56, 189, 248, 0.07) 25%, transparent 25%),
-        linear-gradient(315deg, rgba(56, 189, 248, 0.07) 25%, transparent 25%);
+        linear-gradient(135deg, rgba(13, 42, 74, 0.07) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(13, 42, 74, 0.07) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(13, 42, 74, 0.07) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(13, 42, 74, 0.07) 25%, transparent 25%);
       background-size: 24px 24px;
       background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
     }
@@ -245,11 +286,11 @@
 
     /* ===== TEXT GLOW ===== */
     .text-glow {
-      text-shadow: 0 0 30px rgba(212, 168, 67, 0.3);
+      text-shadow: 0 0 30px rgba(13, 42, 74, 0.12);
     }
 
     .text-glow-terra {
-      text-shadow: 0 0 30px rgba(196, 112, 63, 0.3);
+      text-shadow: 0 0 30px rgba(92, 124, 138, 0.12);
     }
 
     /* ===== REVEAL ===== */
@@ -301,7 +342,7 @@
       left: 2px;
       width: 28px;
       height: 24px;
-      background: #D4A843;
+      background: var(--gold-primary);
       border-radius: 6px;
       transition: transform 0.3s ease;
     }
@@ -315,7 +356,7 @@
       width: 300px;
       height: 300px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 168, 67, 0.06), transparent 70%);
+      background: radial-gradient(circle, rgba(13, 42, 74, 0.06), transparent 70%);
       filter: blur(40px);
     }
 
@@ -323,7 +364,7 @@
       width: 250px;
       height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(196, 112, 63, 0.06), transparent 70%);
+      background: radial-gradient(circle, rgba(92, 124, 138, 0.06), transparent 70%);
       filter: blur(40px);
     }
 
@@ -332,8 +373,8 @@
     textarea:focus,
     select:focus {
       outline: none;
-      border-color: rgba(56, 189, 248, 0.4) !important;
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.08);
+      border-color: var(--gold-light) !important;
+      box-shadow: 0 0 0 3px var(--gold-glow);
     }
 
     /* ===== TOAST ===== */
@@ -341,9 +382,9 @@
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: rgba(15, 26, 54, 0.9);
+      background: var(--card-bg);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      border: 1px solid var(--border-silver);
       border-radius: 12px;
       padding: 16px 24px;
       transform: translateY(120%);
@@ -388,8 +429,8 @@
       z-index: 1;
       max-width: 900px;
       width: 100%;
-      background: #0F1A36;
-      border: 1px solid rgba(56, 189, 248, 0.12);
+      background: var(--card-bg);
+      border: 1px solid var(--border-gold);
       border-radius: 24px;
       overflow: hidden;
       transform: scale(0.9);
@@ -424,6 +465,7 @@
     #floatingWA.visible {
       opacity: 1;
       transform: scale(1);
+      pointer-events: auto;
     }
 
     #floatingWA:hover {
@@ -439,14 +481,14 @@
       z-index: 999;
       width: 44px;
       height: 44px;
-      background: rgba(15, 26, 54, 0.8);
+      background: var(--card-bg);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--border-silver);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #38BDF8;
+      color: var(--gold-primary);
       transition: all 0.3s ease;
       opacity: 0;
       transform: translateY(20px);
@@ -460,8 +502,8 @@
     }
 
     #backToTop:hover {
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 0.3);
+      background: var(--card-bg-hover);
+      border-color: var(--border-silver);
     }
 
     /* ===== PARALLAX ===== */
@@ -476,7 +518,7 @@
 
     /* ===== FEATURED PIECE ===== */
     .featured-glow {
-      background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(13, 42, 74, 0.06) 0%, transparent 70%);
     }
 
     /* ===== IMAGE HOVER ZOOM ===== */
@@ -490,6 +532,11 @@
 
     .img-zoom:hover img {
       transform: scale(1.05);
+    }
+
+    /* ===== LOGO HEADER SHADOW ===== */
+    .logo-header {
+      filter: drop-shadow(0 0 8px rgba(13, 42, 74, 0.12));
     }
   </style>
 </head>
@@ -551,11 +598,11 @@
             <div class="flex items-center justify-between">
               <span id="modalPrice" class="font-display font-bold text-2xl text-gold"></span>
               <div class="flex items-center gap-1">
-                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
+                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
+                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
+                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
+                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
               </div>
             </div>
             <!-- Add to Cart in Modal -->
@@ -580,7 +627,7 @@
       <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
         <a href="#hero" class="flex items-center gap-3 group">
           <img src="img/aztecalogo.png" alt="La Azteca Logo"
-            class="h-10 w-auto transition-transform duration-300 group-hover:scale-110">
+            class="logo-header h-10 w-auto transition-transform duration-300 group-hover:scale-110">
         </a>
         <div class="hidden md:flex items-center gap-8">
           <a href="#coleccion" class="text-sm text-creamMuted hover:text-gold transition-colors"
@@ -712,16 +759,16 @@
   <!-- ===== AZTEC SVG DIVIDER ===== -->
   <div class="aztec-divider-svg py-2 flex justify-center overflow-hidden">
     <svg width="800" height="24" viewBox="0 0 800 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-w-full">
-      <path d="M0 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#38BDF8" stroke-width="1.5" />
-      <path d="M80 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#2563EB" stroke-width="1.5" />
-      <path d="M160 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#38BDF8" stroke-width="1.5" />
-      <path d="M240 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#2563EB" stroke-width="1.5" />
-      <path d="M320 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#38BDF8" stroke-width="1.5" />
-      <path d="M400 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#2563EB" stroke-width="1.5" />
-      <path d="M480 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#38BDF8" stroke-width="1.5" />
-      <path d="M560 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#2563EB" stroke-width="1.5" />
-      <path d="M640 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#38BDF8" stroke-width="1.5" />
-      <path d="M720 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#2563EB" stroke-width="1.5" />
+      <path d="M0 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#0D2A4A" stroke-width="1.5" />
+      <path d="M80 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#5C7C8A" stroke-width="1.5" />
+      <path d="M160 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#0D2A4A" stroke-width="1.5" />
+      <path d="M240 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#5C7C8A" stroke-width="1.5" />
+      <path d="M320 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#0D2A4A" stroke-width="1.5" />
+      <path d="M400 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#5C7C8A" stroke-width="1.5" />
+      <path d="M480 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#0D2A4A" stroke-width="1.5" />
+      <path d="M560 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#5C7C8A" stroke-width="1.5" />
+      <path d="M640 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#0D2A4A" stroke-width="1.5" />
+      <path d="M720 12h20l4-8 4 16 4-16 4 16 4-8h20" stroke="#5C7C8A" stroke-width="1.5" />
     </svg>
   </div>
 
@@ -885,30 +932,30 @@
   <!-- ===== AZTEC DIVIDER 2 ===== -->
   <div class="aztec-divider-svg py-2 flex justify-center overflow-hidden">
     <svg width="800" height="30" viewBox="0 0 800 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-w-full">
-      <rect x="0" y="10" width="12" height="12" fill="#38BDF8" opacity="0.15" />
-      <rect x="20" y="10" width="12" height="12" fill="#2563EB" opacity="0.12" />
-      <rect x="40" y="14" width="8" height="8" fill="#38BDF8" opacity="0.1" />
-      <line x1="60" y1="16" x2="120" y2="16" stroke="#38BDF8" stroke-width="0.5" opacity="0.2" />
-      <rect x="130" y="10" width="12" height="12" fill="#2563EB" opacity="0.15" />
-      <rect x="150" y="10" width="12" height="12" fill="#38BDF8" opacity="0.12" />
-      <rect x="170" y="14" width="8" height="8" fill="#2563EB" opacity="0.1" />
-      <line x1="190" y1="16" x2="250" y2="16" stroke="#2563EB" stroke-width="0.5" opacity="0.2" />
-      <rect x="260" y="10" width="12" height="12" fill="#38BDF8" opacity="0.15" />
-      <rect x="280" y="10" width="12" height="12" fill="#2563EB" opacity="0.12" />
-      <rect x="300" y="14" width="8" height="8" fill="#38BDF8" opacity="0.1" />
-      <line x1="320" y1="16" x2="380" y2="16" stroke="#38BDF8" stroke-width="0.5" opacity="0.2" />
-      <rect x="390" y="10" width="12" height="12" fill="#2563EB" opacity="0.15" />
-      <rect x="410" y="10" width="12" height="12" fill="#38BDF8" opacity="0.12" />
-      <rect x="430" y="14" width="8" height="8" fill="#2563EB" opacity="0.1" />
-      <line x1="450" y1="16" x2="510" y2="16" stroke="#2563EB" stroke-width="0.5" opacity="0.2" />
-      <rect x="520" y="10" width="12" height="12" fill="#38BDF8" opacity="0.15" />
-      <rect x="540" y="10" width="12" height="12" fill="#2563EB" opacity="0.12" />
-      <rect x="560" y="14" width="8" height="8" fill="#38BDF8" opacity="0.1" />
-      <line x1="580" y1="16" x2="640" y2="16" stroke="#38BDF8" stroke-width="0.5" opacity="0.2" />
-      <rect x="650" y="10" width="12" height="12" fill="#2563EB" opacity="0.15" />
-      <rect x="670" y="10" width="12" height="12" fill="#38BDF8" opacity="0.12" />
-      <rect x="690" y="14" width="8" height="8" fill="#2563EB" opacity="0.1" />
-      <line x1="710" y1="16" x2="800" y2="16" stroke="#38BDF8" stroke-width="0.5" opacity="0.2" />
+      <rect x="0" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.15" />
+      <rect x="20" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.12" />
+      <rect x="40" y="14" width="8" height="8" fill="#0D2A4A" opacity="0.1" />
+      <line x1="60" y1="16" x2="120" y2="16" stroke="#0D2A4A" stroke-width="0.5" opacity="0.2" />
+      <rect x="130" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.15" />
+      <rect x="150" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.12" />
+      <rect x="170" y="14" width="8" height="8" fill="#5C7C8A" opacity="0.1" />
+      <line x1="190" y1="16" x2="250" y2="16" stroke="#5C7C8A" stroke-width="0.5" opacity="0.2" />
+      <rect x="260" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.15" />
+      <rect x="280" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.12" />
+      <rect x="300" y="14" width="8" height="8" fill="#0D2A4A" opacity="0.1" />
+      <line x1="320" y1="16" x2="380" y2="16" stroke="#0D2A4A" stroke-width="0.5" opacity="0.2" />
+      <rect x="390" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.15" />
+      <rect x="410" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.12" />
+      <rect x="430" y="14" width="8" height="8" fill="#5C7C8A" opacity="0.1" />
+      <line x1="450" y1="16" x2="510" y2="16" stroke="#5C7C8A" stroke-width="0.5" opacity="0.2" />
+      <rect x="520" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.15" />
+      <rect x="540" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.12" />
+      <rect x="560" y="14" width="8" height="8" fill="#0D2A4A" opacity="0.1" />
+      <line x1="580" y1="16" x2="640" y2="16" stroke="#0D2A4A" stroke-width="0.5" opacity="0.2" />
+      <rect x="650" y="10" width="12" height="12" fill="#5C7C8A" opacity="0.15" />
+      <rect x="670" y="10" width="12" height="12" fill="#0D2A4A" opacity="0.12" />
+      <rect x="690" y="14" width="8" height="8" fill="#5C7C8A" opacity="0.1" />
+      <line x1="710" y1="16" x2="800" y2="16" stroke="#0D2A4A" stroke-width="0.5" opacity="0.2" />
     </svg>
   </div>
 
@@ -1076,10 +1123,10 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="glass-card rounded-2xl p-6 reveal reveal-delay-1">
           <div class="flex items-center gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i
-              data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i>
+            <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i
+              data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i>
           </div>
           <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t1_text">"El anillo de jaguar es
             impresionante. Se nota el trabajo manual en cada detalle. Es más que una joya, es arte."</p>
@@ -1094,10 +1141,10 @@
         </div>
         <div class="glass-card rounded-2xl p-6 reveal reveal-delay-2">
           <div class="flex items-center gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i
-              data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i>
+            <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i
+              data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i>
           </div>
           <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t2_text">"Compré la gargantilla para
             una gala y fue el centro de atención. La elegancia de la plata de Taxco es inigualable."</p>
@@ -1112,10 +1159,10 @@
         </div>
         <div class="glass-card rounded-2xl p-6 reveal reveal-delay-3">
           <div class="flex items-center gap-1 mb-4">
-            <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i
-              data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i><i data-lucide="star"
-              class="w-4 h-4 text-gold fill-gold"></i>
+            <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i
+              data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i><i data-lucide="star"
+              class="w-4 h-4 text-warning fill-warning"></i>
           </div>
           <p class="text-creamMuted text-sm leading-relaxed mb-6" data-i18n="test_t3_text">"La atención personalizada y
             la calidad de la pieza superaron mis expectativas. Un pedazo de México en mis manos."</p>
@@ -1477,8 +1524,8 @@
       </div>
 
       <div class="space-y-4 mb-6">
-        <div class="p-4 bg-blue-900/10 border border-blue-500/20 rounded-2xl">
-          <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2" data-i18n="checkout_transfer_title">Datos de Transferencia</h4>
+        <div class="p-4 bg-gold/5 border border-gold/10 rounded-2xl">
+          <h4 class="text-xs font-bold text-gold uppercase tracking-wider mb-2" data-i18n="checkout_transfer_title">Datos de Transferencia</h4>
           <p class="text-xs text-creamMuted leading-relaxed mb-3" data-i18n="checkout_transfer_desc">Transfiere el total y envíanos tu comprobante por WhatsApp junto con tus datos de envío.</p>
           
           <div class="bg-surfaceLight/80 border border-gold/10 rounded-xl p-3 flex items-center justify-between font-mono text-sm">
