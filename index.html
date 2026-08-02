@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F4F1EA">
-  <title>La Azteca — Joyería Fina .925</title>
+  <title>La Azteca — Joyería Fina .925</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -48,28 +48,6 @@
             slideUp: 'slideUp 0.4s ease-out forwards',
           },
           keyframes: {
-        filter_all: 'Todas',
-        cat_collares_brazaletes: 'Collares y Brazaletes',
-        sub_opalo: 'Ópalo',
-        sub_greca_azteca: 'Greca Azteca',
-        sub_tubo: 'Tubo',
-        sub_especiales: 'Especiales',
-        sub_liso_martillado: 'Liso/Martillado',
-        sub_spratling: 'Spratling',
-        sub_tejidas: 'Tejidas',
-        cat_pulseras_dama: 'Pulseras de Dama',
-        sub_cartier: 'Tipo Cartier',
-        sub_dije_laser: 'Dije Láser',
-        cat_pulseras_caballero: 'Pulseras de Caballero',
-        cat_aretes: 'Aretes',
-        sub_arracadas: 'Arracadas',
-        sub_otros: 'Otros',
-        cat_dijes: 'Dijes',
-        sub_cera: 'Cera',
-        sub_religiosos: 'Religiosos',
-        sub_cruces: 'Cruces',
-        sub_varios: 'Varios',
-
             float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
             marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
             pulse2: { '50%': { opacity: '0.5' } },
@@ -112,7 +90,7 @@
       /* Colores funcionales ajustados para fondo claro */
       --success:        #10B981;       /* Verde esmeralda */
       --danger:         #EF4444;       /* Rojo */
-      --warning:        #F59E0B;       /* Ámbar */
+      --warning:        #F59E0B;       /* Ámbar */
       --info:           #3B82F6;       /* Azul brillante */
 
       /* Sombras suavizadas */
@@ -772,7 +750,7 @@
     </svg>
   </div>
 
-  <!-- ===================== 2. COLECCIÓN ===================== -->
+  <!-- ===================== 2. COLECCIÁƒâ€œN ===================== -->
   <section id="coleccion" class="relative py-24 px-4 sm:px-6">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16 reveal">
@@ -967,9 +945,28 @@
     <div class="max-w-7xl mx-auto relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div class="relative reveal">
-          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] img-zoom">
-            <img src="img/taller.jpg" alt="Maestro Orfebre" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-base/60 via-transparent to-transparent"></div>
+          <!-- Video Container Box -->
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] group border border-[#0D2A4A]/10 bg-white shadow-2xl">
+            <!-- Autoplay Muted Loop Video -->
+            <video id="historyVideo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" autoplay muted loop playsinline>
+              <source src="img/historia.mp4" type="video/mp4">
+              Tu navegador no soporta el tag de video.
+            </video>
+            <!-- Gradient overlay for text contrast -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0D2A4A]/45 via-transparent to-transparent pointer-events-none"></div>
+            
+            <!-- Custom Play/Mute Control Overlay -->
+            <div class="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="toggleVideoSound()" id="videoSoundBtn" style="background-color: #0D2A4A;" class="w-14 h-14 rounded-full text-[#F4F1EA] flex items-center justify-center shadow-lg shadow-[#0D2A4A]/25 hover:scale-110 transition-transform duration-300 cursor-pointer" aria-label="Activar sonido">
+                <i data-lucide="volume-x" class="w-5 h-5" id="soundIcon"></i>
+              </button>
+            </div>
+            
+            <!-- Video Overlay Tag -->
+            <div class="absolute top-4 left-4 z-10 bg-[#F4F1EA]/80 backdrop-blur-sm px-3 py-1 rounded-lg border border-[#0D2A4A]/10 flex items-center gap-1.5 pointer-events-none">
+              <span class="w-2 h-2 rounded-full bg-[#0D2A4A] animate-pulse"></span>
+              <span class="text-[10px] font-semibold text-[#0D2A4A] uppercase tracking-wider">Video del Taller</span>
+            </div>
           </div>
           <div class="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-6 glass rounded-xl p-4 animate-float">
             <div class="flex items-center gap-3">
@@ -978,8 +975,8 @@
                 <i data-lucide="award" class="w-5 h-5 text-base"></i>
               </div>
               <div>
-                <div class="font-display font-bold text-cream text-sm" data-i18n="hist_badge_title">5ª Generación</div>
-                <div class="text-xs text-creamMuted" data-i18n="hist_badge_sub">De artesanos</div>
+                <div class="font-display font-bold text-cream text-sm" data-i18n="hist_badge_title">3ª Generación</div>
+                <div class="text-xs text-creamMuted" data-i18n="hist_badge_sub">De tradición</div>
               </div>
             </div>
           </div>
@@ -1407,7 +1404,7 @@
             <img src="img/aztecalogo.png" alt="La Azteca Logo" class="h-12 w-auto">
           </div>
           <p class="text-creamMuted text-sm leading-relaxed" data-i18n="footer_desc">Joyería de autor en plata ley .925.
-            Maestros orfebres de Taxco de Alarcon.</p>
+            Maestros orfebres de Taxco de Alarcón.</p>
         </div>
         <div>
           <h4 class="font-display font-semibold text-cream text-sm mb-4" data-i18n="footer_nav">Navegación</h4>
@@ -1448,9 +1445,9 @@
         </div>
       </div>
       <div class="pt-8 border-t border-gold/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-creamMuted/50 text-xs">© 2025 La Azteca. <span data-i18n="footer_rights">Todos los derechos
-            reservados.</span></p>
-        <p class="text-creamMuted/30 text-xs" data-i18n="footer_made">Hecho con 🤍 en Taxco, México</p>
+        <p class="text-creamMuted/50 text-xs">© 2025 La Azteca. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
+        <p data-i18n="footer_disclaimer" class="text-red-600 text-xs mt-2"></p>
+        <p class="text-creamMuted/30 text-xs" data-i18n="footer_made">Hecho con 🤝 en Taxco, México</p>
       </div>
     </div>
   </footer>
@@ -1569,241 +1566,591 @@
 
   <!-- ===================== JAVASCRIPT ===================== -->
   <script>
-    // ===== PRODUCT DATA =====
-    const products = [
-      // COLLARES Y BRAZALETES (7 subcategories)
-      {
-        id: 0,
-        img: 'img/collar_quetzal.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'opalo',
-        badge_es: 'Popular', badge_en: 'Popular', badgeClass: 'bg-purple-500/90 text-white',
-        title_es: 'Collar Ópalo Ancestral', title_en: 'Ancestral Opal Necklace',
-        desc_es: 'Collar de plata .925 con un ópalo de fuego mexicano engastado. El fuego y color de la tierra en una joya.',
-        desc_en: '.925 silver necklace with a set Mexican fire opal. The fire and color of the earth in a jewel.',
-        price: '$4,800 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Ópalo de Fuego'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Stone', 'Fire Opal'], ['Origin', 'Taxco']]
-      },
-      {
-        id: 1,
-        img: 'img/collar_1.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'greca_azteca',
-        badge_es: 'Nuevo', badge_en: 'New', badgeClass: 'bg-terracotta/90 text-white',
-        title_es: 'Gargantilla Greca Azteca', title_en: 'Aztec Fret Choker',
-        desc_es: 'Gargantilla rígida con patrón de greca tallado a mano. Un diseño ancestral reimaginado en plata pura.',
-        desc_en: 'Rigid choker with hand-carved fret pattern. An ancestral design reimagined in pure silver.',
-        price: '$5,200 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cincelado'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Technique', 'Chiseled'], ['Origin', 'Taxco']]
-      },
-      {
-        id: 2,
-        img: 'img/collar_quetzal.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'tubo',
-        badge_es: 'Clásico', badge_en: 'Classic', badgeClass: 'bg-slate-700 text-white',
-        title_es: 'Gargantilla Tubo Azteca', title_en: 'Aztec Tube Choker',
-        desc_es: 'Collar de tubos rígidos articulados en plata fina, diseño minimalista y moderno con un brillo espectacular.',
-        desc_en: 'Articulated rigid tube necklace in fine silver, minimalist and modern design with spectacular shine.',
-        price: '$3,900 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Articulado'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Style', 'Articulated'], ['Origin', 'Taxco']]
-      },
-      {
-        id: 3,
-        img: 'img/escarabajo.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'especiales',
-        badge_es: 'Galería', badge_en: 'Gallery', badgeClass: 'bg-gold/90 text-slate-950',
-        title_es: 'Pieza ganadora: eternum', title_en: 'Winning piece: eternum',
-        desc_es: 'Escarabajo esculpido a mano en plata pura .925. Una obra galardonada que simboliza la inmortalidad.',
-        desc_en: 'Hand-sculpted beetle in pure .925 silver. An award-winning piece symbolizing immortality.',
-        price: '$2,800 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Peso', '18g'], ['Técnica', 'Esculpido']],
-        details_en: [['Metal', '.925 Silver'], ['Weight', '18g'], ['Technique', 'Sculpted']]
-      },
-      {
-        id: 4,
-        img: 'img/collar_1.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'liso_martillado',
-        badge_es: 'Hecho a mano', badge_en: 'Handmade', badgeClass: 'bg-gold/90 text-slate-950',
-        title_es: 'Brazalete Martillado', title_en: 'Hammered Bangle',
-        desc_es: 'Brazalete ancho de plata .925 con acabado martillado que captura la luz de forma única y tradicional.',
-        desc_en: 'Wide .925 silver bangle with hammered finish that captures light in a unique, traditional way.',
-        price: '$4,100 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Acabado', 'Martillado'], ['Ancho', '4cm']],
-        details_en: [['Metal', '.925 Silver'], ['Finish', 'Hammered'], ['Width', '4cm']]
-      },
-      {
-        id: 5,
-        img: 'img/collar_quetzal.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'spratling',
-        badge_es: 'Homenaje', badge_en: 'Tribute', badgeClass: 'bg-purple-600 text-white',
-        title_es: 'Collar Diseño Spratling', title_en: 'Spratling Design Necklace',
-        desc_es: 'Collar inspirado en el estilo icónico del maestro William Spratling, padre de la plata de Taxco.',
-        desc_en: 'Necklace inspired by the iconic style of master William Spratling, father of Taxco silver.',
-        price: '$6,500 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Spratling'], ['Origen', 'Taxco']],
-        details_en: [['Metal', '.925 Silver'], ['Style', 'Spratling'], ['Origin', 'Taxco']]
-      },
-      {
-        id: 6,
-        img: 'img/collar_1.jpg',
-        category: 'collares_brazaletes',
-        subcategory: 'tejidas',
-        badge_es: 'Tradición', badge_en: 'Tradition', badgeClass: 'bg-blue-600 text-white',
-        title_es: 'Gargantilla Tejida Fina', title_en: 'Fine Woven Choker',
-        desc_es: 'Collar trenzado artesanalmente hilo por hilo en plata fina .925. Flexibilidad y elegancia sin igual.',
-        desc_en: 'Artisanally braided necklace thread by thread in fine .925 silver. Unmatched flexibility and elegance.',
-        price: '$5,800 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Tejido a mano']],
-        details_en: [['Metal', '.925 Silver'], ['Technique', 'Hand-woven']]
-      },
-      
-      // PULSERAS DE DAMA (2 subcategories)
-      {
-        id: 7,
-        img: 'img/escarabajo.jpg',
-        category: 'pulseras_dama',
-        subcategory: 'cartier',
-        badge_es: 'Elegancia', badge_en: 'Elegance', badgeClass: 'bg-emerald-600 text-white',
-        title_es: 'Pulsera Cartier Dama', title_en: 'Cartier Style Lady Bracelet',
-        desc_es: 'Pulsera tejida estilo Cartier en plata ley .925. Un clásico atemporal que aporta distinción en cualquier ocasión.',
-        desc_en: 'Cartier style woven bracelet in .925 sterling silver. A timeless classic that brings distinction to any occasion.',
-        price: '$2,100 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Estilo', 'Cartier Dama']],
-        details_en: [['Metal', '.925 Silver'], ['Style', 'Cartier Lady']]
-      },
-      {
-        id: 8,
-        img: 'img/maya.jpg',
-        category: 'pulseras_dama',
-        subcategory: 'dije_laser',
-        badge_es: 'Detalle', badge_en: 'Detail', badgeClass: 'bg-sky-600 text-slate-950',
-        title_es: 'Pulsera Dijes Láser', title_en: 'Laser Charms Bracelet',
-        desc_es: 'Pulsera fina de eslabones con dijes prehispánicos recortados en alta precisión con tecnología láser.',
-        desc_en: 'Fine link bracelet with pre-Hispanic charms cut in high precision with laser technology.',
-        price: '$1,950 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Corte', 'Láser de precisión']],
-        details_en: [['Metal', '.925 Silver'], ['Cut', 'Precision Laser']]
-      },
+    // ===== FILENAME PARSER UTILITIES =====
+    function parsePValue(str) {
+      // Converts "23P5" → 23.5, "3P1" → 3.1, "23" → 23
+      return parseFloat(str.replace('P', '.'));
+    }
 
-      // PULSERAS CABALLERO (1 subcategory)
-      {
-        id: 9,
-        img: 'img/escarabajo.jpg',
-        category: 'pulseras_caballero',
-        subcategory: 'cartier',
-        badge_es: 'Robusto', badge_en: 'Robust', badgeClass: 'bg-slate-700 text-white',
-        title_es: 'Pulsera Cartier Caballero', title_en: 'Cartier Style Men Bracelet',
-        desc_es: 'Espectacular pulsera gruesa estilo Cartier en plata pura .925. Peso y solidez con un brillo excepcional.',
-        desc_en: 'Spectacular thick Cartier style bracelet in pure .925 silver. Weight and solidity with exceptional shine.',
-        price: '$3,600 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Peso', '35g'], ['Estilo', 'Cartier']],
-        details_en: [['Metal', '.925 Silver'], ['Weight', '35g'], ['Style', 'Cartier']]
-      },
+    function formatDisplayName(raw) {
+      // Remove SOLO prefixes first (like SOLOPULSERA, SOLOCOLLAR, SOLOCOLAR, SOLO)
+      let name = raw.replace(/^(SOLOPULSERA|SOLOCOLLAR|SOLOCOLAR|SOLO)/i, '');
 
-      // ARETES (3 subcategories)
-      {
-        id: 10,
-        img: 'img/maya.jpg',
-        category: 'aretes',
-        subcategory: 'opalo',
-        badge_es: 'Color', badge_en: 'Color', badgeClass: 'bg-purple-500/90 text-white',
-        title_es: 'Aretes Ópalo Natural', title_en: 'Natural Opal Earrings',
-        desc_es: 'Aretes cortos con ópalos de fuego mexicanos seleccionados, montados en delicada montura de plata.',
-        desc_en: 'Short earrings with selected Mexican fire opals, set in a delicate silver mount.',
-        price: '$2,400 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Ópalo Natural']],
-        details_en: [['Metal', '.925 Silver'], ['Stone', 'Natural Opal']]
-      },
-      {
-        id: 11,
-        img: 'img/maya.jpg',
-        category: 'aretes',
-        subcategory: 'arracadas',
-        badge_es: 'Clásico', badge_en: 'Classic', badgeClass: 'bg-slate-600 text-white',
-        title_es: 'Arracadas Grecas', title_en: 'Fret Hoop Earrings',
-        desc_es: 'Arracadas tradicionales de plata fina grabadas con un patrón de greca mesoamericana.',
-        desc_en: 'Traditional fine silver hoop earrings engraved with a Mesoamerican fret pattern.',
-        price: '$1,800 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Greca tallada']],
-        details_en: [['Metal', '.925 Silver'], ['Design', 'Carved fret']]
-      },
-      {
-        id: 12,
-        img: 'img/maya.jpg',
-        category: 'aretes',
-        subcategory: 'otros',
-        badge_es: 'Diseño', badge_en: 'Design', badgeClass: 'bg-gold/90 text-slate-950',
-        title_es: 'Aretes Colgantes Maya', title_en: 'Maya Dangle Earrings',
-        desc_es: 'Aretes colgantes con círculos y grabados mayas tradicionales. Ligeros y elegantes.',
-        desc_en: 'Dangle earrings with traditional Mayan circles and engravings. Lightweight and elegant.',
-        price: '$2,200 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Grabado maya']],
-        details_en: [['Metal', '.925 Silver'], ['Design', 'Mayan engraving']]
-      },
+      // Replace underscores with spaces
+      name = name.replace(/_/g, ' ');
 
-      // DIJES (4 subcategories)
-      {
-        id: 13,
-        img: 'img/escarabajo.jpg',
-        category: 'dijes',
-        subcategory: 'cera',
-        badge_es: 'Artesanal', badge_en: 'Artisanal', badgeClass: 'bg-amber-600 text-white',
-        title_es: 'Dije Esculpido a Cera', title_en: 'Lost-Wax Sculpted Pendant',
-        desc_es: 'Dije único modelado originalmente en cera perdida con diseño de deidad mesoamericana.',
-        desc_en: 'Unique pendant originally modeled in lost-wax featuring a Mesoamerican deity design.',
-        price: '$1,750 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cera Perdida']],
-        details_en: [['Metal', '.925 Silver'], ['Technique', 'Lost-Wax']]
-      },
-      {
-        id: 14,
-        img: 'img/collar_1.jpg',
-        category: 'dijes',
-        subcategory: 'religiosos',
-        badge_es: 'Devoción', badge_en: 'Devotion', badgeClass: 'bg-slate-700 text-white',
-        title_es: 'Medalla Virgen Guadalupe', title_en: 'Guadalupe Virgin Medal',
-        desc_es: 'Medalla en relieve de la Virgen de Guadalupe en plata ley .925 con borde decorado.',
-        desc_en: 'Embossed medal of the Virgin of Guadalupe in .925 sterling silver with a decorated border.',
-        price: '$1,500 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Diseño', 'Relieve']],
-        details_en: [['Metal', '.925 Silver'], ['Design', 'Embossed']]
-      },
-      {
-        id: 15,
-        img: 'img/collar_1.jpg',
-        category: 'dijes',
-        subcategory: 'cruces',
-        badge_es: 'Fe', badge_en: 'Faith', badgeClass: 'bg-slate-700 text-white',
-        title_es: 'Cruz Bizantina Cincelada', title_en: 'Chiseled Byzantine Cross',
-        desc_es: 'Cruz de diseño tradicional bizantino con hermosos grabados hechos a mano con cincel.',
-        desc_en: 'Traditional Byzantine design cross with beautiful hand-chiseled engravings.',
-        price: '$1,650 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Técnica', 'Cincelado']],
-        details_en: [['Metal', '.925 Silver'], ['Technique', 'Chiseled']]
-      },
-      {
-        id: 16,
-        img: 'img/escarabajo.jpg',
-        category: 'dijes',
-        subcategory: 'varios',
-        badge_es: 'Variedad', badge_en: 'Variety', badgeClass: 'bg-gold/90 text-slate-950',
-        title_es: 'Dije Quetzal Mini', title_en: 'Mini Quetzal Pendant',
-        desc_es: 'Mini dije del pájaro quetzal en plata .925, ideal para cadenas delgadas.',
-        desc_en: 'Mini quetzal bird pendant in .925 silver, ideal for thin chains.',
-        price: '$1,200 MXN',
-        details_es: [['Metal', 'Plata .925'], ['Tamaño', 'Mini']],
-        details_en: [['Metal', '.925 Silver'], ['Size', 'Mini']]
+      // Split on camelCase boundaries
+      name = name.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+      // If it is all uppercase, split by known words to format it nicely
+      if (name === name.toUpperCase()) {
+        const words = [
+          'PULSERA', 'COLLAR', 'COLAR', 'BRAZALETE', 'GARGANTILLA', 'GARGATILLA', 'ESCLAVA', 'CADENA', 'ARETE', 'ARETES',
+          'SET', 'JUEGO', 'JUEGOS', 'DIJE', 'DIJES', 'MEDALLA', 'MEDALLAS', 'VIRGEN', 'VIRGENES', 'CRUZ', 'CRUCES',
+          'CLAVO', 'CORBATA', 'FUSION', 'UNHA', 'UNHAS', 'POPCORN', 'CIRCULO', 'CIRCULAR', 'TRENZADO', 'TUBULAR',
+          'TUB', 'CORAZON', 'CUBO', 'ESFERA', 'NUDO', 'PETATILLO', 'PETAATILLO', 'ARANZA', 'FATIMA', 'SOFIA',
+          'VERONICA', 'MELISSA', 'FLOR', 'DE', 'LIZ', 'FRIDA', 'BARROCA', 'RACIMO', 'UVA', 'CUADROS', 'HOJUELAS',
+          'TORNILLO', 'MUESTRAS', 'LIGERA', 'LIGERAS', 'CARTIER', 'CUBANA', 'DRAGON', 'GRECA', 'CILINDRICA',
+          'LASSO', 'LINEA', 'QUETZALCOATL', 'TRADICIONAL', 'CABALLERO', 'DAMA', 'KELP', 'SANDIA', 'ULTRAMAR',
+          'OPA', 'OPALO', 'DOTS', 'GOTA', 'LUNA', 'SOL', 'TEJAS', 'CHAAC', 'CHAC', 'ESCARABAJO', 'MAYA',
+          'GUERRERO', 'BUHO', 'AXOLOTE', 'GECKO', 'GEKO', 'RUDOLF', 'CAMALEON', 'MARIPOSA', 'CANGREJO',
+          'RANA', 'UNICORNIO', 'CATARINA', 'COLIBRI', 'PEZ', 'CADUCEO', 'SANJUDAS', 'ATRAPASUEÑOS',
+          'ATRAPASUEÑAS', 'MUERTE', 'MIGUEL', 'ARCANGEL', 'OFICIO', 'OFICIOS', 'RELIGIOSO', 'RELIGIOSOS',
+          'TEXTO', 'MINI', 'MINIATURA', 'ANIMALES', 'ANIMAL'
+        ];
+
+        const sortedWords = [...words].sort((a, b) => b.length - a.length);
+        const regexStr = sortedWords.join('|');
+        const regex = new RegExp(`(${regexStr})`, 'gi');
+        
+        name = name.replace(regex, ' $1 ').replace(/\s+/g, ' ').trim();
       }
+
+      // Convert to Title Case
+      let result = name.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).trim();
+      result = result
+        .replace(/\bFusion\b/g, 'Fusión')
+        .replace(/\bCorazon\b/g, 'Corazón')
+        .replace(/\bCirculo\b/g, 'Círculo')
+        .replace(/\bPlateria\b/g, 'Platería')
+        .replace(/\bColeccion\b/g, 'Colección')
+        .replace(/\bTradicion\b/g, 'Tradición');
+      return result;
+    }
+
+    function parseProductFilename(filename, category, folder) {
+      // Remove extension
+      const base = filename.replace(/\.(webp|jpg|jpeg|png)$/i, '');
+      const parts = base.split('_');
+
+      // Detect PREGUNTE_PRECIO
+      const pregunteIdx = parts.findIndex(p => p.toUpperCase() === 'PREGUNTE' || p.toUpperCase() === 'PRECIO');
+      const isPregunte = parts.some(p => p.toUpperCase() === 'PREGUNTE');
+
+      // Detect SOLO items (image shows multiple, price is only for this piece or has SOLO in its name)
+      const isSolo = base.toUpperCase().includes('SOLO');
+
+      // Detect GR (weight) and CM (length) tokens at the end
+      let weightGr = null, lengthCm = null;
+      const remaining = [];
+      for (const part of parts) {
+        const grMatch = part.match(/^(\d+(?:P\d+)?)GR$/i);
+        const cmMatch = part.match(/^(\d+(?:P\d+)?)CM$/i);
+        if (grMatch) { weightGr = parsePValue(grMatch[1]); }
+        else if (cmMatch) { lengthCm = parsePValue(cmMatch[1]); }
+        else { remaining.push(part); }
+      }
+
+      // Find price token: a purely numeric token (no letters, not prefix, not special keyword)
+      let price = null;
+      const keywords = ['PREGUNTE', 'PRECIO', 'SOLO', 'SOLO', 'GR', 'CM', 'ESP', 'CAB'];
+      const nameParts = [];
+      let foundPrice = false;
+      let prefix = '';
+
+      for (let i = 0; i < remaining.length; i++) {
+        const p = remaining[i];
+        if (i === 0 || (i === 1 && ['ESP', 'CAB', 'ARR', 'OPA', 'LIGERA'].includes(remaining[1]?.toUpperCase()))) {
+          prefix = p;
+          continue;
+        }
+        if (!foundPrice && /^\d+$/.test(p) && parseInt(p) > 100) {
+          price = parseInt(p);
+          foundPrice = true;
+        } else if (!foundPrice && keywords.includes(p.toUpperCase())) {
+          // skip keyword
+        } else if (!foundPrice) {
+          nameParts.push(p);
+        }
+      }
+
+      // Build display name from all non-prefix, non-price name parts
+      const allNameParts = remaining.slice(1).filter(p => {
+        if (/^\d+$/.test(p) && parseInt(p) > 100) return false;
+        if (keywords.includes(p.toUpperCase())) return false;
+        return true;
+      });
+
+      const rawName = allNameParts.join(' ');
+      const displayName = formatDisplayName(rawName) || formatDisplayName(remaining.slice(1).join(' '));
+
+      const priceDisplay = isPregunte ? 'Pregunte Precio' : (price ? `$${price.toLocaleString()} MXN` : 'Pregunte Precio');
+
+      // Build details
+      const details_es = [['Metal', 'Plata .925'], ['Origen', 'Taxco, Gro.']];
+      const details_en = [['Metal', '.925 Silver'], ['Origin', 'Taxco, Gro.']];
+      if (weightGr) { details_es.push(['Peso', `${weightGr}g`]); details_en.push(['Weight', `${weightGr}g`]); }
+      if (lengthCm) { details_es.push(['Longitud', `${lengthCm} cm`]); details_en.push(['Length', `${lengthCm} cm`]); }
+      if (!isPregunte && price) { details_es.push(['Precio', priceDisplay]); details_en.push(['Price', priceDisplay]); }
+
+      return {
+        displayName,
+        priceDisplay,
+        priceRaw: price || 0,
+        weightGr,
+        lengthCm,
+        isPregunte,
+        isSolo,
+        details_es,
+        details_en
+      };
+    }
+
+    // ===== PRODUCT CATALOG (auto-generated from PRECIOS folder) =====
+    // Path prefix for all catalog images
+    const IMG_BASE = 'img/PRECIOS/';
+
+    // Á¢â€â‚¬Á¢â€â‚¬ COLLARES Y BRAZALETES (CYB_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawCYB = [
+      'CYB_BRAZALETECLAVO_3750_18GR.webp',
+      'CYB_BRAZALETECORBATA_18000_71GR.webp',
+      'CYB_BRAZALETEFUSION_17000_67GR.webp',
+      'CYB_BRAZALETEUNHA_31500_125GR.webp',
+      'CYB_CAB_SOLOCOLLARPOPCORN_33500_133GR.webp',
+      'CYB_CHAC.webp',
+      'CYB_COLLARNUDOPETATILLO_24000_95GR.webp',
+      'CYB_GARGANTILLACORBATA_34000_134GR.webp',
+      'CYB_GARGANTILLAFUSION_32000_126GR.webp',
+      'CYB_GARGANTILLAUNHA_5000_196GR.webp',
+      'CYB_PETATILLO_12000_60GR.webp',
+      'CYB_SOLOCOLARCIRCULOPETATILLO_22500_88GR.webp',
+      'CYB_SOLOCOLLARPOPCORN_15000_40CM_59GR.webp',
+      'CYB_TRENZADO_21200_106GR.webp',
+      'CYB_TUBCLAVO_6500_32GR.webp',
+      'CYB_TUBCLAVOCIRCULAR_6750_33GR.webp',
+      'CYB_TUBULARCORAZON_5250_25GR.webp',
+      'CYB_TUBULARCORAZON_9750_48GR.webp',
+      'CYB_TUBULARCUBO_11250_55GR.webp',
+      'CYB_TUBULARCUBO_6000_29GR.webp',
+      'CYB_TUBULARESFERA_11250_55GR.webp',
+      'CYB_TUBULARESFERA_5750_28GR.webp',
     ];
 
-    // ===== I18N =====
+    // Á¢â€â‚¬Á¢â€â‚¬ PULSERAS DAMA (PD_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawPD = [
+      'PD_ARANZA_16500_64GR.webp',
+      'PD_ESP_21000_84GR.webp',
+      'PD_ESP_CALENDARIOAZTECA_3900_19P3GR.webp',
+      'PD_ESP_MOTIVOAZTECA_20500_81GR.webp',
+      'PD_ESP_QUETZALLI_19500_78GR.webp',
+      'PD_FATIMA_1500_62GR.webp',
+      'PD_SOLOPULSERAFLORDELIZ_14500_58GR.webp',
+      'PD_SOLOPULSERAFRIDABARROCA_19000_76GR.webp',
+      'PD_MELISSA.webp',
+      'PD_PULSERANUDOPETATILLO_13500_53GR.webp',
+      'PD_SOLOPULSERARACIMODEUVA_10500_41GR.webp',
+      'PD_SOFIA_11000_44GR.webp',
+      'PD_SOLOPULSERACIRCULOPETATILLO_12000_46GR.webp',
+      'PD_SOLOPULSERACUADROS.webp',
+      'PD_SOLOPULSERAHOJUELAS.webp',
+      'PD_SOLOPULSERAPOPCORN_7000_18CM_28GR.webp',
+      'PD_SOLOPULSERATORMILLO.webp',
+      'PD_SOLOPULSERAVERONICA_18500_73GR.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ PULSERAS LIGERAS DAMA (from PULSERA_LIGERA) Á¢â€â‚¬Á¢â€â‚¬
+    const rawPUL_LIGERA = Array.from({length: 14}, (_, i) => `PUL_LIGERA_PREGUNTE_PRECIO_${i+1}.webp`);
+
+    // Á¢â€â‚¬Á¢â€â‚¬ PULSERAS CABALLERO (PC_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawPC = [
+      'PC_CARTIER_6100_30P3GR_20CM.webp',
+      'PC_ESCLAVACUBANA_4700_23P5GR_19CM.webp',
+      'PC_ESCLAVADRAGON_9600_47P7GR_21CM.webp',
+      'PC_ESCLAVAGRECACILINDRICA_PREGUNTE_PRECIO_32P7GR_22CM.webp',
+      'PC_ESCLAVALASSO_11200_55P6GR_21CM.webp',
+      'PC_ESCLAVALINEA_PREGUNTE_11P8GR_18CM.webp',
+      'PC_ESCLAVAQUETZALCOATL_11650_58P1GR_22CM.webp',
+      'PC_ESCLAVATRADICIONAL_2600_12P8GR_18CM.webp',
+      'PC_SOLOPULSERAPOPCORN_17000_20CM_67GR.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ CADENAS CABALLERO (from CADENA_CABALLERO_PREGUNTE_PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const rawCADENA = [
+      '_CMV0748-2.webp',
+      '_CMV0751.webp',
+      '_CMV0753.webp',
+      '_CMV0755.webp',
+      '_CMV0758.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ ARETES (AR_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawAR = [
+      'AR_ARR_KELP.webp',
+      'AR_ARR_SANDIA.webp',
+      'AR_ARR_ULTRAMAR.webp',
+      'AR_ESP_GUERRERO_1950_9P7GR.webp',
+      'AR_OPA_DOTS.webp',
+      'AR_OPA_GOTA.webp',
+      'AR_OPA_LUNA.webp',
+      'AR_OPA_SOL.webp',
+      'AR_OPA_TEJAS.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ SETS (SET_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawSET = [
+      'SET_ARANZA_38000_149GR.webp',
+      'SET_CUADROS.webp',
+      'SET_ESP_CHAAC.webp',
+      'SET_ESP_ESCARABAJO.webp',
+      'SET_ESP_GUERREROQUETZALCOATL_40000_160GR.webp',
+      'SET_ESP_MAYA.webp',
+      'SET_ESP_MELISSA_23000_91GR.webp',
+      'SET_ESP_MOTIVOAZTECA_40500_162GR.webp',
+      'SET_ESP_QUETZALLI_21000_84GR.webp',
+      'SET_ESP_QUETZALLI_40500.webp',
+      'SET_FATIMA_35000_140GR.webp',
+      'SET_FATIMA_50500_202GR.webp',
+      'SET_FLORDELIZ_49500_190GR.webp',
+      'SET_HOJUELAS.webp',
+      'SET_RACIMODEUVA_44000_174GR.webp',
+      'SET_SOFIA_30000_119GR.webp',
+      'SET_TORNILLO.webp',
+      'SET_VERONICA_45000_182GR.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ JUEGOS (J_) Á¢â€â‚¬Á¢â€â‚¬
+    const rawJ = [
+      'J_CALENDARIOAZTECA_13450.webp',
+      'J_CIRCULOPETATILLO_34500_134GR.webp',
+      'J_CORBATA_52000_205GR.webp',
+      'J_ESP_GUERREROQUETZALCOATL_61000.webp',
+      'J_FUSION_49000_193GR.webp',
+      'J_NUDOPETATILLO_37500.webp',
+      'J_PETATILLO_17200_86GR.webp',
+      'J_POPCORN_22000_87GR.webp',
+      'J_POPCORN_50500_199GR.webp',
+      'J_TRENZADO_21200_106GR.webp',
+      'J_TUBCLAVO_10500_51GR.webp',
+      'J_TUBCLAVOGOTA_10250_50GR.webp',
+      'J_TUBULARCORAZON_15000_73GR.webp',
+      'J_TUBULARCUBO_17250_84GR.webp',
+      'J_TUBULARESFERA_17000_83GR.webp',
+      'J_UNHAS_81500_321GR.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ PLATERÁA CON Áƒâ€œPALO (PLATERIA_CON_OPALO_PREGUNTE_PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const rawOPALO = [
+      'AR_ARR_KELP.webp',
+      'AR_ARR_SANDIA.webp',
+      'AR_ARR_ULTRAMAR.webp',
+      'AR_OPA_DOTS.webp',
+      'AR_OPA_GOTA.webp',
+      'AR_OPA_LUNA.webp',
+      'AR_OPA_SOL.webp',
+      'AR_OPA_TEJAS.webp',
+      'SET_OPA_AZUL.webp',
+      'SET_OPA_LUNA.webp',
+      'SET_OPA_ULTRAMAR.webp',
+      'SET_OPA_VERDE.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ DIJES (with Lupa HD, from TXT files) Á¢â€â‚¬Á¢â€â‚¬
+    const dijesData = [
+      {
+        img: 'img/PRECIOS/dijes/DIJES1.jpg',
+        id: 'DIJES1',
+        title_es: 'Dijes Animales I', title_en: 'Animal Charms I',
+        pieces: [
+          { name: 'Búho', price: 1400, gr: 6.9 },
+          { name: 'Axolote', price: 2250, gr: 11.1 },
+          { name: 'Dragón', price: 3100, gr: 15.2 },
+          { name: 'Mariposa', price: 1000, gr: 5.0 },
+          { name: 'Gecko', price: 1850, gr: 9.1 },
+          { name: 'Rudolf', price: 1950, gr: 9.7 },
+        ]
+      },
+      {
+        img: 'img/PRECIOS/dijes/DIJES2.jpg',
+        id: 'DIJES2',
+        title_es: 'Dijes Miniatura I', title_en: 'Mini Charms I',
+        pieces: [
+          { name: 'Camaleón', price: 650, gr: 3.1 },
+          { name: 'Mariposa', price: 550, gr: 2.6 },
+          { name: 'Cangrejo', price: 700, gr: 3.4 },
+          { name: 'Rana', price: 750, gr: 3.7 },
+          { name: 'Unicornio', price: 400, gr: 1.9 },
+          { name: 'Corazón', price: 550, gr: 2.6 },
+        ]
+      },
+      {
+        img: 'img/PRECIOS/dijes/DIJES3.jpg',
+        id: 'DIJES3',
+        title_es: 'Dijes Miniatura II', title_en: 'Mini Charms II',
+        pieces: [
+          { name: 'Camaleón', price: 650, gr: 3.1 },
+          { name: 'Mariposa', price: 550, gr: 2.6 },
+          { name: 'Cangrejo', price: 700, gr: 3.4 },
+          { name: 'Rana', price: 750, gr: 3.7 },
+          { name: 'Unicornio', price: 400, gr: 1.9 },
+          { name: 'Corazón', price: 550, gr: 2.6 },
+          { name: 'Rana Mini', price: 650, gr: 3.1 },
+          { name: 'Catarina', price: 200, gr: 1.0 },
+          { name: 'Colibrí', price: 1300, gr: 6.5 },
+          { name: 'Pez', price: 400, gr: 1.9 },
+        ]
+      },
+      {
+        img: 'img/PRECIOS/dijes/DIJES4.jpg',
+        id: 'DIJES4',
+        title_es: 'Dijes Especiales', title_en: 'Special Charms',
+        pieces: [
+          { name: 'Caduceo', price: 550, gr: 2.6 },
+          { name: 'San Judas', price: 1550, gr: 7.6 },
+          { name: 'Atrapasueños', price: 900, gr: 4.3 },
+        ]
+      },
+      {
+        img: 'img/PRECIOS/dijes/DIJES5.jpg',
+        id: 'DIJES5',
+        title_es: 'Dijes Religiosos Especiales', title_en: 'Special Religious Charms',
+        pieces: [
+          { name: 'Mano de Fátima', price: 350, gr: 1.7 },
+          { name: 'Santa Muerte', price: 1100, gr: 5.5 },
+          { name: 'Miguel Arcángel', price: 1800, gr: 8.9 },
+        ]
+      },
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ VIRGENCITAS (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const virgencitasImgs = [
+      'MEDALLAS_CHAPA_DE_ORO_VIRGEN.webp',
+      'MEDALLAS_VIRGENES_DESDE_600_PESOS.webp',
+      'VIRGENES_Y_ MEDALLAS_DESDE_600_PESOS.webp',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ DIJES RELIGIOSOS (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const dijesReligiososImgs = [
+      'CRUCES.jpg',
+      'CRUCES_CON_TEXTO.jpg',
+      'DIJES_RELIGIOSOS.jpg',
+      'MEDALLAS_RELIGIOSAS.jpg',
+    ];
+
+    // Á¢â€â‚¬Á¢â€â‚¬ PULSERAS OFICIOS (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const pulserasOficiosImgs = [
+      '_CMV0764.jpg',
+      '_CMV0765.jpg',
+      '_CMV0766.jpg',
+      '_CMV0769.jpg',
+    ];
+
+    // Á¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•Â
+    //   BUILD PRODUCTS ARRAY
+    // Á¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•ÂÁ¢•Â
+    let products = [];
+    let _pid = 0;
+
+    function makeBadge(p) {
+      if (p.isPregunte) return { es: 'Pregunte Precio', en: 'Ask for Price', cls: 'bg-slate-600/90 text-cream' };
+      if (p.isSolo) return { es: 'Solo Esta Pieza', en: 'This Piece Only', cls: 'bg-amber-700/90 text-white' };
+      return { es: 'Plata .925', en: '.925 Silver', cls: 'bg-gold/90 text-slate-950' };
+    }
+
+    // Helper: build product object from filename + category
+    function buildProduct(filename, category, subcategory, folder) {
+      const parsed = parseProductFilename(filename, category, folder);
+      const badge = makeBadge(parsed);
+      const imgPath = `${IMG_BASE}${folder}/${filename}`;
+      return {
+        id: _pid++,
+        img: imgPath,
+        category,
+        subcategory,
+        badge_es: badge.es, badge_en: badge.en, badgeClass: badge.cls,
+        title_es: parsed.displayName,
+        title_en: parsed.displayName,
+        desc_es: `Pieza artesanal en plata .925 de Taxco.${parsed.weightGr ? ` Peso: ${parsed.weightGr}g.` : ''}${parsed.lengthCm ? ` Longitud: ${parsed.lengthCm}cm.` : ''}`,
+        desc_en: `Handcrafted .925 silver piece from Taxco.${parsed.weightGr ? ` Weight: ${parsed.weightGr}g.` : ''}${parsed.lengthCm ? ` Length: ${parsed.lengthCm}cm.` : ''}`,
+        price: parsed.priceDisplay,
+        priceRaw: parsed.priceRaw,
+        isPregunte: parsed.isPregunte,
+        isSolo: parsed.isSolo,
+        details_es: parsed.details_es,
+        details_en: parsed.details_en,
+        hasLupa: false,
+      };
+    }
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add CYB (Collares y Brazaletes) Á¢â€â‚¬Á¢â€â‚¬
+    rawCYB.forEach(f => {
+      const sub = f.includes('BRAZALETE') ? 'brazaletes' :
+                  f.includes('COLLAR') || f.includes('GARGANTILLA') || f.includes('PETATILLO') || f.includes('TRENZADO') ? 'collares' : 'collares';
+      products.push(buildProduct(f, 'collares_brazaletes', sub, 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add PD (Pulseras Dama) Á¢â€â‚¬Á¢â€â‚¬
+    rawPD.forEach(f => {
+      products.push(buildProduct(f, 'pulseras_dama', 'clasica', 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Pulseras Ligeras Dama Á¢â€â‚¬Á¢â€â‚¬
+    rawPUL_LIGERA.forEach(f => {
+      const numStr = f.replace('PUL_LIGERA_PREGUNTE_PRECIO_', '').replace('.webp', '');
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}PULSERA_LIGERA/${f}`,
+        category: 'pulseras_dama',
+        subcategory: 'ligera',
+        badge_es: 'Pregunte Precio', badge_en: 'Ask for Price', badgeClass: 'bg-slate-600/90 text-cream',
+        title_es: `Pulsera Ligera ${numStr}`, title_en: `Light Bracelet ${numStr}`,
+        desc_es: 'Pulsera ligera artesanal en plata .925 de Taxco. Pregunte precio.',
+        desc_en: 'Light handcrafted .925 silver bracelet from Taxco. Ask for price.',
+        price: 'Pregunte Precio',
+        priceRaw: 0, isPregunte: true, isSolo: false,
+        details_es: [['Metal', 'Plata .925'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: false,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add PC (Pulseras Caballero) Á¢â€â‚¬Á¢â€â‚¬
+    // Banner (PC_MUESTRAS) is injected at render time, not as a product
+    rawPC.forEach(f => {
+      products.push(buildProduct(f, 'pulseras_caballero', 'esclava', 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Cadenas Caballero Á¢â€â‚¬Á¢â€â‚¬
+    const cadenaNames = ['Cadena Caballero 1', 'Cadena Caballero 2', 'Cadena Caballero 3', 'Cadena Caballero 4', 'Cadena Caballero 5'];
+    rawCADENA.forEach((f, i) => {
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}CADENA_CABALLERO_PREGUNTE_PRECIO/${f}`,
+        category: 'pulseras_caballero',
+        subcategory: 'cadena',
+        badge_es: 'Pregunte Precio', badge_en: 'Ask for Price', badgeClass: 'bg-slate-600/90 text-cream',
+        title_es: cadenaNames[i], title_en: cadenaNames[i],
+        desc_es: 'Cadena artesanal en plata .925 para caballero. Pregunte precio.',
+        desc_en: 'Handcrafted .925 silver chain for men. Ask for price.',
+        price: 'Pregunte Precio',
+        priceRaw: 0, isPregunte: true, isSolo: false,
+        details_es: [['Metal', 'Plata .925'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: false,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Aretes Á¢â€â‚¬Á¢â€â‚¬
+    rawAR.forEach(f => {
+      const sub = f.includes('OPA') ? 'opalo' : f.includes('ARR') ? 'arracada' : 'especial';
+      products.push(buildProduct(f, 'aretes', sub, 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Sets Á¢â€â‚¬Á¢â€â‚¬
+    rawSET.forEach(f => {
+      const sub = f.includes('OPA') ? 'opalo' : f.includes('ESP') ? 'especial' : 'clasico';
+      products.push(buildProduct(f, 'sets_juegos', sub, 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Juegos Á¢â€â‚¬Á¢â€â‚¬
+    rawJ.forEach(f => {
+      products.push(buildProduct(f, 'sets_juegos', 'juego', 'OPTIMIZADAS'));
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Platería con Áƒâ€œpalo Á¢â€â‚¬Á¢â€â‚¬
+    rawOPALO.forEach(f => {
+      const sub = f.startsWith('AR') ? 'aretes_opalo' : 'set_opalo';
+      const parsed = parseProductFilename(f, 'plateria_opalo', 'PLATERIA_CON_OPALO_PREGUNTE_PRECIO');
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}PLATERIA_CON_OPALO_PREGUNTE_PRECIO/${f}`,
+        category: 'plateria_opalo',
+        subcategory: sub,
+        badge_es: 'Pregunte Precio', badge_en: 'Ask for Price', badgeClass: 'bg-purple-600/90 text-white',
+        title_es: parsed.displayName,
+        title_en: parsed.displayName,
+        desc_es: 'Platería artesanal con ópalo natural. Pregunte precio.',
+        desc_en: 'Handcrafted silverware with natural opal. Ask for price.',
+        price: 'Pregunte Precio',
+        priceRaw: 0, isPregunte: true, isSolo: false,
+        details_es: [['Metal', 'Plata .925'], ['Piedra', 'Áƒâ€œpalo Natural'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver'], ['Stone', 'Natural Opal'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: false,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add DIJES (with Lupa) Á¢â€â‚¬Á¢â€â‚¬
+    dijesData.forEach(d => {
+      products.push({
+        id: _pid++,
+        img: d.img,
+        category: 'dijes',
+        subcategory: 'animales',
+        badge_es: 'Ver con Lupa', badge_en: 'Zoom to View', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: d.title_es, title_en: d.title_en,
+        desc_es: `${d.pieces.length} diseños únicos desde $${Math.min(...d.pieces.map(p=>p.price)).toLocaleString()} MXN.`,
+        desc_en: `${d.pieces.length} unique designs from $${Math.min(...d.pieces.map(p=>p.price)).toLocaleString()} MXN.`,
+        price: `Desde $${Math.min(...d.pieces.map(p=>p.price)).toLocaleString()} MXN`,
+        priceRaw: Math.min(...d.pieces.map(p=>p.price)),
+        isPregunte: false, isSolo: false,
+        details_es: d.pieces.map(p => [p.name, `$${p.price.toLocaleString()} MXN — ${p.gr}g`]),
+        details_en: d.pieces.map(p => [p.name, `$${p.price.toLocaleString()} MXN — ${p.gr}g`]),
+        hasLupa: true,
+        pieces: d.pieces,
+        dijesId: d.id,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Dijes Religiosos (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const religiososNames = ['Cruces', 'Cruces con Texto', 'Dijes Religiosos', 'Medallas Religiosas'];
+    dijesReligiososImgs.forEach((f, i) => {
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}dije_religioso_PREGUNTE_PRECIO/${f}`,
+        category: 'dijes',
+        subcategory: 'religiosos',
+        badge_es: 'Ver con Lupa', badge_en: 'Zoom to View', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: religiososNames[i], title_en: religiososNames[i],
+        desc_es: 'Colección de piezas religiosas artesanales en plata .925. Pregunte precio.',
+        desc_en: 'Collection of religious handcrafted .925 silver pieces. Ask for price.',
+        price: 'Pregunte Precio',
+        priceRaw: 0, isPregunte: true, isSolo: false,
+        details_es: [['Metal', 'Plata .925'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: true,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Virgencitas (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const virgNames = ['Medallas Chapa de Oro Virgen', 'Vírgenes y Medallas desde $600', 'Vírgenes y Medallas Variedad'];
+    virgencitasImgs.forEach((f, i) => {
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}VIRGENCITAS_PREGUNTE_PRECIO/${f}`,
+        category: 'virgencitas',
+        subcategory: 'virgen',
+        badge_es: 'Ver con Lupa', badge_en: 'Zoom to View', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: virgNames[i], title_en: virgNames[i],
+        desc_es: 'Medallas y vírgenes artesanales en plata .925 y chapa de oro. Pregunte precio.',
+        desc_en: 'Handcrafted virgin medals in .925 silver and gold plate. Ask for price.',
+        price: 'Desde $600 MXN',
+        priceRaw: 600, isPregunte: false, isSolo: false,
+        details_es: [['Metal', 'Plata .925 / Chapa Oro'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver / Gold Plate'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: true,
+      });
+    });
+
+    // Á¢â€â‚¬Á¢â€â‚¬ Add Pulseras Oficios (with Lupa, PREGUNTE PRECIO) Á¢â€â‚¬Á¢â€â‚¬
+    const oficiosNames = ['Pulseras de Oficio I', 'Pulseras de Oficio II', 'Pulseras de Oficio III', 'Pulseras de Oficio IV'];
+    pulserasOficiosImgs.forEach((f, i) => {
+      products.push({
+        id: _pid++,
+        img: `${IMG_BASE}PULSERAS_OFICIOS_PREGUNTE_PRECIO/${f}`,
+        category: 'pulseras_dama',
+        subcategory: 'oficios',
+        badge_es: 'Ver con Lupa', badge_en: 'Zoom to View', badgeClass: 'bg-terracotta/90 text-white',
+        title_es: oficiosNames[i], title_en: oficiosNames[i],
+        desc_es: 'Pulseras artesanales en plata .925. Pregunte precio.',
+        desc_en: 'Handcrafted .925 silver bracelets. Ask for price.',
+        price: 'Pregunte Precio',
+        priceRaw: 0, isPregunte: true, isSolo: false,
+        details_es: [['Metal', 'Plata .925'], ['Origen', 'Taxco, Gro.']],
+        details_en: [['Metal', '.925 Silver'], ['Origin', 'Taxco, Gro.']],
+        hasLupa: true,
+      });
+    });
+
+
     const translations = {
       es: {
         nav_coleccion: 'Colección', nav_destacada: 'Destacada', nav_historia: 'Historia', nav_proceso: 'Proceso', nav_contacto: 'Contacto', nav_cta: 'Cotizar',
@@ -1816,7 +2163,7 @@
         col_p1_name: 'Pieza ganadora: eternum', col_p1_desc: 'Plata .925 cincelada a mano',
         col_p2_name: 'Collar Dios Serpiente', col_p2_desc: 'Plata .925 y grabado fino',
         col_p3_name: 'Maya Nácar', col_p3_desc: 'Detalles con incrustación de concha',
-        col_p4_name: 'Maya Ámbar', col_p4_desc: 'Plata .925 y ámbar de Chiapas',
+        col_p4_name: 'Maya Ámbar', col_p4_desc: 'Plata .925 y ámbar de Chiapas',
         col_viewall: 'Ver toda la colección', col_quick: 'Ver Detalle',
         badge_new: 'Nuevo', badge_limited: 'Limitado',
         feat_label: 'Pieza de Galería', feat_name: 'Set Tradicional Frida',
@@ -1825,9 +2172,9 @@
         feat_d1: 'Días de trabajo', feat_d2: 'Plata Fina', feat_d3: 'Orfebres',
         feat_cta1: 'Consultar Disponibilidad', feat_cta2: 'Ver Detalle',
         hist_label: 'Nuestra Historia', hist_title: 'Legado de Plata',
-        hist_badge_title: '5ª Generación', hist_badge_sub: 'De orfebres',
-        hist_p1: 'La Azteca nació en el corazón de Taxco, Guerrero, la capital mundial de la plata. Somos la quinta generación de maestros orfebres que han transformado el metal en arte, preservando técnicas de cincelado y repujado que definen nuestra identidad.',
-        hist_p2: 'Cada joya que sale de nuestro taller lleva consigo siglos de conocimiento, la precisión del cincel y el brillo de nuestra herencia. No fabricamos en serie: creamos piezas con historia.',
+        hist_badge_title: '3ª Generación', hist_badge_sub: 'De tradición',
+        hist_p1: 'En 1997, Miguel Estrada siguió el legado de su padre al comenzar una línea de joyería tallada y elaborada por los artesanos locales de su tierra natal, Taxco, México. Ver a su padre dirigir una marca de joyería exitosa que atraía clientes de todo el mundo le sembró la idea de continuar con este legado en Estados Unidos, con la visión de traer estos diseños hechos a mano mientras apoyaba a la comunidad de Taxco.',
+        hist_p2: 'Después de dirigir una successiva empresa mayorista durante 23 años, Miguel y su hija Krystyna decidieron expandir Krystyna’s Silver con el lanzamiento de este sitio web al mayoreo y menudeo. Estamos emocionados de compartir con ustedes nuestros hermosos y únicos diseños, mientras seguimos apoyando a los artesanos locales de la maravillosa comunidad de Taxco.',
         hist_v1_title: 'Fundición', hist_v1_desc: 'Métodos tradicionales',
         hist_v2_title: 'Cincelado', hist_v2_desc: 'Detalles a mano alzada',
         hist_v3_title: 'Plata Pura', hist_v3_desc: 'Ley .925 certificada',
@@ -1862,10 +2209,11 @@
         contact_loc_title: 'Taller Matriz', contact_loc_desc: 'Centro Histórico, Taxco, Guerrero, México',
         contact_hours_title: 'Horario', contact_hours_lun: 'Lun - Vie', contact_hours_sab: 'Sábado', contact_hours_dom: 'Domingo', contact_hours_closed: 'Cerrado',
         cta_title: 'Lleva el Brillo<br>de Taxco', cta_sub: 'Una joya de La Azteca es una inversión en arte y tradición. ¿Cuál será tu legado?', cta_btn1: 'Cotizar mi Joya',
-        footer_desc: 'Joyería de autor en plata ley .925. Maestros orfebres de Taxco de Alarcon.',
+        footer_desc: 'Joyería de autor en plata ley .925. Maestros orfebres de Taxco de Alarcón.',
         footer_nav: 'Navegación', footer_social: 'Redes', footer_legal: 'Legal',
         footer_privacy: 'Privacidad', footer_terms: 'Términos', footer_shipping: 'Envíos',
-        footer_rights: 'Todos los derechos reservados.', footer_made: 'Hecho con 🤍 en Taxco, México',
+        footer_rights: 'Todos los derechos reservados.', footer_made: 'Hecho con 🤝 en Taxco, México', footer_disclaimer: 'Los precios están sujetos a cambios sin previo aviso.',
+        solo_disclaimer: 'El precio indicado es <strong>solo de la pulsera</strong>. Las demás piezas son referenciales.',
         toast_sent: '¡Solicitud enviada! Nos contactaremos pronto.',
         toast_added: '¡Añadido! Contáctanos para personalizar tu talla.',
         modal_cta: 'Pedir por WhatsApp', modal_close: 'Cerrar',
@@ -1888,72 +2236,99 @@
         checkout_wa_btn: 'Enviar Comprobante por WhatsApp',
         checkout_close: 'Cerrar',
         toast_clabe_copied: '¡CLABE copiada al portapapeles!',
+        filter_all: 'Todas',
+        cat_collares_brazaletes: 'Collares y Brazaletes',
+        sub_collares: 'Collares y Gargantillas',
+        sub_brazaletes: 'Brazaletes',
+        cat_pulseras_dama: 'Pulseras Dama',
+        sub_clasica: 'Pulseras Clásicas',
+        sub_ligera: 'Pulseras Ligeras',
+        sub_oficios: 'Pulseras Oficios',
+        cat_pulseras_caballero: 'Pulseras Caballero',
+        sub_esclava: 'Esclavas',
+        sub_cadena: 'Cadenas',
+        cat_aretes: 'Aretes',
+        sub_opalo: 'Con Ópalo',
+        sub_arracada: 'Arracadas',
+        sub_especial: 'Especiales',
+        cat_sets_juegos: 'Sets y Juegos',
+        sub_clasico: 'Sets Clásicos',
+        sub_especial: 'Sets Especiales',
+        sub_juego: 'Juegos Completos',
+        cat_dijes: 'Dijes',
+        sub_animales: 'Animales y Figuras',
+        sub_religiosos: 'Religiosos',
+        cat_plateria_opalo: 'Platería con Ópalo',
+        sub_aretes_opalo: 'Aretes con Ópalo',
+        sub_set_opalo: 'Sets con Ópalo',
+        cat_virgencitas: 'Vírgenes y Medallas',
+        sub_virgen: 'Vírgenes y Medallas',
       },
       de: {
         filter_all: 'Alle',
-        cat_collares_brazaletes: 'Halsketten & Armbänder',
+        cat_collares_brazaletes: 'Halsketten & ArmbÁ¤nder',
         sub_opalo: 'Opal',
         sub_greca_azteca: 'Aztekische Greca',
         sub_tubo: 'Tuben',
         sub_especiales: 'Besonderes',
-        sub_liso_martillado: 'Glatt/Gehämmert',
+        sub_liso_martillado: 'Glatt/GehÁ¤mmert',
         sub_spratling: 'Spratling',
         sub_tejidas: 'Gewebt',
-        cat_pulseras_dama: 'Damenarmbänder',
+        cat_pulseras_dama: 'DamenarmbÁ¤nder',
         sub_cartier: 'Cartier-Stil',
-        sub_dije_laser: 'Laser-Anhänger',
-        cat_pulseras_caballero: 'Herrenarmbänder',
+        sub_dije_laser: 'Laser-AnhÁ¤nger',
+        cat_pulseras_caballero: 'HerrenarmbÁ¤nder',
         cat_aretes: 'Ohrringe',
         sub_arracadas: 'Creolen',
         sub_otros: 'Andere',
-        cat_dijes: 'Anhänger',
+        cat_dijes: 'AnhÁ¤nger',
         sub_cera: 'Wachs',
-        sub_religiosos: 'Religiös',
+        sub_religiosos: 'ReligiÁ¶s',
         sub_cruces: 'Kreuze',
         sub_varios: 'Verschiedene',
 
         nav_coleccion: 'Kollektion', nav_destacada: 'Besonderes', nav_historia: 'Geschichte', nav_proceso: 'Prozess', nav_contacto: 'Kontakt', nav_cta: 'Angebot',
         hero_badge: 'Mexikanischer .925 Silberschmuck', hero_title_1: 'Das Ahnenwerk', hero_title_2: 'Neu Erfunden',
-        hero_sub: 'Einzigartige Stücke, die jahrtausendealte aztekische Tradition mit modernem Design aus feinem Taxco-Silber verbinden. Jedes Werk trägt die Seele des Goldschmiedemeisters.',
+        hero_sub: 'Einzigartige StÁ¼cke, die jahrtausendealte aztekische Tradition mit modernem Design aus feinem Taxco-Silber verbinden. Jedes Werk trÁ¤gt die Seele des Goldschmiedemeisters.',
         hero_cta1: 'Kollektion ansehen', hero_cta2: 'Unsere Geschichte',
         hero_stat1: 'Jahre Tradition', hero_stat2: 'Handgefertigt', hero_stat3: '.925 Silber', hero_scroll: 'Entdecken',
         col_label: 'Kollektion 2025', col_title: 'Schmuck mit Seele',
-        col_sub: 'Jedes Stück ist ein Unikat, geschmiedet aus reinem Silber mit den Techniken der alten Meister aus Taxco.',
-        col_p1_name: 'Siegerstück: Eternum', col_p1_desc: 'Handmeißelarbeit aus .925 Silber',
+        col_sub: 'Jedes StÁ¼ck ist ein Unikat, geschmiedet aus reinem Silber mit den Techniken der alten Meister aus Taxco.',
+        col_p1_name: 'SiegerstÁ¼ck: Eternum', col_p1_desc: 'HandmeiÁƒÅ¸elarbeit aus .925 Silber',
         col_p2_name: 'Schlangengott-Halskette', col_p2_desc: 'Feine Gravur aus .925 Silber',
         col_p3_name: 'Maya Nacar', col_p3_desc: 'Perlmutt-Einlegearbeiten',
         col_p4_name: 'Maya Ambar', col_p4_desc: '.925 Silber und Chiapas-Bernstein',
         col_viewall: 'Ganze Kollektion ansehen', col_quick: 'Details ansehen',
         badge_new: 'Neu', badge_limited: 'Limitiert',
-        feat_label: 'Galeriestück', feat_name: 'Frida Traditionelles Set',
+        feat_label: 'GaleriestÁ¼ck', feat_name: 'Frida Traditionelles Set',
         feat_badge: 'Museumsedition', feat_title: 'Frida Traditionelles Set',
-        feat_p1: 'Traditionelles Halsketten- und Ohrringset aus .925 Sterlingsilber, inspiriert von Frida Kahlos Ästhetik.',
+        feat_p1: 'Traditionelles Halsketten- und Ohrringset aus .925 Sterlingsilber, inspiriert von Frida Kahlos Áƒâ€žsthetik.',
         feat_d1: 'Arbeitstage', feat_d2: 'Feinsilber', feat_d3: 'Goldschmiede',
-        feat_cta1: 'Verfügbarkeit prüfen', feat_cta2: 'Details ansehen',
+        feat_cta1: 'VerfÁ¼gbarkeit prÁ¼fen', feat_cta2: 'Details ansehen',
         hist_label: 'Unsere Geschichte', hist_title: 'Silbernes Erbe',
-        hist_badge_title: '5. Generation', hist_badge_sub: 'Von Goldschmieden',
-        hist_p1: 'La Azteca wurde im Herzen von Taxco, Guerrero, der Welthauptstadt des Silbers, geboren. Wir sind die fünfte Generation von Goldschmiedemeistern.',
-        hist_p2: 'Jedes Schmuckstück, das unsere Werkstatt verlässt, trägt Jahrhunderte an Wissen in sich. Wir produzieren nicht in Serie.',
-        hist_v1_title: 'Gießen', hist_v1_desc: 'Traditionelle Methoden',
+        hist_badge_title: '3. Generation', hist_badge_sub: 'Aus Tradition',
+        hist_p1: 'Hace casi un siglo, la pasión por la platería comenzó en la familia Estrada, cuando el padre de Miguel Estrada trabajaba como artesano en la tradición platera que ha dado fama mundial a Taxco de Alarcón, Guerrero.',
+        hist_p2: 'Inspirado por ese legado y por el amor a su tierra, Miguel decidió fundar La Azteca, una platería dedicada a crear piezas de plata con diseños exclusivos, elaboradas a mano por talentosos artesanos en su propio taller. Con el paso de los años, Gaudencio Estrada retomó con orgullo este legado familiar, acompañado por su familia, manteniendo viva la tradición mientras impulsa a La Azteca hacia la vanguardia del diseño y la excelencia. Cada pieza refleja la calidad, el detalle y la autenticidad que distinguen a la platería taxqueña. Hoy, La Azteca continúa siendo una platería insignia de Taxco, reconocida por la calidez con la que recibe a visitantes de todo el mundo, por el compromiso con sus artesanos y por ofrecer joyería que honra la tradición, sin dejar de innovar para las nuevas generaciones.',
+        hist_v1_title: 'GieÁƒÅ¸en', hist_v1_desc: 'Traditionelle Methoden',
         hist_v2_title: 'Zelieren', hist_v2_desc: 'Freihand-Details',
         hist_v3_title: 'Reines Silber', hist_v3_desc: 'Zertifiziertes .925',
         hist_v4_title: 'Taxco', hist_v4_desc: 'Stolz von Guerrero',
         proc_label: 'Die Kunst des Metalls', proc_title: 'Tradition Schmieden',
-        proc_sub: 'Der Entstehungsprozess eines La Azteca Schmuckstücks ist eine Reise der Präzision.',
-        proc_s1_title: 'Design', proc_s1_desc: 'Wir entwerfen jedes Stück inspiriert vom Codex Borgia.',
-        proc_s2_title: 'Gießen', proc_s2_desc: 'Wir schmelzen reines Silber, um den Basisbarren zu kreieren.',
-        proc_s3_title: 'Silberschmieden', proc_s3_desc: 'Zelieren, Prägen und Präzisionslöten.',
+        proc_sub: 'Der Entstehungsprozess eines La Azteca SchmuckstÁ¼cks ist eine Reise der PrÁ¤zision.',
+        proc_s1_title: 'Design', proc_s1_desc: 'Wir entwerfen jedes StÁ¼ck inspiriert vom Codex Borgia.',
+        proc_s2_title: 'GieÁƒÅ¸en', proc_s2_desc: 'Wir schmelzen reines Silber, um den Basisbarren zu kreieren.',
+        proc_s3_title: 'Silberschmieden', proc_s3_desc: 'Zelieren, PrÁ¤gen und PrÁ¤zisionslÁ¶ten.',
         proc_s4_title: 'Polieren', proc_s4_desc: 'Das finale Finish, das dem Silber seinen mondartigen Glanz verleiht.',
         test_label: 'Testimonials', test_title: 'Echte Erfahrungen',
         test_t1_text: '"Der Jaguar-Ring ist beeindruckend. Man sieht die Handarbeit in jedem Detail."',
         test_t1_role: 'Treuer Kunde, Taxco',
-        test_t2_text: '"Ich habe die Halskette für eine Gala gekauft und sie war der Mittelpunkt."',
+        test_t2_text: '"Ich habe die Halskette fÁ¼r eine Gala gekauft und sie war der Mittelpunkt."',
         test_t2_role: 'Unternehmerin, Monterrey',
-        test_t3_text: '"Die persönliche Betreuung und die Qualität haben meine Erwartungen übertroffen."',
+        test_t3_text: '"Die persÁ¶nliche Betreuung und die QualitÁ¤t haben meine Erwartungen Á¼bertroffen."',
         test_t3_role: 'Sammlerin, Madrid',
         social_label: 'Gemeinschaft', social_title: 'Strahlen Sie mit uns',
         social_sub: 'Verbinden Sie sich mit der Werkstatt und entdecken Sie, wie wir Silber verwandeln.',
-        social_wa_desc: 'Persönliche Betreuung', social_wa_cta: 'WhatsApp',
+        social_wa_desc: 'PersÁ¶nliche Betreuung', social_wa_cta: 'WhatsApp',
         social_tt_desc: 'Der Glanz auf Video', social_tt_cta: 'Folgen',
         social_ig_desc: 'Unser digitales Schaufenster', social_ig_cta: 'Erkunden',
         social_pi_desc: 'Inspirationsboards', social_pi_cta: 'Pinnen',
@@ -1962,37 +2337,37 @@
         contact_name: 'Name', contact_name_ph: 'Ihr Name',
         contact_email: 'Email', contact_type: 'Kategorie', contact_type_ph: 'Was suchen Sie?',
         contact_type_cer: 'Ringe', contact_type_joy: 'Halsketten',
-        contact_type_tex: 'Armbänder', contact_type_mad: 'Ohrringe', contact_type_otr: 'Sonderanfertigung',
-        contact_msg: 'Nachricht', contact_msg_ph: 'Erzählen Sie uns Ihre Idee...', contact_submit: 'Anfrage senden',
+        contact_type_tex: 'ArmbÁ¤nder', contact_type_mad: 'Ohrringe', contact_type_otr: 'Sonderanfertigung',
+        contact_msg: 'Nachricht', contact_msg_ph: 'ErzÁ¤hlen Sie uns Ihre Idee...', contact_submit: 'Anfrage senden',
         contact_wa_title: 'WhatsApp Verkauf', contact_wa_desc: 'Sofortige Antwort',
         contact_loc_title: 'Hauptwerkstatt', contact_loc_desc: 'Historisches Zentrum, Taxco, Guerrero, Mexiko',
-        contact_hours_title: 'Öffnungszeiten', contact_hours_lun: 'Mo - Fr', contact_hours_sab: 'Samstag', contact_hours_dom: 'Sonntag', contact_hours_closed: 'Geschlossen',
-        cta_title: 'Holen Sie sich den Glanz<br>von Taxco', cta_sub: 'Ein Schmuckstück von La Azteca ist eine Investition. Was wird Ihr Vermächtnis sein?', cta_btn1: 'Angebot für mein Juwel',
-        footer_desc: 'Autorenschmuck aus .925 Silber. Goldschmiedemeister aus Taxco de Alarcon.',
+        contact_hours_title: 'Áƒâ€“ffnungszeiten', contact_hours_lun: 'Mo - Fr', contact_hours_sab: 'Samstag', contact_hours_dom: 'Sonntag', contact_hours_closed: 'Geschlossen',
+        cta_title: 'Holen Sie sich den Glanz<br>von Taxco', cta_sub: 'Ein SchmuckstÁ¼ck von La Azteca ist eine Investition. Was wird Ihr VermÁ¤chtnis sein?', cta_btn1: 'Angebot fÁ¼r mein Juwel',
+        footer_desc: 'Autorenschmuck aus .925 Silber. Goldschmiedemeister aus Taxco de Alarcón.',
         footer_nav: 'Navigation', footer_social: 'Social', footer_legal: 'Rechtliches',
         footer_privacy: 'Datenschutz', footer_terms: 'AGB', footer_shipping: 'Versand',
-        footer_rights: 'Alle Rechte vorbehalten.', footer_made: 'Mit 🤍 in Taxco, Mexiko gemacht',
+        footer_rights: 'Alle Rechte vorbehalten.', footer_made: 'Mit 🤝 in Taxco, Mexiko gemacht',
         toast_sent: 'Anfrage gesendet! Wir melden uns bald.',
-        toast_added: 'Hinzugefügt! Kontaktieren Sie uns für Ihre Größe.',
-        modal_cta: 'Per WhatsApp bestellen', modal_close: 'Schließen',
+        toast_added: 'HinzugefÁ¼gt! Kontaktieren Sie uns fÁ¼r Ihre GrÁ¶ÁƒÅ¸e.',
+        modal_cta: 'Per WhatsApp bestellen', modal_close: 'SchlieÁƒÅ¸en',
         cart_title: 'Warenkorb',
         cart_subtotal: 'Zwischensumme',
-        cart_note: 'Die Zahlung erfolgt per Überweisung und wird per WhatsApp bestätigt.',
+        cart_note: 'Die Zahlung erfolgt per ÁƒÅ“berweisung und wird per WhatsApp bestÁ¤tigt.',
         cart_checkout: 'Zur Kasse gehen',
         cart_continue: 'Weiter Einkaufen',
         cart_empty: 'Ihr Warenkorb ist leer.',
         modal_add_to_cart: 'In den Warenkorb',
-        checkout_title: 'Bestellbestätigung',
-        checkout_sub: 'Schließen Sie Ihre Überweisung ab, um Ihre Bestellung zu bearbeiten',
-        checkout_summary: 'Bestellübersicht',
+        checkout_title: 'BestellbestÁ¤tigung',
+        checkout_sub: 'SchlieÁƒÅ¸en Sie Ihre ÁƒÅ“berweisung ab, um Ihre Bestellung zu bearbeiten',
+        checkout_summary: 'BestellÁ¼bersicht',
         checkout_total: 'Gesamtbetrag',
-        checkout_transfer_title: 'Überweisungsdaten',
-        checkout_transfer_desc: 'Überweisen Sie den Gesamtbetrag und senden Sie uns Ihren Beleg per WhatsApp zusammen mit Ihren Versanddaten.',
+        checkout_transfer_title: 'ÁƒÅ“berweisungsdaten',
+        checkout_transfer_desc: 'ÁƒÅ“berweisen Sie den Gesamtbetrag und senden Sie uns Ihren Beleg per WhatsApp zusammen mit Ihren Versanddaten.',
         checkout_clabe_label: 'Interbank-CLABE',
         checkout_bank: 'Bank',
-        checkout_beneficiary: 'Begünstigter',
+        checkout_beneficiary: 'BegÁ¼nstigter',
         checkout_wa_btn: 'Beleg per WhatsApp senden',
-        checkout_close: 'Schließen',
+        checkout_close: 'SchlieÁƒÅ¸en',
         toast_clabe_copied: 'CLABE in die Zwischenablage kopiert!',
       },
       it: {
@@ -2024,40 +2399,40 @@
         hero_cta1: 'Vedi Collezione', hero_cta2: 'Nostra Storia',
         hero_stat1: 'Anni di Tradizione', hero_stat2: 'Fatto a Mano', hero_stat3: 'Argento .925', hero_scroll: 'Scopri',
         col_label: 'Collezione 2025', col_title: 'Gioielli con Anima',
-        col_sub: 'Ogni pezzo è unico, forgiato in argento puro con le tecniche degli antichi maestri di Taxco.',
+        col_sub: 'Ogni pezzo Á¨ unico, forgiato in argento puro con le tecniche degli antichi maestri di Taxco.',
         col_p1_name: 'Pezzo Vincitore: Eternum', col_p1_desc: 'Argento .925 cesellato a mano',
         col_p2_name: 'Collana Dio Serpente', col_p2_desc: 'Incisione fine in argento .925',
         col_p3_name: 'Maya Nácar', col_p3_desc: 'Dettagli con intarsio di conchiglia',
-        col_p4_name: 'Maya Ámbar', col_p4_desc: 'Argento .925 e ambra del Chiapas',
+        col_p4_name: 'Maya Ámbar', col_p4_desc: 'Argento .925 e ambra del Chiapas',
         col_viewall: 'Vedi tutta la collezione', col_quick: 'Dettagli',
         badge_new: 'Nuovo', badge_limited: 'Limitato',
         feat_label: 'Pezzo da Galleria', feat_name: 'Set Tradizionale Frida',
         feat_badge: 'Edizione Museo', feat_title: 'Set Tradizionale Frida',
         feat_p1: 'Set tradizionale di collana e orecchini in argento .925 ispirato a Frida Kahlo.',
         feat_d1: 'Giorni di lavoro', feat_d2: 'Argento Fino', feat_d3: 'Orafi',
-        feat_cta1: 'Verifica Disponibilità', feat_cta2: 'Dettagli',
+        feat_cta1: 'Verifica DisponibilitÁ ', feat_cta2: 'Dettagli',
         hist_label: 'Nostra Storia', hist_title: 'Eredità d\'Argento',
-        hist_badge_title: '5ª Generazione', hist_badge_sub: 'Di orafi',
-        hist_p1: 'La Azteca è nata nel cuore di Taxco, Guerrero, la capitale mondiale dell\'argento. Siamo la quinta generazione di maestri orafi.',
-        hist_p2: 'Ogni gioiello che esce dal nostro laboratorio porta con sé secoli di conoscenza. Non fabbrichiamo in serie.',
+        hist_badge_title: '3ª Generazione', hist_badge_sub: 'Di tradizione',
+        hist_p1: 'Nel 1997, Miguel Estrada ha seguito l\'eredità di suo padre creando una linea di gioielli scolpiti e realizzati da artigiani locali nella sua città natale di Taxco, Messico. Vedere suo padre gestire un marchio di gioielli di successo che attirava clienti da tutto il mondo gli ha ispirato l\'idea di continuare questa eredità negli Stati Uniti, portando questi design fatti a mano e sostenendo la comunità di Taxco.',
+        hist_p2: 'Dopo aver gestito con successo un\'attività all\'ingrosso per 23 anni, Miguel e sua figlia Krystyna hanno deciso di espandere Krystyna\'s Silver lanciando questo sito web all\'ingrosso e al dettaglio. Siamo entusiasti di condividere con voi i nostri design unici e splendidi, continuando a sostenere gli artigiani locali di Taxco.',
         hist_v1_title: 'Fusione', hist_v1_desc: 'Metodi tradizionali',
         hist_v2_title: 'Cesellatura', hist_v2_desc: 'Dettagli a mano libera',
         hist_v3_title: 'Argento Puro', hist_v3_desc: 'Certificato .925',
         hist_v4_title: 'Taxco', hist_v4_desc: 'Orgoglio di Guerrero',
         proc_label: 'L\'Arte del Metallo', proc_title: 'Forgiare la Tradizione',
-        proc_sub: 'Il processo di creazione di un gioiello La Azteca è un viaggio di precisione che richiede settimane.',
+        proc_sub: 'Il processo di creazione di un gioiello La Azteca Á¨ un viaggio di precisione che richiede settimane.',
         proc_s1_title: 'Design', proc_s1_desc: 'Disegniamo ogni pezzo ispirandoci al Codice Borgia.',
         proc_s2_title: 'Fusione', proc_s2_desc: 'Fondiamo l\'argento puro per creare il lingotto di base.',
         proc_s3_title: 'Oreficeria', proc_s3_desc: 'Cesellatura, sbalzo e saldatura di precision.',
         proc_s4_title: 'Lucidatura', proc_s4_desc: 'La finitura finale che dona all\'argento la sua brillantezza lunare.',
         test_label: 'Testimonianze', test_title: 'Esperienze Reali',
-        test_t1_text: '"L\'anello giaguaro è impressionante. Si nota il lavoro manuale in ogni dettaglio."',
+        test_t1_text: '"L\'anello giaguaro Á¨ impressionante. Si nota il lavoro manuale in ogni dettaglio."',
         test_t1_role: 'Cliente Fedele, Taxco',
-        test_t2_text: '"Ho comprato il girocollo per un galà ed è stato al centro dell\'attenzione."',
+        test_t2_text: '"Ho comprato il girocollo per un galÁ  ed Á¨ stato al centro dell\'attenzione."',
         test_t2_role: 'Imprenditrice, Monterrey',
-        test_t3_text: '"L\'attenzione personalizzata e la qualità del pezzo hanno superato le mie aspettative."',
+        test_t3_text: '"L\'attenzione personalizzata e la qualitÁ  del pezzo hanno superato le mie aspettative."',
         test_t3_role: 'Collezionista, Madrid',
-        social_label: 'Comunità', social_title: 'Brilla con Noi',
+        social_label: 'ComunitÁ ', social_title: 'Brilla con Noi',
         social_sub: 'Connettiti con il laboratorio e scopri come trasformiamo l\'argento.',
         social_wa_desc: 'Attenzione personalizzata', social_wa_cta: 'WhatsApp',
         social_tt_desc: 'La brillantezza in video', social_tt_cta: 'Segui',
@@ -2073,11 +2448,11 @@
         contact_wa_title: 'WhatsApp Vendite', contact_wa_desc: 'Risposta immediata',
         contact_loc_title: 'Laboratorio Principale', contact_loc_desc: 'Centro Storico, Taxco, Guerrero, Messico',
         contact_hours_title: 'Orari', contact_hours_lun: 'Lun - Ven', contact_hours_sab: 'Sabato', contact_hours_dom: 'Domenica', contact_hours_closed: 'Chiuso',
-        cta_title: 'Porta la Brillantezza<br>di Taxco', cta_sub: 'Un gioiello di La Azteca è un investimento. Quale sarà la tua eredità?', cta_btn1: 'Preventivo per il mio Gioiello',
-        footer_desc: 'Gioielleria d\'autore in argento .925. Maestri orafi di Taxco de Alarcon.',
+        cta_title: 'Porta la Brillantezza<br>di Taxco', cta_sub: 'Un gioiello di La Azteca Á¨ un investimento. Quale sarÁ  la tua ereditÁ ?', cta_btn1: 'Preventivo per il mio Gioiello',
+        footer_desc: 'Gioielleria d\'autore in argento .925. Maestri orafi di Taxco de Alarcón.',
         footer_nav: 'Navigazione', footer_social: 'Social', footer_legal: 'Legale',
         footer_privacy: 'Privacy', footer_terms: 'Termini', footer_shipping: 'Spedizioni',
-        footer_rights: 'Todos los derechos reservados.', footer_made: 'Hecho con 🤍 en Taxco, México',
+        footer_rights: 'Todos los derechos reservados.', footer_made: 'Hecho con 🤝 en Taxco, México',
         toast_sent: '¡Solicitud enviada! Nos contactaremos pronto.',
         toast_added: '¡Añadido! Contáctanos para personalizar tu talla.',
         modal_cta: 'Pedir por WhatsApp', modal_close: 'Cerrar',
@@ -2086,7 +2461,7 @@
         cart_note: 'Il pagamento viene effettuato tramite bonifico e confermato via WhatsApp.',
         cart_checkout: 'Procedi al Pagamento',
         cart_continue: 'Continua lo Shopping',
-        cart_empty: 'Il tuo carrello è vuoto.',
+        cart_empty: 'Il tuo carrello Á¨ vuoto.',
         modal_add_to_cart: 'Aggiungi al Carrello',
         checkout_title: 'Conferma dell\'Ordine',
         checkout_sub: 'Completa il trasferimento per elaborare il tuo ordine',
@@ -2143,9 +2518,9 @@
         feat_d1: 'Days of work', feat_d2: 'Fine Silver', feat_d3: 'Silversmiths',
         feat_cta1: 'Check Availability', feat_cta2: 'View Details',
         hist_label: 'Our Story', hist_title: 'Silver Legacy',
-        hist_badge_title: '5th Generation', hist_badge_sub: 'Of silversmiths',
-        hist_p1: 'La Azteca was born in the heart of Taxco, Guerrero, the world capital of silver. We are the fifth generation of master silversmiths who have transformed metal into art, preserving the chiseling and embossing techniques that define our identity.',
-        hist_p2: 'Each jewel that leaves our workshop carries centuries of knowledge, the precision of the chisel, and the brilliance of our heritage. We don\'t mass-produce: we create pieces with history.',
+        hist_badge_title: '3rd Generation', hist_badge_sub: 'Of tradition',
+        hist_p1: 'In 1997, Miguel Estrada followed his father\'s legacy by establishing a line of jewelry carved and crafted by local artisans in his hometown of Taxco, Mexico. Seeing his father run a successful jewelry brand that attracted clients from all over the world inspired him to continue this legacy in the United States, with the vision of bringing these handmade designs to the US while supporting the Taxco community.',
+        hist_p2: 'After running a successful wholesale business for 23 years, Miguel and his daughter Krystyna decided to expand Krystyna\'s Silver by launching this wholesale and retail website. We are excited to share our beautiful and unique designs with you, while continuing to support the local artisans of the wonderful Taxco community.',
         hist_v1_title: 'Casting', hist_v1_desc: 'Traditional methods',
         hist_v2_title: 'Chiseling', hist_v2_desc: 'Freehand details',
         hist_v3_title: 'Pure Silver', hist_v3_desc: 'Certified .925 sterling',
@@ -2180,10 +2555,10 @@
         contact_loc_title: 'Main Workshop', contact_loc_desc: 'Historic Center, Taxco, Guerrero, Mexico',
         contact_hours_title: 'Hours', contact_hours_lun: 'Mon - Fri', contact_hours_sab: 'Saturday', contact_hours_dom: 'Sunday', contact_hours_closed: 'Closed',
         cta_title: 'Take the Brilliance<br>of Taxco', cta_sub: 'A La Azteca jewel is an investment in art and tradition. What will be your legacy?', cta_btn1: 'Quote My Jewel',
-        footer_desc: 'Author jewelry in .925 sterling silver. Master silversmiths from Taxco de Alarcon.',
+        footer_desc: 'Author jewelry in .925 sterling silver. Master silversmiths from Taxco de Alarcón.',
         footer_nav: 'Navigation', footer_social: 'Social', footer_legal: 'Legal',
         footer_privacy: 'Privacy', footer_terms: 'Terms', footer_shipping: 'Shipping',
-        footer_rights: 'All rights reserved.', footer_made: 'Made with 🤍 in Taxco, Mexico',
+        footer_rights: 'All rights reserved.', footer_made: 'Made with 🤝 in Taxco, Mexico',
         toast_sent: 'Request sent! We\'ll contact you soon.',
         toast_added: 'Added! Contact us to customize your size.',
         modal_cta: 'Order via WhatsApp', modal_close: 'Close',
@@ -2211,7 +2586,7 @@
         filter_all: 'Tout',
         cat_collares_brazaletes: 'Colliers & Bracelets',
         sub_opalo: 'Opale',
-        sub_greca_azteca: 'Grecque Aztèque',
+        sub_greca_azteca: 'Grecque AztÁ¨que',
         sub_tubo: 'Tube',
         sub_especiales: 'Spéciaux',
         sub_liso_martillado: 'Lisse/Martelé',
@@ -2232,51 +2607,51 @@
 
         nav_coleccion: 'Collection', nav_destacada: 'Vedette', nav_historia: 'Histoire', nav_proceso: 'Processus', nav_contacto: 'Contact', nav_cta: 'Devis',
         hero_badge: 'Bijoux Mexicains en Argent .925', hero_title_1: 'L\'Ancestrale', hero_title_2: 'Réimaginé',
-        hero_sub: 'Des pièces uniques reliant des millénaires de tradition aztèque au design contemporain en argent fin de Taxco. Chaque œuvre porte l\'âme du maître orfèvre.',
+        hero_sub: 'Des piÁ¨ces uniques reliant des millénaires de tradition aztÁ¨que au design contemporain en argent fin de Taxco. Chaque Á…â€œuvre porte l\'Á¢me du maÁ®tre orfÁ¨vre.',
         hero_cta1: 'Voir la Collection', hero_cta2: 'Notre Histoire',
-        hero_stat1: 'Années de Tradition', hero_stat2: 'Fait à la Main', hero_stat3: 'Argent .925', hero_scroll: 'Découvrir',
-        col_label: 'Collection 2025', col_title: 'Bijoux avec Âme',
-        col_sub: 'Chaque pièce est unique, forgée en argent pur selon les techniques des anciens maîtres de Taxco.',
-        col_p1_name: 'Pièce gagnante: Eternum', col_p1_desc: 'Argent .925 ciselé à la main',
+        hero_stat1: 'Années de Tradition', hero_stat2: 'Fait Á  la Main', hero_stat3: 'Argent .925', hero_scroll: 'Découvrir',
+        col_label: 'Collection 2025', col_title: 'Bijoux avec Áƒâ€šme',
+        col_sub: 'Chaque piÁ¨ce est unique, forgée en argent pur selon les techniques des anciens maÁ®tres de Taxco.',
+        col_p1_name: 'PiÁ¨ce gagnante: Eternum', col_p1_desc: 'Argent .925 ciselé Á  la main',
         col_p2_name: 'Collier Dieu Serpent', col_p2_desc: 'Gravure fine en argent .925',
         col_p3_name: 'Maya Nacar', col_p3_desc: 'Détails avec incrustation de nacre',
         col_p4_name: 'Maya Ambar', col_p4_desc: 'Argent .925 et ambre du Chiapas',
         col_viewall: 'Voir toute la collection', col_quick: 'Détails',
         badge_new: 'Nouveau', badge_limited: 'Limité',
-        feat_label: 'Pièce de Galerie', feat_name: 'Ensemble Traditionnel Frida',
-        feat_badge: 'Édition de Musée', feat_title: 'Ensemble Traditionnel Frida',
+        feat_label: 'PiÁ¨ce de Galerie', feat_name: 'Ensemble Traditionnel Frida',
+        feat_badge: 'Áƒâ€°dition de Musée', feat_title: 'Ensemble Traditionnel Frida',
         feat_p1: 'Ensemble traditionnel de collier et boucles d\'oreilles en argent .925 inspiré de Frida Kahlo.',
-        feat_d1: 'Jours de travail', feat_d2: 'Argent Fin', feat_d3: 'Orfèvres',
+        feat_d1: 'Jours de travail', feat_d2: 'Argent Fin', feat_d3: 'OrfÁ¨vres',
         feat_cta1: 'Vérifier la Disponibilité', feat_cta2: 'Détails',
         hist_label: 'Notre Histoire', hist_title: 'Héritage d\'Argent',
-        hist_badge_title: '5ème Génération', hist_badge_sub: 'D\'orfèvres',
-        hist_p1: 'La Azteca est née au cœur de Taxco, Guerrero, la capitale mondiale de l\'argent. Nous sommes la cinquième génération de maîtres orfèvres.',
-        hist_p2: 'Chaque bijou qui sort de notre atelier porte en lui des siècles de savoir-faire. Nous ne produisons pas en série.',
+        hist_badge_title: '3ème Génération', hist_badge_sub: 'De tradition',
+        hist_p1: 'En 1997, Miguel Estrada a suivi l\'héritage de son père en créant une ligne de bijoux sculptés et façonnés par des artisans locaux dans sa ville natale de Taxco, au Mexique. Voir son père diriger une marque de bijoux prospère qui attirait des clients du monde entier lui a donné l\'idée de poursuivre cet héritage aux États-Unis, avec la vision d\'apporter ces créations artisanales tout en soutenant la communauté de Taxco.',
+        hist_p2: 'Après avoir dirigé une entreprise de vente en gros prospère pendant 23 ans, Miguel et sa fille Krystyna ont décidé de développer Krystyna\'s Silver en lançant ce site de vente en gros et au détail. Nous sommes ravis de partager avec vous nos designs uniques et magnifiques, tout en continuant à soutenir les artisans locaux de Taxco.',
         hist_v1_title: 'Fusion', hist_v1_desc: 'Méthodes traditionnelles',
-        hist_v2_title: 'Ciselage', hist_v2_desc: 'Détails à main levée',
+        hist_v2_title: 'Ciselage', hist_v2_desc: 'Détails Á  main levée',
         hist_v3_title: 'Argent Pur', hist_v3_desc: 'Certifié .925',
         hist_v4_title: 'Taxco', hist_v4_desc: 'Fierté de Guerrero',
         proc_label: 'L\'Art du Métal', proc_title: 'Forger la Tradition',
         proc_sub: 'Le processus de création d\'un bijou La Azteca est un voyage de précision de plusieurs semaines.',
-        proc_s1_title: 'Design', proc_s1_desc: 'Nous dessinons chaque pièce en nous inspirant du Codex Borgia.',
+        proc_s1_title: 'Design', proc_s1_desc: 'Nous dessinons chaque piÁ¨ce en nous inspirant du Codex Borgia.',
         proc_s2_title: 'Fusion', proc_s2_desc: 'Nous fondons l\'argent pur pour créer le lingot de base.',
-        proc_s3_title: 'Orfèvrerie', proc_s3_desc: 'Ciselage, repoussage et soudure de précision.',
-        proc_s4_title: 'Polissage', proc_s4_desc: 'La finition finale qui donne à l\'argent son éclat lunaire.',
+        proc_s3_title: 'OrfÁ¨vrerie', proc_s3_desc: 'Ciselage, repoussage et soudure de précision.',
+        proc_s4_title: 'Polissage', proc_s4_desc: 'La finition finale qui donne Á  l\'argent son éclat lunaire.',
         test_label: 'Témoignages', test_title: 'Expériences Réelles',
         test_t1_text: '"La bague jaguar est impressionnante. On sent le travail manuel dans chaque détail."',
-        test_t1_role: 'Client Fidèle, Taxco',
+        test_t1_role: 'Client FidÁ¨le, Taxco',
         test_t2_text: '"J\'ai acheté le collier pour un gala et il a fait sensation. L\'élégance de l\'argent de Taxco est incomparable."',
         test_t2_role: 'Femme d\'affaires, Monterrey',
-        test_t3_text: '"L\'attention personnalisée et la qualité de la pièce ont dépassé mes attentes."',
+        test_t3_text: '"L\'attention personnalisée et la qualité de la piÁ¨ce ont dépassé mes attentes."',
         test_t3_role: 'Collectionneur, Madrid',
         social_label: 'Communauté', social_title: 'Brillez avec Nous',
         social_sub: 'Connectez-vous avec l\'atelier et découvrez comment nous transformons l\'argent.',
         social_wa_desc: 'Attention personnalisée', social_wa_cta: 'WhatsApp',
         social_tt_desc: 'L\'éclat en vidéo', social_tt_cta: 'Suivre',
         social_ig_desc: 'Notre vitrine numérique', social_ig_cta: 'Explorer',
-        social_pi_desc: 'Tableaux d\'inspiration', social_pi_cta: 'Épingler',
+        social_pi_desc: 'Tableaux d\'inspiration', social_pi_cta: 'Áƒâ€°pingler',
         contact_label: 'Contact', contact_title: 'Votre Bijou Sur Mesure',
-        contact_sub: 'Vous avez un design en tête? Nos maîtres orfèvres peuvent le réaliser.',
+        contact_sub: 'Vous avez un design en tÁªte? Nos maÁ®tres orfÁ¨vres peuvent le réaliser.',
         contact_name: 'Nom', contact_name_ph: 'Votre nom',
         contact_email: 'E-mail', contact_type: 'Catégorie', contact_type_ph: 'Que cherchez-vous?',
         contact_type_cer: 'Bagues', contact_type_joy: 'Colliers',
@@ -2285,12 +2660,12 @@
         contact_wa_title: 'WhatsApp Ventes', contact_wa_desc: 'Réponse immédiate',
         contact_loc_title: 'Atelier Principal', contact_loc_desc: 'Centre Historique, Taxco, Guerrero, Mexique',
         contact_hours_title: 'Horaires', contact_hours_lun: 'Lun - Ven', contact_hours_sab: 'Samedi', contact_hours_dom: 'Dimanche', contact_hours_closed: 'Fermé',
-        cta_title: 'Emportez l\'Éclat<br>de Taxco', cta_sub: 'Un bijou La Azteca est un investissement. Quel sera votre héritage?', cta_btn1: 'Devis pour mon Bijou',
-        footer_desc: 'Bijouterie d\'auteur en argent .925. Maîtres orfèvres de Taxco de Alarcon.',
+        cta_title: 'Emportez l\'Áƒâ€°clat<br>de Taxco', cta_sub: 'Un bijou La Azteca est un investissement. Quel sera votre héritage?', cta_btn1: 'Devis pour mon Bijou',
+        footer_desc: 'Bijouterie d\'auteur en argent .925. MaÁ®tres orfÁ¨vres de Taxco de Alarcón.',
         footer_nav: 'Navigation', footer_social: 'Réseaux', footer_legal: 'Mentions Légales',
         footer_privacy: 'Confidentialité', footer_terms: 'Conditions', footer_shipping: 'Livraison',
-        footer_rights: 'Tous droits réservés.', footer_made: 'Fait avec 🤍 à Taxco, Mexique',
-        toast_sent: 'Demande envoyée! Nous vous contacterons bientôt.',
+        footer_rights: 'Tous droits réservés.', footer_made: 'Fait avec 🤝 Á  Taxco, Mexique',
+        toast_sent: 'Demande envoyée! Nous vous contacterons bientÁ´t.',
         toast_added: 'Ajouté! Contactez-nous pour personnaliser votre taille.',
         modal_cta: 'Commander par WhatsApp', modal_close: 'Fermer',
         cart_title: 'Panier',
@@ -2303,13 +2678,13 @@
         checkout_title: 'Confirmation de Commande',
         checkout_sub: 'Complétez votre transfert pour traiter votre commande',
         checkout_summary: 'Résumé de la Commande',
-        checkout_total: 'Total à Payer',
+        checkout_total: 'Total Á  Payer',
         checkout_transfer_title: 'Détails du Transfert',
-        checkout_transfer_desc: 'Transférez le total et envoyez-nous votre reçu par WhatsApp avec vos coordonnées de livraison.',
+        checkout_transfer_desc: 'Transférez le total et envoyez-nous votre reÁ§u par WhatsApp avec vos coordonnées de livraison.',
         checkout_clabe_label: 'CLABE Interbancaire',
         checkout_bank: 'Banque',
         checkout_beneficiary: 'Bénéficiaire',
-        checkout_wa_btn: 'Envoyer le Reçu par WhatsApp',
+        checkout_wa_btn: 'Envoyer le ReÁ§u par WhatsApp',
         checkout_close: 'Fermer',
         toast_clabe_copied: 'CLABE copiée dans le presse-papiers!',
       },
@@ -2711,6 +3086,25 @@
       }, 400);
     }
 
+    function toggleVideoSound() {
+      const video = document.getElementById('historyVideo');
+      const soundBtn = document.getElementById('videoSoundBtn');
+      const soundIcon = document.getElementById('soundIcon');
+      
+      if (video.muted) {
+        video.muted = false;
+        soundIcon.setAttribute('data-lucide', 'volume-2');
+        soundBtn.setAttribute('aria-label', currentLang === 'es' ? 'Desactivar sonido' : 'Mute video');
+        showToast(currentLang === 'es' ? 'Audio activado' : 'Audio enabled', 'info');
+      } else {
+        video.muted = true;
+        soundIcon.setAttribute('data-lucide', 'volume-x');
+        soundBtn.setAttribute('aria-label', currentLang === 'es' ? 'Activar sonido' : 'Unmute video');
+        showToast(currentLang === 'es' ? 'Audio desactivado' : 'Audio disabled', 'info');
+      }
+      lucide.createIcons({ nodes: [soundIcon] });
+    }
+
     function copyCLABE() {
       const clabe = document.getElementById('clabeNumber').textContent;
       navigator.clipboard.writeText(clabe.replace(/\s+/g, '')).then(() => {
@@ -2722,11 +3116,14 @@
 
     // ===== CATEGORY FILTERS LOGIC =====
     const categoryStructure = {
-      collares_brazaletes: ['opalo', 'greca_azteca', 'tubo', 'especiales', 'liso_martillado', 'spratling', 'tejidas'],
-      pulseras_dama: ['cartier', 'dije_laser'],
-      pulseras_caballero: ['cartier'],
-      aretes: ['opalo', 'arracadas', 'otros'],
-      dijes: ['cera', 'religiosos', 'cruces', 'varios']
+      collares_brazaletes: ['collares', 'brazaletes'],
+      pulseras_dama:       ['clasica', 'ligera', 'oficios'],
+      pulseras_caballero:  ['esclava', 'cadena'],
+      aretes:              ['opalo', 'arracada', 'especial'],
+      sets_juegos:         ['clasico', 'especial', 'juego', 'opalo'],
+      dijes:               ['animales', 'religiosos'],
+      plateria_opalo:      ['aretes_opalo', 'set_opalo'],
+      virgencitas:         ['virgen'],
     };
 
     let activeCategory = 'collares_brazaletes';
@@ -2789,13 +3186,13 @@
     function updateCatalogProducts() {
       const grid = document.getElementById('productGrid');
       if (!grid) return;
-      
+
       const filtered = products.filter(p => {
         const matchCat = p.category === activeCategory;
         const matchSub = activeSubcategory === 'all' || p.subcategory === activeSubcategory;
         return matchCat && matchSub;
       });
-      
+
       if (filtered.length === 0) {
         grid.innerHTML = `
           <div class="col-span-full flex flex-col items-center justify-center py-20 text-center reveal">
@@ -2807,39 +3204,82 @@
         lucide.createIcons();
         return;
       }
-      
-      grid.innerHTML = filtered.map(p => {
+
+      // Á¢â€â‚¬Á¢â€â‚¬ PC_MUESTRAS banner (Pulseras Caballero only) Á¢â€â‚¬Á¢â€â‚¬
+      let bannerHTML = '';
+      if (activeCategory === 'pulseras_caballero') {
+        bannerHTML = `
+          <div class="col-span-full mb-2">
+            <div class="relative rounded-2xl overflow-hidden border border-gold/20 group cursor-pointer" onclick="openLupa('img/PRECIOS/OPTIMIZADAS/PC_MUESTRAS.webp', 'Catálogo Pulseras Caballero', [])">
+              <img src="img/PRECIOS/OPTIMIZADAS/PC_MUESTRAS.webp" alt="Catálogo Pulseras Caballero" class="w-full max-h-72 object-cover object-center">
+              <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div>
+                  <div class="text-[10px] text-gold uppercase tracking-widest mb-0.5">Catálogo Completo</div>
+                  <div class="font-display font-bold text-cream text-xl">Pulseras para Caballero</div>
+                  <div class="text-creamMuted text-xs mt-1">Todas las esclavas y cadenas disponibles Á‚Â· Plata .925</div>
+                </div>
+                <div class="flex items-center gap-2 bg-gold/20 backdrop-blur-sm border border-gold/30 px-4 py-2 rounded-xl text-gold text-sm font-semibold group-hover:bg-gold/40 transition-all">
+                  <i data-lucide="zoom-in" class="w-4 h-4"></i> Ver con Lupa
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      const cardsHTML = filtered.map(p => {
         const originalIndex = products.findIndex(x => x.img === p.img && x.title_es === p.title_es);
         const title = currentLang === 'es' ? p.title_es : p.title_en;
-        const desc = currentLang === 'es' ? p.desc_es : p.desc_en;
+        const desc  = currentLang === 'es' ? p.desc_es  : p.desc_en;
         const badge = currentLang === 'es' ? p.badge_es : p.badge_en;
-        
+
+        // SOLO disclaimer overlay
+        const soloNote = p.isSolo ? `
+          <div class="absolute bottom-0 left-0 right-0 bg-amber-900/90 backdrop-blur-sm px-3 py-1.5 flex items-start gap-1.5">
+            <i data-lucide="info" class="w-3 h-3 text-amber-300 mt-0.5 shrink-0"></i>
+            <p class="text-amber-200 text-[10px] leading-tight">${translations[currentLang].solo_disclaimer}</p>
+          </div>` : '';
+
+        // Lupa button
+        const lupaBtn = p.hasLupa ? `
+          <button onclick="event.stopPropagation(); openLupa('${p.img}', '${title.replace(/'/g, "\\'")}',${ p.pieces ? JSON.stringify(p.pieces) : '[]' })" 
+            class="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-base/70 backdrop-blur-sm border border-gold/30 text-gold text-[10px] font-bold px-2.5 py-1.5 rounded-lg hover:bg-gold/20 transition-all">
+            <i data-lucide="zoom-in" class="w-3 h-3"></i> Lupa
+          </button>` : '';
+
+        // Card click: hasLupa Á¢â€ â€™ openLupa, else openModal
+        const cardClick = p.hasLupa
+          ? `openLupa('${p.img}', '${title.replace(/'/g, "\\'")}',${ p.pieces ? JSON.stringify(p.pieces) : '[]' })`
+          : `openModal(${originalIndex})`;
+
         return `
-          <div class="glass-card rounded-2xl overflow-hidden group product-card cursor-pointer reveal" onclick="openModal(${originalIndex})">
+          <div class="glass-card rounded-2xl overflow-hidden group product-card cursor-pointer reveal" onclick="${cardClick}">
             <div class="relative overflow-hidden aspect-[2/3] bg-gradient-to-br from-surface to-surfaceLight dot-pattern p-4">
-              <img src="${p.img}" alt="${title}" class="w-full h-full object-contain product-img">
+              <img src="${p.img}" alt="${title}" class="w-full h-full object-contain product-img" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-40"></div>
               ${badge ? `<div class="absolute top-3 left-3"><span class="text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${p.badgeClass}">${badge}</span></div>` : ''}
-              <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg" data-i18n="col_quick">Ver Detalle</span>
+              ${lupaBtn}
+              ${soloNote}
+              <div class="absolute inset-0 bg-base/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                <span class="bg-gold/90 text-base text-xs font-bold px-4 py-2 rounded-lg">${p.hasLupa ? 'Á°Å¸â€Â Ver con Lupa' : 'Ver Detalle'}</span>
               </div>
             </div>
-            <div class="p-5">
-              <h3 class="font-display font-semibold text-lg text-cream mb-1">${title}</h3>
-              <p class="text-creamMuted text-sm mb-3 line-clamp-1">${desc}</p>
+            <div class="p-4">
+              <h3 class="font-display font-semibold text-base text-cream mb-1 line-clamp-1">${title}</h3>
+              <p class="text-creamMuted text-xs mb-3 line-clamp-1">${desc}</p>
               <div class="flex items-center justify-between">
-                <span class="text-gold font-display font-bold">${p.price}</span>
-                <button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors"
-                  aria-label="Agregar" onclick="event.stopPropagation(); addToCart(${originalIndex})">
-                  <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                </button>
+                <span class="text-gold font-display font-bold text-sm">${p.price}</span>
+                ${!p.hasLupa ? `<button class="p-2 rounded-lg bg-gold/10 text-gold hover:bg-gold/20 transition-colors" aria-label="Agregar" onclick="event.stopPropagation(); addToCart(${originalIndex})"><i data-lucide="shopping-bag" class="w-4 h-4"></i></button>` : `<a href="https://wa.me/5210000000000" target="_blank" onclick="event.stopPropagation()" class="p-2 rounded-lg bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors" aria-label="WhatsApp"><i data-lucide="message-circle" class="w-4 h-4"></i></a>`}
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
-      
+
+      grid.innerHTML = bannerHTML + cardsHTML;
       lucide.createIcons();
+
+      // Re-observe new reveal elements
+      grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
 
     // Initialize UI and Filters on load
