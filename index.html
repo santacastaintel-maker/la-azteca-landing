@@ -445,18 +445,17 @@
       opacity: 1;
     }
 
-    /* ===== MODAL ===== */
+    /* ===== LIGHTBOX FULLSCREEN ===== */
     #productModal {
       position: fixed;
       inset: 0;
       z-index: 9990;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
+      flex-direction: column;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.4s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      background: rgba(5, 4, 10, 0.97);
     }
 
     #productModal.open {
@@ -464,31 +463,172 @@
       visibility: visible;
     }
 
-    #productModal .modal-bg {
+    /* Top bar: badge + close */
+    #lb-topbar {
       position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+      pointer-events: none;
     }
+    #lb-topbar > * { pointer-events: auto; }
 
-    #productModal .modal-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--border-gold);
-      border-radius: 24px;
+    /* Image viewport */
+    #lb-viewport {
+      flex: 1;
       overflow: hidden;
-      transform: scale(0.9);
-      opacity: 0;
-      transition: all 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+    #lb-viewport.grabbing { cursor: grabbing; }
+
+    #lb-img-wrap {
+      will-change: transform;
+      transition: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lb-img-wrap.animating {
+      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    #productModal.open .modal-content {
-      transform: scale(1);
-      opacity: 1;
+    #modalImg {
+      max-width: 100vw;
+      max-height: calc(100vh - 140px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      border-radius: 4px;
     }
+
+    /* Zoom hint */
+    #lb-zoom-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    #lb-zoom-hint.show { opacity: 1; }
+
+    /* Zoom indicator pill */
+    #lb-zoom-level {
+      position: absolute;
+      top: 4rem; right: 1.25rem;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #lb-zoom-level.show { opacity: 1; }
+
+    /* Bottom info bar */
+    #lb-infobar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      pointer-events: none;
+    }
+    #lb-infobar > * { pointer-events: auto; }
+
+    #lb-info-text { flex: 1; min-width: 0; }
+    #lb-title {
+      font-family: var(--font-display, serif);
+      font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #lb-badge-line {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    #lb-price {
+      font-family: var(--font-display, serif);
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-weight: 800;
+      color: var(--gold, #d4af37);
+      white-space: nowrap;
+    }
+
+    #lb-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25d366;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    #lb-wa-btn:active { transform: scale(0.96); }
+    #lb-wa-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+    /* Close button */
+    #lb-close {
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    #lb-close:hover { background: rgba(255,255,255,0.22); }
+
+    /* Modal content hidden for legacy compat */
+    #productModal .modal-bg, #productModal .modal-content { display: none; }
 
     /* ===== FLOATING WA ===== */
     #floatingWA {
@@ -619,52 +759,49 @@
     <i data-lucide="chevron-up" class="w-5 h-5"></i>
   </button>
 
-  <!-- ===== PRODUCT MODAL ===== -->
-  <div id="productModal">
-    <div class="modal-bg" onclick="closeModal()"></div>
-    <div class="modal-content">
-      <div class="grid md:grid-cols-2">
-        <div class="aspect-square md:aspect-auto bg-surface flex items-center justify-center p-4 sm:p-6 min-h-[320px]">
-          <img id="modalImg" src="" alt="" class="max-h-[75vh] w-auto max-w-full object-contain mx-auto">
-        </div>
-        <div class="p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span id="modalBadge"
-                class="text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider bg-gold/10 text-gold"></span>
-              <button onclick="closeModal()"
-                class="p-2 rounded-lg hover:bg-surfaceLight transition-colors text-creamMuted hover:text-cream">
-                <i data-lucide="x" class="w-5 h-5"></i>
-              </button>
-            </div>
-            <h3 id="modalTitle" class="font-display font-bold text-2xl text-cream mb-2"></h3>
-            <p id="modalDesc" class="text-creamMuted text-sm leading-relaxed mb-4"></p>
-            <div id="modalDetails" class="space-y-2 mb-6"></div>
-          </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span id="modalPrice" class="font-display font-bold text-2xl text-gold"></span>
-              <div class="flex items-center gap-1">
-                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
-                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
-                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
-                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
-                <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
-              </div>
-            </div>
-            <!-- Add to Cart in Modal -->
-            <button id="modalAddToCartBtn" onclick="addCurrentProductToCart()"
-              class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-terracotta text-base font-bold px-6 py-4 rounded-xl hover:shadow-lg hover:shadow-gold/20 transition-all duration-300">
-              <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-              <span data-i18n="modal_add_to_cart">Añadir al Carrito</span>
-            </button>
-            <button onclick="closeModal()"
-              class="w-full inline-flex items-center justify-center gap-2 border border-creamMuted/15 text-creamMuted font-medium px-6 py-3 rounded-xl hover:bg-cream/5 transition-all text-sm">
-              <span data-i18n="modal_close">Cerrar</span>
-            </button>
-          </div>
-        </div>
+  <!-- ===== LIGHTBOX FULLSCREEN ===== -->
+  <div id="productModal" role="dialog" aria-modal="true" aria-label="Detalle de pieza">
+    <!-- Top bar -->
+    <div id="lb-topbar">
+      <span id="modalBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider bg-white/10 text-white"></span>
+      <button id="lb-close" onclick="closeModal()" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Zoom level pill -->
+    <div id="lb-zoom-level">1×</div>
+
+    <!-- Image viewport -->
+    <div id="lb-viewport">
+      <div id="lb-img-wrap">
+        <img id="modalImg" src="" alt="" decoding="async">
       </div>
+      <!-- Zoom hint overlay -->
+      <div id="lb-zoom-hint">🔍 Doble toque para zoom</div>
+    </div>
+
+    <!-- Bottom info bar -->
+    <div id="lb-infobar">
+      <div id="lb-info-text">
+        <div id="lb-title"></div>
+        <div id="lb-badge-line"></div>
+      </div>
+      <div id="lb-price"></div>
+      <a id="lb-wa-btn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Legacy hidden elements for compat -->
+    <div class="modal-bg" style="display:none"></div>
+    <div class="modal-content" style="display:none">
+      <h3 id="modalTitle" style="display:none"></h3>
+      <p id="modalDesc" style="display:none"></p>
+      <div id="modalDetails" style="display:none"></div>
+      <span id="modalPrice" style="display:none"></span>
+      <button id="modalAddToCartBtn" onclick="addCurrentProductToCart()" style="display:none"></button>
     </div>
   </div>
 
@@ -1840,6 +1977,7 @@
       }
 
       return {
+        _base: base,
         displayName,
         priceDisplay,
         priceRaw: price || 0,
@@ -1868,7 +2006,7 @@
       'CYB_COLLARNUDOPETATILLO_24000_95GR.webp',
       'CYB_GARGANTILLACORBATA_34000_134GR.webp',
       'CYB_GARGANTILLAFUSION_32000_126GR.webp',
-      'CYB_GARGANTILLAUNHA_5000_196GR.webp',
+      'CYB_GARGANTILLAUNHA_196GR.webp',
       'CYB_PETATILLO_12000_60GR.webp',
       'CYB_SOLOCOLARCIRCULOPETATILLO_22500_88GR.webp',
       'CYB_SOLOCOLLARPOPCORN_15000_40CM_59GR.webp',
@@ -1890,7 +2028,7 @@
       'PD_ESP_CALENDARIOAZTECA_3900_19P3GR.webp',
       'PD_ESP_MOTIVOAZTECA_20500_81GR.webp',
       'PD_ESP_QUETZALLI_19500_78GR.webp',
-      'PD_FATIMA_1500_62GR.webp',
+      'PD_FATIMA_62GR.webp',
       'PD_SOLOPULSERAFLORDELIZ_14500_58GR.webp',
       'PD_SOLOPULSERAFRIDABARROCA_19000_76GR.webp',
       'PD_MELISSA.webp',
@@ -1915,7 +2053,7 @@
       'PC_ESCLAVADRAGON_9600_47P7GR_21CM.webp',
       'PC_ESCLAVAGRECACILINDRICA_PREGUNTE_PRECIO_32P7GR_22CM.webp',
       'PC_ESCLAVALASSO_11200_55P6GR_21CM.webp',
-      'PC_ESCLAVALINEA_PREGUNTE_11P8GR_18CM.webp',
+      'PC_ESCLAVALINEA_11P8GR_18CM.webp',
       'PC_ESCLAVAQUETZALCOATL_11650_58P1GR_22CM.webp',
       'PC_ESCLAVATRADICIONAL_2600_12P8GR_18CM.webp',
       'PC_SOLOPULSERAPOPCORN_17000_20CM_67GR.webp',
@@ -2103,6 +2241,20 @@
       return { es: 'Plata .925', en: '.925 Silver', cls: 'bg-gold/90 text-slate-950' };
     }
 
+
+    // ── Display Name Overrides (for pieces Claudia wants renamed) ──
+    const DISPLAY_NAME_OVERRIDES = {
+      'SET_ARANZA_38000_149GR': 'Collar Aranza',
+      'SET_FATIMA_35000_140GR': 'Collar Fátima',
+      'CYB_SOLOCOLARCIRCULOPETATILLO_22500_88GR': 'Pulsera Petatillo',
+      'CYB_TUBULARCUBO_6000_29GR': 'Pulsera Tubular Cubo',
+      'CYB_TUBULARESFERA_5750_28GR': 'Pulsera Tubular Esfera',
+      'PD_SOLOPULSERAFLORDELIZ_14500_58GR': 'Pulsera Flor de Liz',
+      'PD_SOLOPULSERAFRIDABARROCA_19000_76GR': 'Pulsera Frida Barroca',
+      'PD_SOLOPULSERARACIMODEUVA_10500_41GR': 'Pulsera Racimo de Uva',
+      'PD_SOLOPULSERAVERONICA_18500_73GR': 'Pulsera Verónica',
+    };
+
     function buildProduct(filename, category, subcategory, folder) {
       const parsed = parseProductFilename(filename, category, folder);
       const badge = makeBadge(parsed);
@@ -2113,8 +2265,8 @@
         category,
         subcategory,
         badge_es: badge.es, badge_en: badge.en, badgeClass: badge.cls,
-        title_es: parsed.displayName,
-        title_en: parsed.displayName,
+        title_es: DISPLAY_NAME_OVERRIDES[parsed._base] || parsed.displayName,
+        title_en: DISPLAY_NAME_OVERRIDES[parsed._base] || parsed.displayName,
         desc_es: `Pieza artesanal en plata .925 de Taxco.${parsed.weightGr ? ` Peso: ${parsed.weightGr}g.` : ''}${parsed.lengthCm ? ` Longitud: ${parsed.lengthCm}cm.` : ''}`,
         desc_en: `Handcrafted .925 silver piece from Taxco.${parsed.weightGr ? ` Weight: ${parsed.weightGr}g.` : ''}${parsed.lengthCm ? ` Length: ${parsed.lengthCm}cm.` : ''}`,
         price: parsed.priceDisplay,
@@ -2356,7 +2508,7 @@
             <div class="relative aspect-square overflow-hidden bg-surface flex items-center justify-center p-3">
               <img src="${p.img}" alt="${title}"
                    class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                   loading="lazy" onerror="this.style.opacity='0.3'">
+                   loading="lazy" decoding="async" onerror="this.style.opacity='0.3'">
               <span class="absolute top-3 left-3 px-2 py-1 rounded-full text-[10px] font-semibold ${p.badgeClass || 'bg-gold/90 text-slate-950'}">${badge}</span>
               ${p.hasLupa ? '<span class="absolute top-3 right-3 text-[10px] bg-white/90 text-gold px-2 py-1 rounded-full font-medium">🔍 Lupa</span>' : ''}
             </div>
@@ -3309,53 +3461,238 @@
         // Build catalog initially
     if (typeof rebuildAllProducts === 'function') rebuildAllProducts();
 
-    // ===== PRODUCT MODAL =====
+    // ===== LIGHTBOX FULLSCREEN WITH ZOOM =====
     let _currentModalProduct = null;
+
+    // ---- Lightbox zoom/pan state ----
+    const _lb = {
+      scale: 1, minScale: 1, maxScale: 5,
+      tx: 0, ty: 0,
+      dragging: false,
+      dragStartX: 0, dragStartY: 0,
+      lastTx: 0, lastTy: 0,
+      // pinch
+      lastPinchDist: 0,
+      pinchMidX: 0, pinchMidY: 0,
+      // double-tap
+      lastTapTime: 0,
+      hintTimer: null,
+      zoomTimer: null,
+    };
+
+    function _lbGetWrap() { return document.getElementById('lb-img-wrap'); }
+    function _lbGetVP()   { return document.getElementById('lb-viewport'); }
+
+    function _lbApplyTransform(animate) {
+      const w = _lbGetWrap();
+      if (!w) return;
+      if (animate) { w.classList.add('animating'); }
+      else { w.classList.remove('animating'); }
+      w.style.transform = `translate(${_lb.tx}px, ${_lb.ty}px) scale(${_lb.scale})`;
+      // Update zoom pill
+      const pill = document.getElementById('lb-zoom-level');
+      if (pill) {
+        const lvl = Math.round(_lb.scale * 10) / 10;
+        pill.textContent = lvl + '×';
+        pill.classList.toggle('show', _lb.scale > 1.05);
+      }
+    }
+
+    function _lbClampPan() {
+      const vp = _lbGetVP();
+      const img = document.getElementById('modalImg');
+      if (!vp || !img) return;
+      const vpW = vp.clientWidth;
+      const vpH = vp.clientHeight;
+      const imgW = img.naturalWidth || img.clientWidth;
+      const imgH = img.naturalHeight || img.clientHeight;
+      const scaledW = Math.min(imgW, vpW) * _lb.scale;
+      const scaledH = Math.min(imgH, vpH - 0) * _lb.scale;
+      const maxX = Math.max(0, (scaledW - vpW) / 2);
+      const maxY = Math.max(0, (scaledH - (vpH - 140)) / 2);
+      _lb.tx = Math.max(-maxX, Math.min(maxX, _lb.tx));
+      _lb.ty = Math.max(-maxY, Math.min(maxY, _lb.ty));
+    }
+
+    function _lbZoomTo(newScale, originX, originY, animate) {
+      const vp = _lbGetVP();
+      if (!vp) return;
+      const vpRect = vp.getBoundingClientRect();
+      const ox = (originX - vpRect.left) - vpRect.width / 2;
+      const oy = (originY - vpRect.top) - vpRect.height / 2;
+      const factor = newScale / _lb.scale;
+      _lb.tx = ox - factor * (ox - _lb.tx);
+      _lb.ty = oy - factor * (oy - _lb.ty);
+      _lb.scale = Math.max(_lb.minScale, Math.min(_lb.maxScale, newScale));
+      if (_lb.scale <= _lb.minScale) { _lb.tx = 0; _lb.ty = 0; }
+      _lbClampPan();
+      _lbApplyTransform(animate);
+    }
+
+    function _lbReset(animate) {
+      _lb.scale = 1; _lb.tx = 0; _lb.ty = 0;
+      _lbApplyTransform(animate);
+    }
+
+    function _lbShowHint() {
+      const h = document.getElementById('lb-zoom-hint');
+      if (!h) return;
+      h.classList.add('show');
+      clearTimeout(_lb.hintTimer);
+      _lb.hintTimer = setTimeout(() => h.classList.remove('show'), 1800);
+    }
+
+    function _lbAttachEvents() {
+      const vp = _lbGetVP();
+      if (!vp || vp._lbEventsAttached) return;
+      vp._lbEventsAttached = true;
+
+      // --- Mouse wheel zoom ---
+      vp.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? 0.85 : 1.18;
+        _lbZoomTo(_lb.scale * delta, e.clientX, e.clientY, false);
+      }, { passive: false });
+
+      // --- Mouse drag ---
+      vp.addEventListener('mousedown', (e) => {
+        if (_lb.scale <= 1) return;
+        e.preventDefault();
+        _lb.dragging = true;
+        _lb.dragStartX = e.clientX - _lb.tx;
+        _lb.dragStartY = e.clientY - _lb.ty;
+        vp.classList.add('grabbing');
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!_lb.dragging) return;
+        _lb.tx = e.clientX - _lb.dragStartX;
+        _lb.ty = e.clientY - _lb.dragStartY;
+        _lbClampPan();
+        _lbApplyTransform(false);
+      });
+      window.addEventListener('mouseup', () => {
+        _lb.dragging = false;
+        const vp2 = _lbGetVP();
+        if (vp2) vp2.classList.remove('grabbing');
+      });
+
+      // --- Double-click zoom ---
+      vp.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        if (_lb.scale > 1.2) { _lbReset(true); }
+        else { _lbZoomTo(2.8, e.clientX, e.clientY, true); }
+      });
+
+      // --- Touch events ---
+      vp.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          // Pinch start
+          const dx = e.touches[1].clientX - e.touches[0].clientX;
+          const dy = e.touches[1].clientY - e.touches[0].clientY;
+          _lb.lastPinchDist = Math.hypot(dx, dy);
+          _lb.pinchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          _lb.pinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        } else if (e.touches.length === 1) {
+          // Double tap detection
+          const now = Date.now();
+          if (now - _lb.lastTapTime < 280) {
+            e.preventDefault();
+            const t = e.touches[0];
+            if (_lb.scale > 1.2) { _lbReset(true); }
+            else { _lbZoomTo(2.8, t.clientX, t.clientY, true); }
+            _lb.lastTapTime = 0;
+          } else {
+            _lb.lastTapTime = now;
+          }
+          // Pan start
+          if (_lb.scale > 1) {
+            _lb.dragging = true;
+            _lb.dragStartX = e.touches[0].clientX - _lb.tx;
+            _lb.dragStartY = e.touches[0].clientY - _lb.ty;
+          }
+        }
+      }, { passive: false });
+
+      vp.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 2) {
+          // Pinch zoom
+          const dx = e.touches[1].clientX - e.touches[0].clientX;
+          const dy = e.touches[1].clientY - e.touches[0].clientY;
+          const dist = Math.hypot(dx, dy);
+          const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+          const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+          if (_lb.lastPinchDist > 0) {
+            const factor = dist / _lb.lastPinchDist;
+            _lbZoomTo(_lb.scale * factor, midX, midY, false);
+          }
+          _lb.lastPinchDist = dist;
+          _lb.pinchMidX = midX;
+          _lb.pinchMidY = midY;
+          _lb.dragging = false;
+        } else if (e.touches.length === 1 && _lb.dragging) {
+          _lb.tx = e.touches[0].clientX - _lb.dragStartX;
+          _lb.ty = e.touches[0].clientY - _lb.dragStartY;
+          _lbClampPan();
+          _lbApplyTransform(false);
+        }
+      }, { passive: false });
+
+      vp.addEventListener('touchend', (e) => {
+        _lb.lastPinchDist = 0;
+        if (e.touches.length === 0) {
+          _lb.dragging = false;
+          // Snap back if below min
+          if (_lb.scale < _lb.minScale + 0.05) _lbReset(true);
+        }
+      });
+    }
 
     function openProductModal(id) {
       const p = products.find(x => x.id === id);
       if (!p) return;
       _currentModalProduct = p;
       const lang = document.documentElement.lang === 'en' ? 'en' : 'es';
+      const title = lang === 'en' ? p.title_en : p.title_es;
+      const badge = lang === 'en' ? p.badge_en : p.badge_es;
+      const price = p.isPregunte ? (lang === 'en' ? 'Ask for Price' : 'Pregunte Precio') : p.price;
+      const waNr  = '527621252995';
+      const waMsg = encodeURIComponent(`Hola! Me interesa la pieza: ${title} — ${price}`);
 
-      // Populate modal fields
-      const img    = document.getElementById('modalImg');
-      const badge  = document.getElementById('modalBadge');
-      const title  = document.getElementById('modalTitle');
-      const desc   = document.getElementById('modalDesc');
-      const price  = document.getElementById('modalPrice');
-      const details = document.getElementById('modalDetails');
+      // Populate lightbox
+      const img = document.getElementById('modalImg');
+      if (img) { img.src = p.img; img.alt = title; }
 
-      if (img)    { img.src = p.img; img.alt = lang === 'en' ? p.title_en : p.title_es; }
-      if (badge)  { badge.textContent = lang === 'en' ? p.badge_en : p.badge_es; badge.className = `text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider ${p.badgeClass || 'bg-gold/10 text-gold'}`; }
-      if (title)  title.textContent  = lang === 'en' ? p.title_en : p.title_es;
-      if (desc)   desc.textContent   = lang === 'en' ? p.desc_en  : p.desc_es;
-      if (price)  price.textContent  = p.isPregunte ? (lang === 'en' ? 'Ask for Price' : 'Pregunte Precio') : p.price;
+      const badgeEl = document.getElementById('modalBadge');
+      if (badgeEl) badgeEl.textContent = badge;
 
-      if (details) {
-        const dets = lang === 'en' ? (p.details_en || []) : (p.details_es || []);
-        details.innerHTML = dets.map(([k,v]) =>
-          `<div class="flex justify-between text-xs py-1.5 border-b border-gold/8">
-            <span class="text-creamMuted">${k}</span>
-            <span class="text-cream font-medium">${v}</span>
-          </div>`
-        ).join('');
-      }
+      const lbTitle = document.getElementById('lb-title');
+      if (lbTitle) lbTitle.textContent = title;
 
-      // Update "Add to cart" button text/visibility
-      const addBtn = document.getElementById('modalAddToCartBtn');
-      if (addBtn) {
-        addBtn.style.display = p.isPregunte ? 'none' : 'flex';
-      }
+      const lbBadge = document.getElementById('lb-badge-line');
+      if (lbBadge) lbBadge.textContent = badge;
 
-      // Open modal
+      const lbPrice = document.getElementById('lb-price');
+      if (lbPrice) lbPrice.textContent = price;
+
+      const waBtn = document.getElementById('lb-wa-btn');
+      if (waBtn) waBtn.href = `https://wa.me/${waNr}?text=${waMsg}`;
+
+      // Reset zoom
+      _lbReset(false);
+
+      // Open
       const modal = document.getElementById('productModal');
       if (modal) {
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
 
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      // Attach events once
+      _lbAttachEvents();
+
+      // Show hint on first open
+      setTimeout(_lbShowHint, 400);
     }
 
     function closeModal() {
@@ -3364,12 +3701,18 @@
         modal.classList.remove('open');
         document.body.style.overflow = '';
       }
+      _lbReset(false);
       _currentModalProduct = null;
     }
 
-    // Close modal with Escape key
+    // Close with Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // Click dark area to close (outside image)
+    document.getElementById('lb-viewport') && document.getElementById('lb-viewport').addEventListener('click', function(e) {
+      if (e.target === this && _lb.scale <= 1.05) closeModal();
     });
 
     // Initialize UI and Filters on load
