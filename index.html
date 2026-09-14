@@ -1864,6 +1864,21 @@
       return true;
     }
 
+    // ===== PREMIUM / LUX PRICE PER GRAM (LÍNEA ESPECIAL) =====
+    function getSilverPricePerGramPremium() {
+      const saved = localStorage.getItem('azteca_silver_ppg_premium');
+      // Default: general ppg + 50
+      return saved ? parseFloat(saved) : getSilverPricePerGram() + 50;
+    }
+
+    function setSilverPricePerGramPremium(val) {
+      const num = parseFloat(val);
+      if (!num || num <= 0) return false;
+      localStorage.setItem('azteca_silver_ppg_premium', num);
+      rebuildAllProducts();
+      return true;
+    }
+
     function getLandingOwnerPin() {
       return localStorage.getItem('azteca_owner_pin') || '1234';
     }
@@ -1885,6 +1900,10 @@
       // Detect SOLO items
       const isSolo = base.toUpperCase().includes('SOLO');
 
+      // ===== DETECT LÍNEA ESPECIAL / LUX / PREMIUM =====
+      // Filenames with _LUX_ or _PREMIUM_ use the premium price per gram
+      const isPremiumLine = parts.some(p => p.toUpperCase() === 'LUX' || p.toUpperCase() === 'PREMIUM');
+
       // Detect PF (Precio Fijo) token: e.g. PF3000, PF14500
       let fixedPrice = null;
       for (const part of parts) {
@@ -1900,6 +1919,7 @@
       const remaining = [];
       for (const part of parts) {
         if (/^PF\d+$/i.test(part)) continue; // skip PF
+        if (part.toUpperCase() === 'LUX' || part.toUpperCase() === 'PREMIUM') continue; // skip LUX/PREMIUM from name
         const grMatch = part.match(/^(\d+(?:P\d+)?)GR$/i);
         const cmMatch = part.match(/^(\d+(?:P\d+)?)CM$/i);
         if (grMatch) { weightGr = parsePValue(grMatch[1]); }
@@ -1909,7 +1929,7 @@
 
       // If no PF explicit token was found, check for legacy numeric price
       let legacyPrice = null;
-      const keywords = ['PREGUNTE', 'PRECIO', 'SOLO', 'GR', 'CM', 'ESP', 'CAB', 'ARR', 'OPA', 'LIGERA'];
+      const keywords = ['PREGUNTE', 'PRECIO', 'SOLO', 'GR', 'CM', 'ESP', 'CAB', 'ARR', 'OPA', 'LIGERA', 'LUX', 'PREMIUM'];
       let foundPrice = false;
       const nameParts = [];
 
@@ -1926,7 +1946,7 @@
         }
       }
 
-      // Build display name
+      // Build display name (LUX/PREMIUM already excluded from remaining above)
       const allNameParts = remaining.slice(1).filter(p => {
         if (/^\d+$/.test(p) && parseInt(p) > 100) return false;
         if (keywords.includes(p.toUpperCase())) return false;
@@ -1938,7 +1958,9 @@
 
       // Resolve Price:
       // Priority 1: Explicit Fixed Price (PFxxxx)
-      // Priority 2: Weight-based Dynamic Price (weightGr * ppg)
+      // Priority 2: Weight-based Dynamic Price:
+      //   - _LUX_ / _PREMIUM_ → uses getSilverPricePerGramPremium()
+      //   - everything else   → uses getSilverPricePerGram()
       // Priority 3: Legacy Fixed Price in filename (e.g. _7750_)
       // Priority 4: Pregunte Precio
       let price = 0;
@@ -1949,7 +1971,7 @@
         price = fixedPrice;
         priceDisplay = `$${price.toLocaleString()} MXN`;
       } else if (weightGr && weightGr > 0 && !isPregunte) {
-        const ppg = getSilverPricePerGram();
+        const ppg = isPremiumLine ? getSilverPricePerGramPremium() : getSilverPricePerGram();
         price = Math.round(weightGr * ppg);
         priceDisplay = `$${price.toLocaleString()} MXN`;
         isDynamic = true;
@@ -1986,6 +2008,7 @@
         isPregunte: isPregunte || price === 0,
         isSolo,
         isDynamic,
+        isPremiumLine,
         details_es,
         details_en
       };
@@ -3773,9 +3796,17 @@
         const currentPpg = getSilverPricePerGram();
         if (ppgInput) {
           ppgInput.value = currentPpg;
-          updateOwnerPreview(currentPpg);
-          ppgInput.oninput = (e) => updateOwnerPreview(parseFloat(e.target.value) || 0);
+          updateOwnerPreview(currentPpg, getSilverPricePerGramPremium());
+          ppgInput.oninput = (e) => updateOwnerPreview(parseFloat(e.target.value) || 0, parseFloat(document.getElementById('ownerPpgPremiumInput')?.value) || 0);
         }
+
+        const ppgPremiumInput = document.getElementById('ownerPpgPremiumInput');
+        const currentPpgPremium = getSilverPricePerGramPremium();
+        if (ppgPremiumInput) {
+          ppgPremiumInput.value = currentPpgPremium;
+          ppgPremiumInput.oninput = (e) => updateOwnerPreview(parseFloat(document.getElementById('ownerPpgInput')?.value) || 0, parseFloat(e.target.value) || 0);
+        }
+
         showToastMsg('Bienvenida al Panel de Control', 'success');
       } else {
         showToastMsg('PIN Incorrecto', 'error');
@@ -3783,10 +3814,14 @@
       }
     }
 
-    function updateOwnerPreview(ppg) {
+    function updateOwnerPreview(ppg, ppgPremium) {
       const preview = document.getElementById('ownerCalcPreview');
-      if (preview) {
+      const previewPremium = document.getElementById('ownerCalcPreviewPremium');
+      if (preview && ppg > 0) {
         preview.textContent = 'Ej: Pieza 58g = $' + Math.round(58 * ppg).toLocaleString() + ' MXN';
+      }
+      if (previewPremium && ppgPremium > 0) {
+        previewPremium.textContent = 'Ej: Pieza 58g = $' + Math.round(58 * ppgPremium).toLocaleString() + ' MXN';
       }
     }
 
@@ -3794,20 +3829,36 @@
       const ppgInput = document.getElementById('ownerPpgInput');
       if (ppgInput) {
         ppgInput.value = val;
-        updateOwnerPreview(val);
+        updateOwnerPreview(val, parseFloat(document.getElementById('ownerPpgPremiumInput')?.value) || 0);
+      }
+    }
+
+    function setOwnerPpgPremiumPreset(val) {
+      const ppgPremiumInput = document.getElementById('ownerPpgPremiumInput');
+      if (ppgPremiumInput) {
+        ppgPremiumInput.value = val;
+        updateOwnerPreview(parseFloat(document.getElementById('ownerPpgInput')?.value) || 0, val);
       }
     }
 
     function saveOwnerPpg() {
       const ppgInput = document.getElementById('ownerPpgInput');
+      const ppgPremiumInput = document.getElementById('ownerPpgPremiumInput');
       const val = parseFloat(ppgInput ? ppgInput.value : 0);
+      const valPremium = parseFloat(ppgPremiumInput ? ppgPremiumInput.value : 0);
+
       if (!val || val <= 0) {
-        showToastMsg('Ingresa un precio válido mayor a 0', 'error');
+        showToastMsg('Ingresa un precio válido mayor a 0 en el campo General', 'error');
+        return;
+      }
+      if (!valPremium || valPremium <= 0) {
+        showToastMsg('Ingresa un precio válido mayor a 0 en el campo Especial', 'error');
         return;
       }
       setSilverPricePerGram(val);
+      setSilverPricePerGramPremium(valPremium);
       closeOwnerModal();
-      showToastMsg('¡Precios actualizados a $' + val + ' MXN / g!', 'success');
+      showToastMsg(`¡Precios actualizados! General: $${val}/g · Especial: $${valPremium}/g`, 'success');
     }
 
     function promptChangeLandingPin() {
@@ -3949,15 +4000,15 @@
           </div>
         </div>
 
-        <div class="bg-surface/50 rounded-xl p-4 border border-gold/20 mb-4">
-          <label class="block text-xs text-creamMuted mb-2">Precio actual por gramo (MXN):</label>
+        <!-- Campo 1: Precio General -->
+        <div class="bg-surface/50 rounded-xl p-4 border border-gold/20 mb-3">
+          <label class="block text-xs font-semibold text-cream mb-1">💠 Colección General <span class="font-normal text-creamMuted">(precio por gramo MXN)</span></label>
           <div class="relative flex items-center mb-3">
             <span class="absolute left-3 text-gold font-bold text-lg">$</span>
             <input type="number" id="ownerPpgInput" min="10" max="5000" step="5"
               class="w-full bg-surface border border-gold/40 rounded-xl pl-8 pr-4 py-2.5 text-cream font-bold text-lg focus:outline-none focus:border-gold">
             <span class="absolute right-3 text-xs text-creamMuted">MXN / g</span>
           </div>
-
           <div class="text-[11px] text-creamMuted mb-2">Ajustes rápidos:</div>
           <div class="flex flex-wrap gap-2 mb-3">
             <button onclick="setOwnerPpgPreset(120)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$120</button>
@@ -3967,9 +4018,32 @@
             <button onclick="setOwnerPpgPreset(220)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$220</button>
             <button onclick="setOwnerPpgPreset(250)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$250</button>
           </div>
-
           <div id="ownerCalcPreview" class="text-right text-xs text-gold font-semibold pt-1 border-t border-gold/10">
             Ej: Pieza 58g = $11,600 MXN
+          </div>
+        </div>
+
+        <!-- Campo 2: Precio Especial / LUX -->
+        <div class="bg-surface/50 rounded-xl p-4 border border-gold/30 mb-4" style="border-color: rgba(218,165,32,0.4);">
+          <label class="block text-xs font-semibold text-cream mb-1">✨ Línea Especial (LUX / PREMIUM) <span class="font-normal text-creamMuted">(precio por gramo MXN)</span></label>
+          <p class="text-[10px] text-creamMuted mb-2">Aplica a piezas cuyo nombre de archivo incluye <span class="text-gold font-mono">_LUX_</span> o <span class="text-gold font-mono">_PREMIUM_</span></p>
+          <div class="relative flex items-center mb-3">
+            <span class="absolute left-3 text-gold font-bold text-lg">$</span>
+            <input type="number" id="ownerPpgPremiumInput" min="10" max="5000" step="5"
+              class="w-full bg-surface border border-gold/40 rounded-xl pl-8 pr-4 py-2.5 text-cream font-bold text-lg focus:outline-none focus:border-gold">
+            <span class="absolute right-3 text-xs text-creamMuted">MXN / g</span>
+          </div>
+          <div class="text-[11px] text-creamMuted mb-2">Ajustes rápidos:</div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <button onclick="setOwnerPpgPremiumPreset(200)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$200</button>
+            <button onclick="setOwnerPpgPremiumPreset(230)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$230</button>
+            <button onclick="setOwnerPpgPremiumPreset(250)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$250</button>
+            <button onclick="setOwnerPpgPremiumPreset(270)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$270</button>
+            <button onclick="setOwnerPpgPremiumPreset(300)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$300</button>
+            <button onclick="setOwnerPpgPremiumPreset(350)" class="px-2.5 py-1 rounded-lg bg-base border border-gold/20 text-[11px] text-gold hover:bg-gold/10">$350</button>
+          </div>
+          <div id="ownerCalcPreviewPremium" class="text-right text-xs text-gold font-semibold pt-1 border-t border-gold/10">
+            Ej: Pieza 58g = $14,500 MXN
           </div>
         </div>
 
